@@ -1,9 +1,0 @@
-{
-  "name": "蒸汽拳套",
-  "type": "component",
-  "component_type": "weapon",
-  "cost": 1,
-  "description": "增加攻击力的武器组件",
-  "front_image": "res://assets/cards/steam_fist_front.png",
-  "back_image": "res://assets/cards/card_back.png"
-}
