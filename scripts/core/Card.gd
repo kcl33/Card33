@@ -2,24 +2,10 @@ extends Node
 
 # 卡牌类型枚举
 enum CardType {
-	MONSTER,     # 怪兽卡
-	SPELL,       # 法术卡
-	POLICY,      # 政策卡
-	COMPONENT    # 组件卡
-}
-
-# 法术卡子类型枚举
-enum SpellType {
-	INSTANT,     # 即时法术
-	CHANTED      # 咏唱法术
-}
-
-# 召唤类型枚举
-enum SummonType {
-	NORMAL,      # 通常召唤
-	TRIBUTE,     # 上级召唤
-	SPECIAL,     # 特殊召唤
-	EXTRA        # 额外召唤
+	MONSTER,  # 怪兽卡
+	SPELL,    # 法术卡
+	POLICY,   # 政策卡
+	COMPONENT # 组件卡
 }
 
 # 位置枚举（主要用于怪兽卡）
@@ -30,46 +16,66 @@ enum Position {
 	FACE_DOWN_DEFENSE # 里侧守备表示
 }
 
-# 组件类型枚举
+# 组件类型枚举（仅组件卡使用）
 enum ComponentType {
-	WEAPON,      # 武器组件
-	MOBILITY,    # 移动组件
-	DEFENSE,     # 防御组件
-	UTILITY      # 实用组件
+	WEAPON,   # 武器
+	MOBILITY, # 移动
+	DEFENSE,  # 防御
+	UTILITY  # 实用
 }
 
-# 卡牌基本信息
-var id = ""
-var card_name = ""        # 修复：使用card_name而不是name以避免与Node.name冲突
-var description = ""
+# 基本属性
+var card_name = "默认卡牌"
 var card_type = CardType.MONSTER
-var spell_type = null
-var cost = 0              # 费用
-var extra_cost = 0        # 额外费用
+var cost = 1
+var description = "默认描述"
+var owner = null  # 卡牌所有者（玩家）
 
-# 怪兽卡特有属性
+# 怪兽卡属性
 var attack = 0
 var defense = 0
-var level = 1
-
-# 召唤相关信息
-var summon_type = null    # 召唤类型
 var position = Position.FACE_DOWN_ATTACK  # 默认为里侧攻击表示
 
-# 组件卡特有属性
-var component_type = null  # 组件类型
-var target_unit = null     # 目标单位（用于组件卡）
+# 组件卡属性
+var component_type = null
 
-# 超载相关属性
-var overload_cost = 0      # 超载费用
-var overload_effect = ""   # 超载效果描述
+# 魔法陷阱卡属性
+var is_face_down = true  # 是否为盖伏状态
 
-# 组装相关属性
-var is_assembled = false   # 是否已组装
-var components = []        # 已安装的组件列表
+# 组件列表
+var components = []
 
-# 卡牌效果
-var effects = []          # 卡牌效果列表
+# 卡牌脚本
+var card_script = null
+
+# 卡牌效果触发标志
+var effect_triggered = false
+
+func _init():
+	pass
+
+# 添加组件
+func add_component(component):
+	components.append(component)
+	
+	# 根据组件类型应用效果
+	match component.component_type:
+		ComponentType.WEAPON:
+			attack += 500
+		ComponentType.MOBILITY:
+			attack += 100
+			defense -= 100
+		ComponentType.DEFENSE:
+			defense += 300
+		ComponentType.UTILITY:
+			# 实用组件效果
+			pass
+
+# 检查是否可以安装组件
+func can_attach_component(component):
+	if card_type != CardType.MONSTER:
+		return false
+	return true
 
 # 设置卡牌表示形式
 func set_position(new_position):
@@ -106,3 +112,19 @@ func get_defense():
 		elif component.component_type == ComponentType.MOBILITY:
 			total_defense -= 100
 	return total_defense
+
+# 设置卡牌所有者
+func set_owner(player):
+	owner = player
+
+# 设置卡牌脚本
+func set_card_script(script):
+	card_script = script
+
+# 触发卡牌效果
+func trigger_effect(effect_name, args=null):
+	if card_script != null and card_script.has_method(effect_name):
+		if args != null:
+			card_script.call(effect_name, args)
+		else:
+			card_script.call(effect_name)

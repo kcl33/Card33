@@ -43,7 +43,14 @@ func draw_card(count=1):
 		if deck.size() > 0:
 			var card = deck.pop_front()
 			hand.append(card)
+			card.set_owner(self)  # 设置卡牌所有者
 			print("玩家", player_id, "抽到了: ", card.card_name)
+			
+			# 触发抽卡效果
+			card.trigger_effect("on_draw")
+			
+			# 触发遗物效果：抽卡时
+			relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.CARD_DRAWN, card)
 		else:
 			# 牌组没牌时，玩家输掉游戏
 			state = PlayerState.LOST
@@ -73,6 +80,8 @@ func play_card(card, position=null):
 			# 怪兽卡需要放置到场上
 			if field.place_monster(card, position):
 				print("玩家", player_id, "召唤了: ", card.card_name)
+				# 触发召唤效果
+				card.trigger_effect("on_summon")
 				# 触发遗物效果：召唤怪兽时
 				relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.MONSTER_SUMMONED, card)
 				return true
@@ -87,6 +96,8 @@ func play_card(card, position=null):
 			activate_spell(card)
 			graveyard.append(card)
 			print("玩家", player_id, "使用了法术: ", card.card_name)
+			# 触发打出效果
+			card.trigger_effect("on_play")
 			# 触发遗物效果：打出卡牌时
 			relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.CARD_PLAYED, card)
 			return true
@@ -96,6 +107,8 @@ func play_card(card, position=null):
 			activate_policy(card)
 			graveyard.append(card)
 			print("玩家", player_id, "使用了政策: ", card.card_name)
+			# 触发打出效果
+			card.trigger_effect("on_play")
 			# 触发遗物效果：打出卡牌时
 			relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.CARD_PLAYED, card)
 			return true

@@ -8,72 +8,70 @@ func create_walking_mech():
 	card.card_name = "步行机铠"
 	card.card_type = card.CardType.MONSTER
 	card.cost = 2
-	card.attack = 1000
-	card.defense = 1500
-	card.description = "它是所有伟大造物的基石。"
-	# 标记为可组装单位
+	card.attack = 800
+	card.defense = 1200
+	card.description = "基础的锻炉奇械单位，拥有不错的防御力"
+
+	# 添加卡牌脚本
+	var script = preload("res://scripts/core/cards/example_cards/WalkingMechScript.gd").new(card)
+	card.set_card_script(script)
+	
 	return card
 
-# 创建蒸汽拳套（武器组件）
+# 创建蒸汽拳套（攻击型组件）
 func create_steam_fist():
 	var card = preload("res://scripts/core/Card.gd").new()
 	card.card_name = "蒸汽拳套"
 	card.card_type = card.CardType.COMPONENT
 	card.component_type = card.ComponentType.WEAPON
 	card.cost = 1
-	card.description = "一拳不行，那就再来一拳。"
+	card.description = "增加攻击力的武器组件"
 	return card
 
-# 创建火箭履带（移动组件）
+# 创建火箭履带（机动型组件）
 func create_rocket_treads():
 	var card = preload("res://scripts/core/Card.gd").new()
 	card.card_name = "火箭履带"
 	card.card_type = card.CardType.COMPONENT
 	card.component_type = card.ComponentType.MOBILITY
 	card.cost = 1
-	card.description = "慢点，伙计！我里面的螺丝要松了！"
+	card.description = "提高机动性的移动组件"
 	return card
 
-# 创建核心熔炉驱动机
+# 创建核心熔炉驱动（高级单位）
 func create_core_furnace_drive():
 	var card = preload("res://scripts/core/Card.gd").new()
-	card.card_name = "核心熔炉驱动机"
+	card.card_name = "核心熔炉驱动"
 	card.card_type = card.CardType.MONSTER
-	card.cost = 5
-	card.attack = 2000
-	card.defense = 3000
-	card.description = "它是心跳，是动力，是整个城市的生命之源。"
+	card.cost = 4
+	card.attack = 1800
+	card.defense = 1000
+	card.description = "高级的锻炉奇械单位，拥有强大的攻击力"
 	return card
 
-# 创建过载蒸汽喷射（法术）
+# 创建过载蒸汽喷射（法术卡）
 func create_overload_steam_jet():
 	var card = preload("res://scripts/core/Card.gd").new()
 	card.card_name = "过载蒸汽喷射"
 	card.card_type = card.CardType.SPELL
-	card.spell_type = card.SpellType.INSTANT
 	card.cost = 3
-	card.overload_cost = 2
-	card.description = "小心压力阀！"
+	card.description = "对敌方场上所有怪兽造成800点伤害"
 	return card
 
-# 创建紧急再造（法术）
+# 创建紧急重构（法术卡）
 func create_emergency_rebuild():
 	var card = preload("res://scripts/core/Card.gd").new()
-	card.card_name = "紧急再造"
+	card.card_name = "紧急重构"
 	card.card_type = card.CardType.SPELL
-	card.spell_type = card.SpellType.INSTANT
 	card.cost = 2
-	card.overload_cost = 1  # 弃一张手牌
-	card.description = "扳手和焊枪能解决百分之九十九的问题。"
+	card.description = "选择一个被破坏的锻炉奇械怪兽，以守备表示特殊召唤"
 	return card
 
-# 创建全面过载（法术）
+# 创建完全过载（法术卡）
 func create_full_overload():
 	var card = preload("res://scripts/core/Card.gd").new()
-	card.card_name = "全面过载"
+	card.card_name = "完全过载"
 	card.card_type = card.CardType.SPELL
-	card.spell_type = card.SpellType.INSTANT
-	card.cost = 4
-	card.overload_cost = 1  # 下回合牺牲一个机械单位
-	card.description = "把功率推到百分之一百一十！等等，计量表要爆了！"
+	card.cost = 5
+	card.description = "支付1000生命值，破坏对方场上所有卡牌"
 	return card
