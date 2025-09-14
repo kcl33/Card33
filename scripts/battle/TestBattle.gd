@@ -74,12 +74,12 @@ func _on_window_resized():
 # 初始化UI区域
 func initialize_ui_areas():
 	# 手牌区域 - 玩家1（自己）
-	hand_area_player1 = preload("res://scripts/ui/HandArea.gd").new(game_controller.player1, true)  # true表示是玩家手牌
+	hand_area_player1 = preload("res://scripts/ui/AdvancedHandArea.gd").new(game_controller.player1, true)  # true表示是玩家手牌
 	hand_area_player1.position = Vector2(0, 720)  # 1080p底部
 	add_child(hand_area_player1)
 	
 	# 手牌区域 - 玩家2（对手）
-	hand_area_player2 = preload("res://scripts/ui/HandArea.gd").new(game_controller.player2, false)  # false表示是对手手牌
+	hand_area_player2 = preload("res://scripts/ui/AdvancedHandArea.gd").new(game_controller.player2, false)  # false表示是对手手牌
 	hand_area_player2.position = Vector2(0, 0)  # 1080p顶部
 	add_child(hand_area_player2)
 	
