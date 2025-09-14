@@ -2,3 +2,5 @@ res://scenes/ui/MainMenu.tscn
 res://scripts/core/Card.gd
 res://scripts/ui/CardVisual.gd
 res://scripts/battle/TestBattle.gd
+res://scripts/core/Player.gd
+res://scripts/core/GameController.gd
