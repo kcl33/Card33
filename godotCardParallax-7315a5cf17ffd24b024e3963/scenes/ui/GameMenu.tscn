@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/ui/GameMenu.gd" type="Script" id=1]
+
+[node name="GameMenu" type="Control"]
+script = ExtResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="BackgroundOverlay" type="ColorRect" parent="."]
+color = Color( 0, 0, 0, 0.7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MenuPanel" type="Panel" parent="."]
+anchor_left = 0.3
+anchor_top = 0.2
+anchor_right = 0.7
+anchor_bottom = 0.8
+
+[node name="MenuTitle" type="Label" parent="MenuPanel"]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.2
+text = "游戏菜单"
+align = 1
+valign = 1
+
+[node name="MenuContainer" type="VBoxContainer" parent="MenuPanel"]
+anchor_left = 0.2
+anchor_top = 0.3
+anchor_right = 0.8
+anchor_bottom = 0.8
+align = 1
+
+[node name="ResumeButton" type="Button" parent="MenuContainer"]
+text = "继续游戏"
+
+[node name="SettingsButton" type="Button" parent="MenuContainer"]
+text = "设置"
+
+[node name="MainMenuButton" type="Button" parent="MenuContainer"]
+text = "主菜单"
+
+[node name="QuitButton" type="Button" parent="MenuContainer"]
+text = "退出游戏"

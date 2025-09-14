@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/ui/SettingsMenu.gd" type="Script" id=1]
+
+[node name="SettingsMenu" type="Control"]
+script = ExtResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+visible = false
+
+[node name="BackgroundOverlay" type="ColorRect" parent="."]
+color = Color( 0, 0, 0, 0.7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.2
+anchor_top = 0.1
+anchor_right = 0.8
+anchor_bottom = 0.9
+
+[node name="Title" type="Label" parent="Panel"]
+anchor_left = 0.1
+anchor_top = 0.05
+anchor_right = 0.9
+anchor_bottom = 0.15
+text = "设置"
+
+[node name="SettingsContainer" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.9
+anchor_bottom = 0.8
+
+[node name="MusicVolumeLabel" type="Label" parent="SettingsContainer"]
+text = "音乐音量"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="SettingsContainer"]
+min = 0
+max = 100
+step = 1
+value = 100
+
+[node name="SFXVolumeLabel" type="Label" parent="SettingsContainer"]
+text = "音效音量"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="SettingsContainer"]
+min = 0
+max = 100
+step = 1
+value = 100
+
+[node name="FullscreenLabel" type="Label" parent="SettingsContainer"]
+text = "全屏"
+
+[node name="FullscreenCheckbox" type="CheckBox" parent="SettingsContainer"]
+
+[node name="LanguageLabel" type="Label" parent="SettingsContainer"]
+text = "语言"
+
+[node name="LanguageOptionButton" type="OptionButton" parent="SettingsContainer"]
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Panel"]
+anchor_left = 0.1
+anchor_top = 0.85
+anchor_right = 0.9
+anchor_bottom = 0.95
+
+[node name="CancelButton" type="Button" parent="ButtonContainer"]
+text = "取消"
+
+[node name="ApplyButton" type="Button" parent="ButtonContainer"]
+text = "应用"
