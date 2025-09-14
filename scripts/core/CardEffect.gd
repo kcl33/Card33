@@ -106,7 +106,7 @@ func destroy_random_monster(player):
 		else:
 			player.field.back_row[index] = null
 		
-		print("破坏了 ", monster.name)
+		print("破坏了 ", monster.card_name)  # 修复：使用card_name而不是name
 
 # 创建测试卡牌效果
 func create_test_effects():

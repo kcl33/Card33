@@ -1,8 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scripts/battle/TestBattle.gd" type="Script" id=1]
+[ext_resource path="res://scripts/battle/EffectTest.gd" type="Script" id=1]
 
-[node name="TestBattle" type="Node2D"]
+[node name="EffectTest" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Background" type="ColorRect" parent="."]
@@ -11,14 +11,14 @@ anchor_bottom = 1.0
 color = Color( 0.1, 0.1, 0.2, 1 )
 
 [node name="InfoLabel" type="Label" parent="."]
-text = "Test Battle Scene - Space:Next Turn, B:Battle, Tab:Test Card Effect"
+text = "Effect Test Scene - 1:Summon, 2:Attack, 3:Destroy, ESC:Back to Menu"
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_top = 0.9
 anchor_bottom = 0.9
 offset_left = -300
 offset_right = 300
-offset_top = -40
-offset_bottom = 40
+offset_top = -20
+offset_bottom = 20
 align = 1
 valign = 1

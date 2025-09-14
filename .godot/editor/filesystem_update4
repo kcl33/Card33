@@ -1,3 +1,1 @@
-res://scripts/ui/MainMenuController.gd
-res://scenes/ui/MainMenu.tscn
-res://scripts/battle/EffectTest.gd
+res://scripts/ui/CardVisual.gd

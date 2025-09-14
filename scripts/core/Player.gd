@@ -1,83 +1,226 @@
 extends Node
 
-# 玎家基本分（生命值）
-var life_points = 8000
-
-# 护甲值
-var armor = 0
-
-# 当前费用点数
-var cost_points = 0
-
-# 费用点数上限
-var max_cost_points = 12
-
-# 额外点数（用于额外召唤）
-var extra_points = 2
-
-# 玩家卡组
-var deck = []
-
-# 玩家手牌
-var hand = []
-
-# 玩家墓地
-var graveyard = []
-
-# 玩家除外区
-var banished = []
-
-# 额外卡组
-var extra_deck = []
-
-# 每回合通常召唤次数（通常为1次）
-var normal_summon_count = 1
-
-# 玩家场上的卡牌 (前场5格 + 后场5格 + 额外区域1格)
-var field = {
-	"front_row": [null, null, null, null, null],
-	"back_row": [null, null, null, null, null],
-	"extra_zone": null
+# 玩家状态枚举
+enum PlayerState {
+	NORMAL,      # 正常状态
+	LOST,        # 失败状态
+	WON          # 胜利状态
 }
 
-func _init():
-	pass
+# 玩家基本信息
+var player_id = 0
+var life_points = 8000
+var cost_points = 1  # 当前费用点数
+var max_cost_points = 3  # 最大费用点数
+var extra_points = 2  # 额外点数
+var armor_points = 0  # 护甲值
 
-# 回合开始时调用的方法
-func start_turn():
-	# 增加费用点数（默认每回合增加1点）
-	cost_points = min(cost_points + 1, max_cost_points)
-	
-	# 恢复额外点数
-	extra_points = min(extra_points + 2, 4)  # 最多4点额外点数
-	
-	# 恢复通常召唤次数
-	normal_summon_count = 1
+# 玩家卡牌集合
+var deck = []        # 牌组
+var hand = []        # 手牌
+var graveyard = []   # 墓地
+var banished = []    # 除外区
+var field = null     # 场上区域
+var extra_deck = []  # 额外卡组
 
-# 抽卡方法
-func draw_card(count = 1):
+# 玩家状态
+var state = PlayerState.NORMAL
+
+# 召唤信息
+var normal_summon_count = 1  # 每回合通常召唤次数
+
+# 遗物系统
+var relic_manager = null
+
+func _init(id):
+	player_id = id
+	field = preload("res://scripts/core/Field.gd").new()
+	relic_manager = preload("res://scripts/core/RelicManager.gd").new()
+
+# 抽卡
+func draw_card(count=1):
 	for i in range(count):
 		if deck.size() > 0:
 			var card = deck.pop_front()
 			hand.append(card)
+			print("玩家", player_id, "抽到了: ", card.card_name)
 		else:
-			# 卡组抽空，手牌进入虚空状态
-			# 这里可以添加虚空效果处理
-			pass
+			# 牌组没牌时，玩家输掉游戏
+			state = PlayerState.LOST
+			print("玩家", player_id, "的牌组空了，游戏结束！")
+			return false
+	return true
 
-# 支付费用方法
+# 打出卡牌
+func play_card(card, position=null):
+	if not hand.has(card):
+		print("手牌中没有这张卡")
+		return false
+	
+	if card.cost > cost_points:
+		print("费用不足，无法打出这张卡")
+		return false
+	
+	# 支付费用
+	cost_points -= card.cost
+	
+	# 从手牌移除
+	hand.erase(card)
+	
+	# 根据卡牌类型处理
+	match card.card_type:
+		card.CardType.MONSTER:
+			# 怪兽卡需要放置到场上
+			if field.place_monster(card, position):
+				print("玩家", player_id, "召唤了: ", card.card_name)
+				# 触发遗物效果：召唤怪兽时
+				relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.MONSTER_SUMMONED, card)
+				return true
+			else:
+				# 召唤失败，卡牌回到手牌
+				hand.append(card)
+				cost_points += card.cost
+				return false
+				
+		card.CardType.SPELL:
+			# 法术卡立即生效
+			activate_spell(card)
+			graveyard.append(card)
+			print("玩家", player_id, "使用了法术: ", card.card_name)
+			# 触发遗物效果：打出卡牌时
+			relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.CARD_PLAYED, card)
+			return true
+			
+		card.CardType.POLICY:
+			# 政策卡立即生效
+			activate_policy(card)
+			graveyard.append(card)
+			print("玩家", player_id, "使用了政策: ", card.card_name)
+			# 触发遗物效果：打出卡牌时
+			relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.CARD_PLAYED, card)
+			return true
+			
+		card.CardType.COMPONENT:
+			# 组件卡需要选择目标单位
+			print("玩家", player_id, "打出了组件: ", card.card_name, "，请选择目标单位")
+			return "select_target"  # 需要选择目标
+	
+	return false
+
+# 激活法术卡
+func activate_spell(spell_card):
+	# 这里应该根据具体法术效果处理
+	# 简化处理，只打印信息
+	print("激活法术效果: ", spell_card.card_name)
+
+# 激活政策卡
+func activate_policy(policy_card):
+	# 这里应该根据具体政策效果处理
+	# 简化处理，只打印信息
+	print("激活政策效果: ", policy_card.card_name)
+
+# 安装组件到单位
+func attach_component(component, target_unit):
+	if not hand.has(component):
+		print("手牌中没有这个组件")
+		return false
+	
+	if component.card_type != component.CardType.COMPONENT:
+		print("不是组件卡")
+		return false
+	
+	if not target_unit.can_attach_component(component):
+		print("无法安装该组件")
+		return false
+	
+	# 从手牌移除组件
+	hand.erase(component)
+	
+	# 安装到目标单位
+	target_unit.add_component(component)
+	
+	print("将组件 ", component.card_name, " 安装到 ", target_unit.card_name)
+	
+	# 触发组件安装效果
+	trigger_assemble_effect(target_unit, component)
+	
+	return true
+
+# 触发组装效果
+func trigger_assemble_effect(unit, component):
+	# 这里应该根据具体组件效果处理
+	# 简化处理，只打印信息
+	print("触发组装效果: ", component.card_name, " 安装到 ", unit.card_name)
+	
+	# 根据组件类型应用效果
+	match component.component_type:
+		component.ComponentType.WEAPON:
+			unit.attack += 500
+			print("单位攻击力增加500")
+		component.ComponentType.MOBILITY:
+			unit.attack += 100
+			unit.defense -= 100
+			print("单位获得+100/-100属性变化")
+
+# 发动超载效果
+func activate_overload(card, overload_cost_paid=true):
+	if not overload_cost_paid:
+		print("未支付超载费用")
+		return false
+	
+	# 这里应该根据具体超载效果处理
+	# 简化处理，只打印信息
+	print("发动超载效果: ", card.card_name)
+	return true
+
+# 支付费用
 func pay_cost(cost):
 	if cost_points >= cost:
 		cost_points -= cost
 		return true
 	return false
 
-# 支付额外点数方法
-func pay_extra_cost(cost):
-	if extra_points >= cost:
-		extra_points -= cost
+# 支付额外费用
+func pay_extra_cost(extra_cost):
+	if extra_points >= extra_cost:
+		extra_points -= extra_cost
 		return true
 	return false
+
+# 回合开始时调用
+func on_turn_start():
+	# 触发遗物效果：回合开始时
+	relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.TURN_START)
+
+# 回合结束时调用
+func on_turn_end():
+	# 触发遗物效果：回合结束时
+	relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.TURN_END)
+
+# 战斗开始时调用
+func on_battle_start():
+	# 触发遗物效果：战斗开始时
+	relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.BATTLE_START)
+
+# 战斗结束时调用
+func on_battle_end():
+	# 触发遗物效果：战斗结束时
+	relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.BATTLE_END)
+
+# 抽卡时调用
+func on_card_drawn(card):
+	# 触发遗物效果：抽卡时
+	relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.CARD_DRAWN, card)
+
+# 受到伤害时调用
+func on_damage_taken(damage):
+	# 触发遗物效果：受到伤害时
+	relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.DAMAGE_TAKEN, damage)
+
+# 造成伤害时调用
+func on_damage_dealt(damage):
+	# 触发遗物效果：造成伤害时
+	relic_manager.trigger_relics_by_timing(self, relic_manager.Relic.TriggerTiming.DAMAGE_DEALT, damage)
 
 # 从场上移除卡牌的辅助函数
 func remove_card_from_field(card):

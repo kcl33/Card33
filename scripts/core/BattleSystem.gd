@@ -38,7 +38,7 @@ func battle_monsters(attacking_player, defending_player, attacking_card, defendi
 		return [BattleResult.DRAW, "平局"]
 
 # 直接攻击玩家
-func direct_attack(attacking_player, defending_player, attacking_card, attack_position):
+func direct_attack(_attacking_player, defending_player, attacking_card, attack_position):
 	# 计算攻击力
 	var attack_power = get_battle_power(attacking_card, attack_position)
 	

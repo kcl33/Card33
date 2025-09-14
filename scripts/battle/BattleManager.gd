@@ -51,7 +51,7 @@ func select_attacker(card):
 	
 	attacker = card
 	current_phase = BattlePhase.SELECT_TARGET
-	print("已选择攻击怪兽: ", card.name, "，请选择目标")
+	print("已选择攻击怪兽: ", card.card_name, "，请选择目标")  # 修复：使用card_name
 	return true
 
 # 选择目标
@@ -73,13 +73,13 @@ func select_target(target_card):
 		return true
 	else:
 		# 攻击对方怪兽
-		if target_card.card_type != target_card.CardType.MONSTER:
+		if target_card.card_type != target_card.CardType.MONSTER:  # 修复：使用card_type
 			print("只能选择怪兽作为攻击目标")
 			return false
 		
 		target = target_card
 		current_phase = BattlePhase.RESOLVE_BATTLE
-		print("选择攻击目标: ", target_card.name)
+		print("选择攻击目标: ", target_card.card_name)  # 修复：使用card_name
 		resolve_battle()
 		return true
 
@@ -120,11 +120,11 @@ func resolve_battle():
 		
 		match battle_result[0]:
 			battle_system.BattleResult.WIN:
-				print(attacker.name, " 击败了 ", target.name)
+				print(attacker.card_name, " 击败了 ", target.card_name)  # 修复：使用card_name
 			battle_system.BattleResult.LOSE:
-				print(target.name, " 击败了 ", attacker.name)
+				print(target.card_name, " 击败了 ", attacker.card_name)  # 修复：使用card_name
 			battle_system.BattleResult.DRAW:
-				print(attacker.name, " 和 ", target.name, " 同归于尽")
+				print(attacker.card_name, " 和 ", target.card_name, " 同归于尽")  # 修复：使用card_name
 	
 	current_phase = BattlePhase.END
 	
