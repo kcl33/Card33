@@ -136,6 +136,10 @@ func can_normal_summon():
 func use_normal_summon():
 	normal_summon_used = true
 
+# 游戏开始时触发遗物效果
+func on_game_start():
+	relic_manager.on_game_start(self)
+
 # 玩家状态枚举
 enum PlayerState {
 	NORMAL,      # 正常状态

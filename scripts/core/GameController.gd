@@ -32,12 +32,13 @@ func start_game():
 	print("游戏开始！")
 	
 	# 触发遗物效果：游戏开始时
-	player1.relic_manager.trigger_relics_by_timing(player1, player1.relic_manager.Relic.TriggerTiming.GAME_START)
-	player2.relic_manager.trigger_relics_by_timing(player2, player2.relic_manager.Relic.TriggerTiming.GAME_START)
+	player1.relic_manager.on_game_start(player1)
+	player2.relic_manager.on_game_start(player2)
 	
 	# 初始抽卡
-	player1.draw_card(5)
-	player2.draw_card(5)
+	for i in range(5):
+		player1.draw_card()
+		player2.draw_card()
 	
 	# 设置初始阶段
 	current_phase = GamePhase.DRAW_PHASE
@@ -99,7 +100,7 @@ func process_draw_phase():
 	current_player_obj.on_turn_start()
 	
 	# 抽一张卡
-	current_player_obj.draw_card(1)
+	current_player_obj.draw_card()
 	
 	# 增加费用点数
 	current_player_obj.cost_points = min(current_player_obj.cost_points + 1, current_player_obj.max_cost_points)
@@ -136,7 +137,7 @@ func process_end_phase():
 	print("=== 结束阶段 ===")
 	# 重置回合相关状态
 	var current_player_obj = player1 if current_player == 1 else player2
-	current_player_obj.normal_summon_count = 1
+	current_player_obj.normal_summon_used = false
 	
 	# 回合结束时触发遗物效果
 	current_player_obj.on_turn_end()
