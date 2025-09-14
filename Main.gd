@@ -33,5 +33,5 @@ func check_plugins():
 
 func load_main_menu():
 	print("Loading main menu...")
-	var main_menu = preload("res://scenes/ui/MainMenu.tscn").instance()
-	add_child(main_menu)
+	# 直接切换到主菜单场景
+	get_tree().change_scene("res://scenes/ui/MainMenu.tscn")

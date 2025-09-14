@@ -1,1 +1,3 @@
-res://godotCardParallax-7315a5cf17ffd24b024e3963/scripts/ui/GameMenu.gd
+res://scripts/ui/MainMenuController.gd
+res://scenes/ui/MainMenu.tscn
+res://scripts/battle/EffectTest.gd
