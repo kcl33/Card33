@@ -50,5 +50,4 @@ func draw_card_animation(card_data):
 	# 完成后发出信号
 	await card_tween.finished
 	emit_signal("card_drawn", card_data)
-	card_visual.queue_free()
 	is_drawing = false

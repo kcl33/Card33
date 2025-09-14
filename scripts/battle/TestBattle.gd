@@ -78,16 +78,20 @@ func initialize_ui_areas():
 	
 	# 场上区域
 	field_area_player1 = preload("res://scripts/ui/FieldArea.gd").new(game_controller.player1)
+	field_area_player1.position = Vector2(0, 300)
 	add_child(field_area_player1)
 	
 	field_area_player2 = preload("res://scripts/ui/FieldArea.gd").new(game_controller.player2)
+	field_area_player2.position = Vector2(0, 100)
 	add_child(field_area_player2)
 	
 	# 场地可视化区域
 	field_visual_player1 = preload("res://scripts/ui/FieldVisual.gd").new(game_controller.player1)
+	field_visual_player1.position = Vector2(0, 200)
 	add_child(field_visual_player1)
 	
 	field_visual_player2 = preload("res://scripts/ui/FieldVisual.gd").new(game_controller.player2)
+	field_visual_player2.position = Vector2(0, 0)
 	add_child(field_visual_player2)
 
 # 初始化抽卡动画
@@ -148,6 +152,12 @@ func simulate_draw_card():
 		var card = game_controller.player1.deck.pop_front()
 		game_controller.player1.hand.append(card)
 		draw_animation_player1.draw_card_animation(card)
+	
+	# 玩家2抽卡带动画
+	if game_controller.player2.deck.size() > 0:
+		var card = game_controller.player2.deck.pop_front()
+		game_controller.player2.hand.append(card)
+		draw_animation_player2.draw_card_animation(card)
 	
 	# 更新显示
 	update_display()

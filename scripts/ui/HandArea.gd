@@ -100,7 +100,7 @@ func update_hand():
 		card_visual.position = Vector2(x, y)
 		card_positions.append(Vector2(x, y))
 		
-		# 设置卡牌旋转角度，营造自然的手牌效果
+		# 设置卡牌旋转角度，营造自然的手持效果
 		var rotation_angle = angle * 0.5  # 旋转角度是位置角度的一半，看起来更自然
 		card_visual.rotation = rotation_angle
 		
