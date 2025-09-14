@@ -1,4 +1,140 @@
+// 玩家类
+class_name Player
 extends Node
+
+# 玩家属性
+var player_id = 0
+var life_points = 4000
+var cost_points = 0
+var max_cost_points = 5
+var extra_points = 0
+var armor_points = 0
+
+# 玩家卡组和手牌
+var deck = []
+var hand = []
+var graveyard = []
+var banished = []  # 除外区域
+var extra_deck = []  # 额外卡组（用于融合、同调、超量、连接怪兽）
+
+# 场上区域（怪兽区、魔法陷阱区）
+var field = null
+
+# 遗物管理器
+var relic_manager = null
+
+# 召唤相关
+var normal_summon_used = false  # 本回合是否已进行通常召唤
+
+func _init(id):
+	player_id = id
+	field = preload("res://scripts/core/Field.gd").new()
+	relic_manager = preload("res://scripts/core/RelicManager.gd").new()
+
+# 抽卡
+func draw_card():
+	if deck.size() > 0:
+		var card = deck.pop_front()
+		card.set_card_owner(self)  # 设置卡牌所有者
+		hand.append(card)
+		return card
+	return null
+
+# 抽多张卡
+func draw_cards(count):
+	var drawn_cards = []
+	for i in range(min(count, deck.size())):
+		var card = draw_card()
+		if card != null:
+			drawn_cards.append(card)
+	return drawn_cards
+
+# 打出卡牌
+func play_card(card):
+	if hand.has(card):
+		hand.erase(card)
+		return true
+	return false
+
+# 攻击
+func attack(target_player, damage):
+	if target_player.armor_points > 0:
+		if target_player.armor_points >= damage:
+			target_player.armor_points -= damage
+		else:
+			var remaining_damage = damage - target_player.armor_points
+			target_player.armor_points = 0
+			target_player.life_points -= remaining_damage
+	else:
+		target_player.life_points -= damage
+
+# 回合开始
+func on_turn_start():
+	# 重置通常召唤
+	normal_summon_used = false
+	
+	# 增加费用点数
+	cost_points = min(max_cost_points, cost_points + 1)
+	
+	# 触发遗物效果
+	relic_manager.on_turn_start(self)
+
+# 回合结束
+func on_turn_end():
+	# 触发遗物效果
+	relic_manager.on_turn_end(self)
+
+# 战斗阶段
+func on_battle_phase():
+	pass
+
+# 主要阶段
+func on_main_phase():
+	pass
+
+# 检查是否可以支付费用
+func can_pay_cost(cost):
+	return cost_points >= cost
+
+# 支付费用
+func pay_cost(cost):
+	if can_pay_cost(cost):
+		cost_points -= cost
+		return true
+	return false
+
+# 安装组件
+func attach_component(component_card, target_card):
+	if hand.has(component_card) and field.has_card(target_card):
+		if target_card.can_attach_component(component_card):
+			target_card.add_component(component_card)
+			hand.erase(component_card)
+			return true
+	return false
+
+# 增加护甲
+func add_armor(amount):
+	armor_points += amount
+
+# 增加生命值
+func heal(amount):
+	life_points += amount
+
+# 增加最大费用点数
+func increase_max_cost(amount):
+	max_cost_points += amount
+
+# 增加额外点数
+func add_extra_points(amount):
+	extra_points += amount
+
+# 检查是否可以进行通常召唤
+func can_normal_summon():
+	return !normal_summon_used
+
+# 标记通常召唤已使用
+func use_normal_summon():
+	normal_summon_used = true
 
 # 玩家状态枚举
 enum PlayerState {

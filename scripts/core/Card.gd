@@ -1,35 +1,22 @@
+# 卡牌基类
+class_name Card
 extends Node
 
 # 卡牌类型枚举
-enum CardType {
-	MONSTER,  # 怪兽卡
-	SPELL,    # 法术卡
-	POLICY,   # 政策卡
-	COMPONENT # 组件卡
-}
+enum CardType {MONSTER, SPELL, TRAP, POLICY, COMPONENT}
 
-# 位置枚举（主要用于怪兽卡）
-enum Position {
-	ATTACK,           # 表侧攻击表示
-	DEFENSE,          # 表侧守备表示
-	FACE_DOWN_ATTACK, # 里侧攻击表示
-	FACE_DOWN_DEFENSE # 里侧守备表示
-}
+# 怪兽卡表示形式枚举
+enum Position {ATTACK, DEFENSE, FACE_DOWN_ATTACK, FACE_DOWN_DEFENSE}
 
-# 组件类型枚举（仅组件卡使用）
-enum ComponentType {
-	WEAPON,   # 武器
-	MOBILITY, # 移动
-	DEFENSE,  # 防御
-	UTILITY  # 实用
-}
+# 组件类型枚举
+enum ComponentType {WEAPON, MOBILITY, DEFENSE, UTILITY}
 
-# 基本属性
+# 基础卡牌属性
 var card_name = "默认卡牌"
 var card_type = CardType.MONSTER
-var cost = 1
+var cost = 0
 var description = "默认描述"
-var owner = null  # 卡牌所有者（玩家）
+var card_owner = null  # 卡牌所有者（玩家），避免与Node的owner属性冲突
 
 # 怪兽卡属性
 var attack = 0
@@ -114,17 +101,15 @@ func get_defense():
 	return total_defense
 
 # 设置卡牌所有者
-func set_owner(player):
-	owner = player
+func set_card_owner(player):
+	card_owner = player
 
 # 设置卡牌脚本
 func set_card_script(script):
 	card_script = script
 
-# 触发卡牌效果
-func trigger_effect(effect_name, args=null):
-	if card_script != null and card_script.has_method(effect_name):
-		if args != null:
-			card_script.call(effect_name, args)
-		else:
-			card_script.call(effect_name)
+# 执行卡牌脚本
+func execute_script(event_name, params = {}):
+	if card_script != null and card_script.has_method(event_name):
+		return card_script.call(event_name, self, params)
+	return null

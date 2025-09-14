@@ -12,7 +12,3 @@ config_version=5
 
 config/name="CardForge Nexus"
 config/icon="res://icon.png"
-
-[autoload]
-
-CardFrameworkSettings="*res://addons/card-framework/card_framework_settings.gd"
