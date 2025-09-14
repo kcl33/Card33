@@ -15,6 +15,8 @@ var field_visual_player2
 var mouse_controller
 var draw_animation_player1
 var draw_animation_player2
+var player1_info_panel
+var player2_info_panel
 
 func _ready():
 	print("加载测试战斗场景...")
@@ -65,45 +67,145 @@ func _on_window_resized():
 	
 	# 调整信息标签位置到屏幕顶部中央
 	info_label.position = Vector2(viewport_size.x/2 - info_label.size.x/2, 10)
+	
+	# 更新玩家信息面板
+	update_player_info_panels()
 
 # 初始化UI区域
 func initialize_ui_areas():
 	# 手牌区域 - 玩家1（自己）
 	hand_area_player1 = preload("res://scripts/ui/HandArea.gd").new(game_controller.player1, true)  # true表示是玩家手牌
+	hand_area_player1.position = Vector2(0, 720)  # 1080p底部
 	add_child(hand_area_player1)
 	
 	# 手牌区域 - 玩家2（对手）
 	hand_area_player2 = preload("res://scripts/ui/HandArea.gd").new(game_controller.player2, false)  # false表示是对手手牌
+	hand_area_player2.position = Vector2(0, 0)  # 1080p顶部
 	add_child(hand_area_player2)
 	
 	# 场上区域
 	field_area_player1 = preload("res://scripts/ui/FieldArea.gd").new(game_controller.player1)
-	field_area_player1.position = Vector2(0, 300)
+	field_area_player1.position = Vector2(0, 540)  # 1080p下半部分
 	add_child(field_area_player1)
 	
 	field_area_player2 = preload("res://scripts/ui/FieldArea.gd").new(game_controller.player2)
-	field_area_player2.position = Vector2(0, 100)
+	field_area_player2.position = Vector2(0, 180)  # 1080p上半部分
 	add_child(field_area_player2)
 	
 	# 场地可视化区域
 	field_visual_player1 = preload("res://scripts/ui/FieldVisual.gd").new(game_controller.player1)
-	field_visual_player1.position = Vector2(0, 200)
+	field_visual_player1.position = Vector2(0, 360)  # 1080p中部偏下
 	add_child(field_visual_player1)
 	
 	field_visual_player2 = preload("res://scripts/ui/FieldVisual.gd").new(game_controller.player2)
-	field_visual_player2.position = Vector2(0, 0)
+	field_visual_player2.position = Vector2(0, 0)  # 1080p顶部
 	add_child(field_visual_player2)
+	
+	# 创建玩家信息面板
+	create_player_info_panels()
+
+# 创建玩家信息面板
+func create_player_info_panels():
+	# 玩家1信息面板（左下角）
+	player1_info_panel = PanelContainer.new()
+	player1_info_panel.position = Vector2(10, 650)  # 左下角
+	player1_info_panel.size = Vector2(200, 100)
+	player1_info_panel.self_modulate = Color(0, 0, 0, 0.7)
+	
+	var player1_vbox = VBoxContainer.new()
+	player1_vbox.set("theme_override_constants/separation", 2)
+	player1_info_panel.add_child(player1_vbox)
+	
+	var player1_title = Label.new()
+	player1_title.text = "玩家1"
+	player1_title.add_theme_font_size_override("font_size", 16)
+	player1_vbox.add_child(player1_title)
+	
+	add_child(player1_info_panel)
+	
+	# 玩家2信息面板（右上角）
+	player2_info_panel = PanelContainer.new()
+	player2_info_panel.position = Vector2(1070, 10)  # 右上角 (1080p宽度-210)
+	player2_info_panel.size = Vector2(200, 100)
+	player2_info_panel.self_modulate = Color(0, 0, 0, 0.7)
+	
+	var player2_vbox = VBoxContainer.new()
+	player2_vbox.set("theme_override_constants/separation", 2)
+	player2_info_panel.add_child(player2_vbox)
+	
+	var player2_title = Label.new()
+	player2_title.text = "玩家2"
+	player2_title.add_theme_font_size_override("font_size", 16)
+	player2_vbox.add_child(player2_title)
+	
+	add_child(player2_info_panel)
+
+# 更新玩家信息面板
+func update_player_info_panels():
+	if player1_info_panel == null or player2_info_panel == null:
+		return
+	
+	# 清除旧的信息
+	for child in player1_info_panel.get_children():
+		child.queue_free()
+	
+	for child in player2_info_panel.get_children():
+		child.queue_free()
+	
+	# 重新创建玩家1信息面板
+	var player1_vbox = VBoxContainer.new()
+	player1_vbox.set("theme_override_constants/separation", 2)
+	player1_info_panel.add_child(player1_vbox)
+	
+	var player1_title = Label.new()
+	player1_title.text = "玩家1"
+	player1_title.add_theme_font_size_override("font_size", 16)
+	player1_vbox.add_child(player1_title)
+	
+	var player1_lp = Label.new()
+	player1_lp.text = "LP: " + str(game_controller.player1.life_points)
+	player1_vbox.add_child(player1_lp)
+	
+	var player1_cost = Label.new()
+	player1_cost.text = "费用: " + str(game_controller.player1.cost_points) + "/" + str(game_controller.player1.max_cost_points)
+	player1_vbox.add_child(player1_cost)
+	
+	var player1_armor = Label.new()
+	player1_armor.text = "护甲: " + str(game_controller.player1.armor_points)
+	player1_vbox.add_child(player1_armor)
+	
+	# 重新创建玩家2信息面板
+	var player2_vbox = VBoxContainer.new()
+	player2_vbox.set("theme_override_constants/separation", 2)
+	player2_info_panel.add_child(player2_vbox)
+	
+	var player2_title = Label.new()
+	player2_title.text = "玩家2"
+	player2_title.add_theme_font_size_override("font_size", 16)
+	player2_vbox.add_child(player2_title)
+	
+	var player2_lp = Label.new()
+	player2_lp.text = "LP: " + str(game_controller.player2.life_points)
+	player2_vbox.add_child(player2_lp)
+	
+	var player2_cost = Label.new()
+	player2_cost.text = "费用: " + str(game_controller.player2.cost_points) + "/" + str(game_controller.player2.max_cost_points)
+	player2_vbox.add_child(player2_cost)
+	
+	var player2_armor = Label.new()
+	player2_armor.text = "护甲: " + str(game_controller.player2.armor_points)
+	player2_vbox.add_child(player2_armor)
 
 # 初始化抽卡动画
 func initialize_draw_animations():
 	draw_animation_player1 = preload("res://scripts/ui/DrawCardAnimation.gd").new()
-	draw_animation_player1.initialize(Vector2(750, 300), Vector2(400, 400))
+	draw_animation_player1.initialize(Vector2(900, 540), Vector2(540, 720))  # 从右侧中部到手牌
 	draw_animation_player1.position = Vector2(0, 0)
 	draw_animation_player1.connect("card_drawn", Callable(self, "_on_card_drawn_player1"))
 	add_child(draw_animation_player1)
 	
 	draw_animation_player2 = preload("res://scripts/ui/DrawCardAnimation.gd").new()
-	draw_animation_player2.initialize(Vector2(50, 100), Vector2(400, 100))
+	draw_animation_player2.initialize(Vector2(200, 180), Vector2(540, 180))  # 从左侧中部到手牌
 	draw_animation_player2.position = Vector2(0, 0)
 	draw_animation_player2.connect("card_drawn", Callable(self, "_on_card_drawn_player2"))
 	add_child(draw_animation_player2)
@@ -290,6 +392,7 @@ func update_display():
 	field_area_player2.update_field()
 	field_visual_player1.update_field()
 	field_visual_player2.update_field()
+	update_player_info_panels()
 
 func battle_result_handler(result):
 	print("战斗结果: ", result)

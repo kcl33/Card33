@@ -5,7 +5,7 @@ var card_visuals = []
 
 func _init(player_obj):
 	player = player_obj
-	size = Vector2(800, 200)
+	size = Vector2(1920, 180)  # 1080p宽度，场上区域高度180px
 
 # 更新场上显示
 func update_field():
@@ -27,7 +27,7 @@ func update_field():
 				# 表侧表示显示正面
 				card_visual = preload("res://scripts/ui/CardVisual.gd").new(monster)
 			
-			card_visual.position = Vector2(100 + i * 130, 10)
+			card_visual.position = Vector2(200 + i * 150, 10)
 			add_child(card_visual)
 			card_visuals.append(card_visual)
 	
@@ -44,7 +44,7 @@ func update_field():
 				# 表侧表示显示正面
 				card_visual = preload("res://scripts/ui/CardVisual.gd").new(spell)
 			
-			card_visual.position = Vector2(100 + i * 130, 100)
+			card_visual.position = Vector2(200 + i * 150, 100)
 			add_child(card_visual)
 			card_visuals.append(card_visual)
 

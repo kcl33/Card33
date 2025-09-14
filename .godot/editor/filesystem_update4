@@ -4,3 +4,5 @@ res://scripts/ui/CardVisual.gd
 res://scripts/battle/TestBattle.gd
 res://scripts/core/Player.gd
 res://scripts/core/GameController.gd
+res://scripts/ui/DrawCardAnimation.gd
+res://scripts/ui/HandArea.gd

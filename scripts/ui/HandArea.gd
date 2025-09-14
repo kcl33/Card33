@@ -11,6 +11,7 @@ var card_info_panel = null
 func _init(player_obj, is_player=true):
 	player = player_obj
 	is_player_hand = is_player
+	size = Vector2(1920, 180)  # 1080p宽度，手牌区域高度180px
 
 func _ready():
 	# 创建卡牌信息面板
@@ -32,17 +33,17 @@ func _on_window_resized():
 	var viewport_size = get_viewport_rect().size
 	
 	if is_player_hand:
-		# 调整玩家手牌区域位置到屏幕底部中央
-		position = Vector2(0, viewport_size.y - 200)
-		size = Vector2(viewport_size.x, 200)
+		# 调整玩家手牌区域位置到屏幕底部
+		position = Vector2(0, viewport_size.y - 180)
+		size = Vector2(viewport_size.x, 180)
 		
 		# 调整信息面板位置到屏幕左上角
 		card_info_panel.size = Vector2(200, 300)
 		card_info_panel.position = Vector2(20, 20)
 	else:
-		# 调整对手手牌区域位置到屏幕顶部中央
+		# 调整对手手牌区域位置到屏幕顶部
 		position = Vector2(0, 0)
-		size = Vector2(viewport_size.x, 200)
+		size = Vector2(viewport_size.x, 180)
 
 # 更新手牌显示，实现扇形排列和卡牌旋转
 func update_hand():
@@ -61,15 +62,15 @@ func update_hand():
 		return
 	
 	# 扇形参数
-	var radius = min(viewport_size.x * 0.3, 200.0)
+	var radius = min(viewport_size.x * 0.3, 300.0)
 	var center_x = viewport_size.x / 2
 	
 	# 根据是玩家手牌还是对手手牌设置不同的位置
 	var center_y
 	if is_player_hand:
-		center_y = viewport_size.y - 100  # 玩家手牌在底部
+		center_y = viewport_size.y - 90  # 玩家手牌在底部
 	else:
-		center_y = 100  # 对手手牌在顶部
+		center_y = 90  # 对手手牌在顶部
 	
 	var start_angle = -PI/4
 	var end_angle = PI/4
