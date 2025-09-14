@@ -16,7 +16,3 @@ config/icon="res://icon.png"
 [autoload]
 
 CardFrameworkSettings="*res://addons/card-framework/card_framework_settings.gd"
-
-[editor_plugins]
-
-enabled=["card-framework"]
