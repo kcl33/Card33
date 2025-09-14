@@ -1,37 +1,11 @@
 extends Control
 
 var player = null
-var field_visuals = []
-var monster_zones = []
-var spell_zones = []
+var card_visuals = []
 
 func _init(player_obj):
 	player = player_obj
 	size = Vector2(800, 200)
-	position = Vector2(0, 300)
-	
-	# 初始化区域
-	initialize_zones()
-
-# 初始化区域
-func initialize_zones():
-	# 创建5个怪兽区域
-	for i in range(5):
-		var zone = ColorRect.new()
-		zone.color = Color(0.5, 0.5, 0.5, 0.3)
-		zone.size = Vector2(100, 150)
-		zone.position = Vector2(i * 120 + 100, 10)
-		add_child(zone)
-		monster_zones.append(zone)
-	
-	# 创建5个魔法陷阱区域
-	for i in range(5):
-		var zone = ColorRect.new()
-		zone.color = Color(0.3, 0.3, 0.7, 0.3)
-		zone.size = Vector2(100, 50)
-		zone.position = Vector2(i * 120 + 100, 170)
-		add_child(zone)
-		spell_zones.append(zone)
 
 # 更新场上显示
 func update_field():
@@ -85,7 +59,7 @@ func _input(event):
 # 处理左键点击
 func handle_left_click(event):
 	var click_position = event.position
-	for card_visual in field_visuals:
+	for card_visual in card_visuals:
 		if card_visual.get_rect().has_point(card_visual.get_local_mouse_position()):
 			# 选择场上的卡牌并显示选项
 			print("左键点击场上卡牌: ", card_visual.card_data.card_name)
@@ -95,7 +69,7 @@ func handle_left_click(event):
 # 处理右键点击
 func handle_right_click(event):
 	var click_position = event.position
-	for card_visual in field_visuals:
+	for card_visual in card_visuals:
 		if card_visual.get_rect().has_point(card_visual.get_local_mouse_position()):
 			# 选择场上的卡牌并显示选项
 			print("右键点击场上卡牌: ", card_visual.card_data.card_name)

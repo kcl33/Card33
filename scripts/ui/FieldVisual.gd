@@ -28,17 +28,31 @@ func _ready():
 	get_viewport().connect("size_changed", Callable(self, "_on_window_resized"))
 	_on_window_resized()
 
+# 窗口大小变化时调整UI
+func _on_window_resized():
+	var viewport_size = get_viewport_rect().size
+	size = Vector2(viewport_size.x, viewport_size.y * 0.6)
+
 # 设置场地可视化
 func setup_field_visual():
 	# 清除现有节点
 	for child in get_children():
 		child.queue_free()
 	
+	# 获取视口大小
+	var viewport_size = get_viewport_rect().size
+	var field_width = viewport_size.x
+	var field_height = viewport_size.y * 0.6
+	
+	# 计算区域大小和位置
+	var zone_width = 80
+	var zone_height = 120
+	
 	# 创建主要怪兽区域 (5个)
 	for i in range(5):
 		var zone = ColorRect.new()
-		zone.size = Vector2(80, 120)
-		zone.position = Vector2(100 + i * 100, 250)
+		zone.size = Vector2(zone_width, zone_height)
+		zone.position = Vector2(100 + i * 100, field_height/2 + 20)
 		zone.color = Color(0.5, 0.5, 0.5, 0.3)
 		add_child(zone)
 		main_monster_zones.append(zone)
@@ -46,7 +60,7 @@ func setup_field_visual():
 		# 添加标签
 		var label = Label.new()
 		label.text = "前场" + str(i+1)
-		label.position = Vector2(100 + i * 100, 230)
+		label.position = Vector2(100 + i * 100, field_height/2)
 		add_child(label)
 		main_zone_labels.append(label)
 	
@@ -138,18 +152,8 @@ func setup_field_visual():
 	banished_label.position = Vector2(field_width - 250, 30)
 	add_child(banished_label)
 
-# 窗口大小变化时调整UI
-func _on_window_resized():
-	var viewport_size = get_viewport_rect().size
-	size = Vector2(viewport_size.x, viewport_size.y * 0.6)
-
 # 更新场地显示
 func update_field():
-	# 获取视口大小
-	var viewport_size = get_viewport_rect().size
-	var field_width = viewport_size.x
-	var field_height = viewport_size.y * 0.6
-	
 	# 更新主要怪兽区域
 	for i in range(min(main_monster_zones.size(), player.field.front_row.size())):
 		var zone = main_monster_zones[i]
