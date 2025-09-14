@@ -11,13 +11,12 @@ config_version=5
 [application]
 
 config/name="CardForge Nexus"
-run/main_scene="res://scenes/ui/MainMenu.tscn"
-config/features=PackedStringArray("4.4")
+config/icon="res://icon.png"
 
-[physics]
+[autoload]
 
-2d/thread_model=2
+CardFrameworkSettings="*res://addons/card-framework/card_framework_settings.gd"
 
-[rendering]
+[editor_plugins]
 
-environment/default_clear_color=Color(0.8, 0.2, 0.5, 1)
+enabled=["card-framework"]

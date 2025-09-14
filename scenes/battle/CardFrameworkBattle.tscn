@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkmklnklnklnk"]
+
+[ext_resource type="PackedScene" uid="uid://clqgq1n7v0ar" path="res://addons/card-framework/card_manager.tscn" id="1_card_manager"]
+
+[node name="CardFrameworkBattle" type="Node2D"]
+
+[node name="CardManager" parent="." instance=ExtResource("1_card_manager")]

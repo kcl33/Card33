@@ -1,0 +1,10 @@
+{
+  "name": "步行机铠",
+  "type": "monster",
+  "cost": 2,
+  "attack": 800,
+  "defense": 1200,
+  "description": "基础的锻炉奇械单位，拥有不错的防御力",
+  "front_image": "res://assets/cards/walking_mech_front.png",
+  "back_image": "res://assets/cards/card_back.png"
+}
