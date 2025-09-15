@@ -6,8 +6,8 @@ extends CanvasLayer
 @onready var dots := $Dots
 @onready var rain := $Rain
 @onready var background_shapes := $BackgroundShapes
-@onready var main_rect1 := $BackgroundShapes/MainRect1
-@onready var main_rect2 := $BackgroundShapes/MainRect2
+@onready var bottom_rect := $BackgroundShapes/BottomRect
+@onready var top_rect := $BackgroundShapes/TopRect
 @onready var title_container := $TitleContainer
 @onready var main_title := $TitleContainer/MainTitle
 @onready var sub_title := $TitleContainer/SubTitle
@@ -154,15 +154,15 @@ func _title_blast_animation():
 	tween2.set_ease(Tween.EASE_OUT)
 
 func _background_shapes_animation():
-	# 主要矩形动画 - 阶梯状滑入
-	var main_shapes = [
-		{"node": main_rect1, "delay": 0.0, "duration": 1.2, "ease": Tween.EASE_OUT, "rotation_extra": 0.05, "move_distance": 600},
-		{"node": main_rect2, "delay": 0.3, "duration": 1.0, "ease": Tween.EASE_IN_OUT, "rotation_extra": -0.03, "move_distance": 550}
+	# 大块背景矩形动画 - 从屏幕外滑入
+	var background_rects = [
+		{"node": bottom_rect, "delay": 0.0, "duration": 1.5, "ease": Tween.EASE_OUT, "rotation_extra": 0.02, "move_distance": 800},
+		{"node": top_rect, "delay": 0.2, "duration": 1.3, "ease": Tween.EASE_IN_OUT, "rotation_extra": -0.01, "move_distance": 700}
 	]
 	
-	# 启动主要矩形动画
-	for shape_data in main_shapes:
-		_start_delayed_animation(shape_data.node, shape_data.delay, shape_data.duration, shape_data.ease, shape_data.rotation_extra, shape_data.move_distance)
+	# 启动背景矩形动画
+	for rect_data in background_rects:
+		_start_delayed_animation(rect_data.node, rect_data.delay, rect_data.duration, rect_data.ease, rect_data.rotation_extra, rect_data.move_distance)
 
 func _start_delayed_animation(node: Node, delay: float, duration: float, ease: int, rotation_extra: float, move_distance: float):
 	# 创建延迟定时器
@@ -184,17 +184,18 @@ func _start_delayed_animation(node: Node, delay: float, duration: float, ease: i
 	tween.set_trans(Tween.TRANS_QUART)
 
 func _menu_buttons_animation():
-	# 菜单按钮动画 - 阶梯状滑入，跟随矩形
+	# 菜单按钮动画 - 从右下角倾斜滑入
 	var buttons = [
-		{"node": exit_block, "delay": 0.0, "duration": 0.8, "ease": Tween.EASE_OUT, "move_distance": 400},
-		{"node": start_block, "delay": 0.2, "duration": 0.9, "ease": Tween.EASE_IN_OUT, "move_distance": 450},
-		{"node": continue_block, "delay": 0.4, "duration": 0.7, "ease": Tween.EASE_OUT, "move_distance": 500},
-		{"node": settings_block, "delay": 0.6, "duration": 0.6, "ease": Tween.EASE_IN, "move_distance": 550}
+		{"node": start_block, "delay": 0.0, "duration": 0.8, "ease": Tween.EASE_OUT, "move_distance": 600},
+		{"node": continue_block, "delay": 0.1, "duration": 0.9, "ease": Tween.EASE_IN_OUT, "move_distance": 650},
+		{"node": settings_block, "delay": 0.2, "duration": 0.7, "ease": Tween.EASE_OUT, "move_distance": 700},
+		{"node": exit_block, "delay": 0.3, "duration": 0.6, "ease": Tween.EASE_IN, "move_distance": 750}
 	]
 	
-	# 设置按钮初始位置（屏幕外）
+	# 设置按钮初始位置（屏幕外右下角）
 	for button_data in buttons:
 		button_data.node.position.x = -400
+		button_data.node.position.y = 200
 	
 	# 启动按钮动画
 	for button_data in buttons:
