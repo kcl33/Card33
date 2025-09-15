@@ -5,6 +5,15 @@ extends CanvasLayer
 @onready var stripes := $Stripes
 @onready var dots := $Dots
 @onready var rain := $Rain
+@onready var background_shapes := $BackgroundShapes
+@onready var rect1 := $BackgroundShapes/Rect1
+@onready var rect2 := $BackgroundShapes/Rect2
+@onready var rect3 := $BackgroundShapes/Rect3
+@onready var rect4 := $BackgroundShapes/Rect4
+@onready var rect5 := $BackgroundShapes/Rect5
+@onready var line1 := $BackgroundShapes/Line1
+@onready var line2 := $BackgroundShapes/Line2
+@onready var line3 := $BackgroundShapes/Line3
 @onready var title_container := $TitleContainer
 @onready var main_title := $TitleContainer/MainTitle
 @onready var sub_title := $TitleContainer/SubTitle
@@ -102,12 +111,18 @@ func _setup_menu_blocks():
 		block.position.x = -400
 
 func _start_intro_animation():
-	# 标题炫酷入场动画
+	# 第一阶段：背景形状先进入
+	_background_shapes_animation()
+	
+	# 等待背景形状动画完成
+	await get_tree().create_timer(1.2).timeout
+	
+	# 第二阶段：标题炫酷入场动画
 	_title_blast_animation()
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	# 显示菜单容器
+	# 第三阶段：显示菜单容器
 	menu_container.visible = true
 	
 	# 激活雨滴效果
@@ -153,6 +168,39 @@ func _title_blast_animation():
 	tween2.tween_property(title_container, "scale", original_scale, 0.2)
 	tween2.set_trans(Tween.TRANS_ELASTIC)
 	tween2.set_ease(Tween.EASE_OUT)
+
+func _background_shapes_animation():
+	# 矩形形状动画 - 每个都有不同的速度和延迟
+	var shapes = [
+		{"node": rect1, "delay": 0.0, "duration": 0.8, "ease": Tween.EASE_OUT},
+		{"node": rect2, "delay": 0.1, "duration": 1.0, "ease": Tween.EASE_IN_OUT},
+		{"node": rect3, "delay": 0.2, "duration": 0.6, "ease": Tween.EASE_OUT},
+		{"node": rect4, "delay": 0.15, "duration": 0.9, "ease": Tween.EASE_IN},
+		{"node": rect5, "delay": 0.3, "duration": 0.7, "ease": Tween.EASE_OUT}
+	]
+	
+	# 线条动画
+	var lines = [
+		{"node": line1, "delay": 0.05, "duration": 0.5, "ease": Tween.EASE_OUT},
+		{"node": line2, "delay": 0.25, "duration": 0.6, "ease": Tween.EASE_IN_OUT},
+		{"node": line3, "delay": 0.1, "duration": 0.4, "ease": Tween.EASE_OUT}
+	]
+	
+	# 启动矩形动画
+	for shape_data in shapes:
+		var tween = create_tween()
+		tween.tween_delay(shape_data.delay)
+		tween.tween_property(shape_data.node, "position:x", shape_data.node.position.x + 500, shape_data.duration)
+		tween.set_ease(shape_data.ease)
+		tween.set_trans(Tween.TRANS_QUART)
+	
+	# 启动线条动画
+	for line_data in lines:
+		var tween = create_tween()
+		tween.tween_delay(line_data.delay)
+		tween.tween_property(line_data.node, "position:x", line_data.node.position.x + 400, line_data.duration)
+		tween.set_ease(line_data.ease)
+		tween.set_trans(Tween.TRANS_CUBIC)
 
 func _on_color_rect_clicked(event: InputEvent, button_text: String):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
