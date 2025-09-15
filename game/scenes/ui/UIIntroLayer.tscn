@@ -1,72 +1,117 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3f4hydn1ij85"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://d1o23ovw0r3er" path="res://game/scripts/ui/UIIntroLayer.gd" id="1"]
+[ext_resource type="Script" path="res://game/scripts/ui/UIIntroLayer.gd" id="1"]
 
 [node name="UIIntroLayer" type="CanvasLayer"]
-layer = 100
 script = ExtResource("1")
+layer = 100
 
 [node name="BG" type="ColorRect" parent="."]
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0, 0, 0, 1)
+color = Color(0.1, 0.1, 0.1, 1)
 
-[node name="Contour" type="ColorRect" parent="BG"]
-layout_mode = 0
+[node name="TitleContainer" type="Control" parent="."]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.6
+anchor_bottom = 0.4
+
+[node name="MainTitle" type="Label" parent="TitleContainer"]
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.9
+anchor_bottom = 0.4
+text = "CARDFORGE"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="SubTitle" type="Label" parent="TitleContainer"]
+anchor_left = 0.1
+anchor_top = 0.4
+anchor_right = 0.9
+anchor_bottom = 0.6
+text = "NEXUS"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="ChineseTitle" type="Label" parent="TitleContainer"]
+anchor_left = 0.1
+anchor_top = 0.6
+anchor_right = 0.9
+anchor_bottom = 0.8
+text = "卡牌锻造枢纽"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="MenuContainer" type="Control" parent="."]
+anchor_left = 0.0
+anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
+visible = false
 
-[node name="Stripes" type="ColorRect" parent="BG"]
-modulate = Color(1, 1, 1, 0.24)
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="StartBlock" type="Button" parent="MenuContainer"]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.45
+anchor_bottom = 0.3
+text = "开始游戏"
+flat = true
 
-[node name="Dots" type="ColorRect" parent="BG"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Title" type="Label" parent="."]
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.18
-anchor_right = 0.5
-anchor_bottom = 0.18
-offset_left = -360.0
-offset_top = -60.0
-offset_right = 360.0
-offset_bottom = 60.0
-text = "CARDFORGE NEXUS"
+[node name="StartLabel" type="Label" parent="MenuContainer/StartBlock"]
+anchor_left = 0.1
+anchor_top = 0.3
+anchor_right = 0.9
+anchor_bottom = 0.7
+text = "开始游戏"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Menu" type="VBoxContainer" parent="."]
-visible = false
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.45
-anchor_right = 0.5
-anchor_bottom = 0.45
-offset_left = -100.0
-offset_top = -80.0
-offset_right = 300.0
-offset_bottom = 120.0
+[node name="ContinueBlock" type="ColorRect" parent="MenuContainer"]
+anchor_left = 0.55
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.3
+color = Color(0.0, 0.0, 0.0, 0.8)
 
-[node name="Start" type="Button" parent="Menu"]
-layout_mode = 2
-text = "开始游戏"
-
-[node name="Continue" type="Button" parent="Menu"]
-layout_mode = 2
+[node name="ContinueLabel" type="Label" parent="MenuContainer/ContinueBlock"]
+anchor_left = 0.1
+anchor_top = 0.3
+anchor_right = 0.9
+anchor_bottom = 0.7
 text = "继续"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Settings" type="Button" parent="Menu"]
-layout_mode = 2
+[node name="SettingsBlock" type="ColorRect" parent="MenuContainer"]
+anchor_left = 0.1
+anchor_top = 0.4
+anchor_right = 0.45
+anchor_bottom = 0.6
+color = Color(0.0, 0.0, 0.0, 0.8)
+
+[node name="SettingsLabel" type="Label" parent="MenuContainer/SettingsBlock"]
+anchor_left = 0.1
+anchor_top = 0.3
+anchor_right = 0.9
+anchor_bottom = 0.7
 text = "设置"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Rain" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="ExitBlock" type="ColorRect" parent="MenuContainer"]
+anchor_left = 0.55
+anchor_top = 0.4
+anchor_right = 0.9
+anchor_bottom = 0.6
+color = Color(0.0, 0.0, 0.0, 0.8)
+
+[node name="ExitLabel" type="Label" parent="MenuContainer/ExitBlock"]
+anchor_left = 0.1
+anchor_top = 0.3
+anchor_right = 0.9
+anchor_bottom = 0.7
+text = "退出"
+horizontal_alignment = 1
+vertical_alignment = 1

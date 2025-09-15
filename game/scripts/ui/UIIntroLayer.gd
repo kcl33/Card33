@@ -1,75 +1,89 @@
 extends CanvasLayer
 
 @onready var bg := $BG
-@onready var contour := $BG/Contour
-@onready var stripes := $BG/Stripes
-@onready var dots := $BG/Dots
-@onready var title := $Title
-@onready var menu := $Menu
-@onready var rain := $Rain
+@onready var title_container := $TitleContainer
+@onready var main_title := $TitleContainer/MainTitle
+@onready var sub_title := $TitleContainer/SubTitle
+@onready var chinese_title := $TitleContainer/ChineseTitle
+@onready var menu_container := $MenuContainer
+@onready var start_block := $MenuContainer/StartBlock
+@onready var continue_block := $MenuContainer/ContinueBlock
+@onready var settings_block := $MenuContainer/SettingsBlock
+@onready var exit_block := $MenuContainer/ExitBlock
 
 const PunkThemeProfileRes = preload("res://game/scripts/ui/PunkThemeProfile.gd")
-const UIMotionRes = preload("res://game/scripts/ui/UIMotion.gd")
-const GridRes = preload("res://game/scripts/ui/UIGridContainer.gd")
 
 var theme_profile
-var motion
 var first_clicked := false
 
 func _ready():
-	# 准备主题与动效
+	# 准备主题
 	theme_profile = PunkThemeProfileRes.new()
-	motion = UIMotionRes.new()
-	add_child(motion)
-	motion.theme_profile = theme_profile
 	# 确保在最顶层
 	if self is CanvasLayer:
 		(self as CanvasLayer).layer = 100
 
-	# 应用背景材质
-	var grad_mat := ShaderMaterial.new()
-	grad_mat.shader = load("res://res/shaders/ContourGradient.gdshader")
-	grad_mat.set_shader_parameter("color_bg", Color(0,0,0,1))
-	grad_mat.set_shader_parameter("color_fg", theme_profile.color_magenta)
-	grad_mat.set_shader_parameter("line_width", theme_profile.contour_line_width)
-	grad_mat.set_shader_parameter("line_spacing", theme_profile.contour_line_spacing)
-	grad_mat.set_shader_parameter("flow_speed", theme_profile.contour_flow_speed)
-	contour.material = grad_mat
-
-	var stripe_mat := ShaderMaterial.new()
-	stripe_mat.shader = load("res://res/shaders/Stripes.gdshader")
-	stripe_mat.set_shader_parameter("angle_degrees", theme_profile.stripes_angle_degrees)
-	stripe_mat.set_shader_parameter("speed", theme_profile.stripes_speed * 0.3)  # 降低速度
-	stripe_mat.set_shader_parameter("contrast", theme_profile.stripes_contrast * 0.4)  # 降低对比
-	stripe_mat.set_shader_parameter("color_a", theme_profile.color_black)
-	stripe_mat.set_shader_parameter("color_b", theme_profile.color_magenta)
-	stripes.material = stripe_mat
-	stripes.modulate = Color(1, 1, 1, 0.08)  # 大幅降低透明度
-
-	# 灰点与圆球层
-	var dots_mat := ShaderMaterial.new()
-	dots_mat.shader = load("res://res/shaders/HalftoneDotsAndCircles.gdshader")
-	dots.material = dots_mat
-	dots.modulate = Color(1, 1, 1, 0.12)  # 大幅降低透明度
-
-	# 雨滴前景
-	var rain_mat := ShaderMaterial.new()
-	rain_mat.shader = load("res://res/shaders/RainDrops.gdshader")
-	rain.material = rain_mat
-	rain.visible = false
-
-	# 初始标题倾斜
-	title.rotation_degrees = theme_profile.title_skew_degrees
-	title.add_theme_color_override("font_color", theme_profile.color_white)
-	# 标题肩标扫光材质
-	var sweep := ShaderMaterial.new()
-	sweep.shader = load("res://res/shaders/SweepFlash.gdshader")
-	title.material = sweep
-	# 设置标题字体大小
-	title.add_theme_font_size_override("font_size", 48)
-
-	# 引导点击提示（可后续加入闪光/灰点）
+	# 设置标题样式
+	_setup_title_style()
+	
+	# 设置菜单块样式
+	_setup_menu_blocks()
+	
+	# 初始状态：标题可见，菜单隐藏
+	title_container.modulate.a = 0.0
+	menu_container.visible = false
+	
+	# 引导点击提示
 	set_process_unhandled_input(true)
+
+func _setup_title_style():
+	# 主标题
+	main_title.add_theme_font_size_override("font_size", 64)
+	main_title.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+	main_title.add_theme_color_override("font_outline_color", Color(0.9, 0.0, 0.35, 1))
+	main_title.add_theme_constant_override("outline_size", 4)
+	
+	# 副标题
+	sub_title.add_theme_font_size_override("font_size", 48)
+	sub_title.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+	sub_title.add_theme_color_override("font_outline_color", Color(0.9, 0.0, 0.35, 1))
+	sub_title.add_theme_constant_override("outline_size", 3)
+	
+	# 中文标题
+	chinese_title.add_theme_font_size_override("font_size", 24)
+	chinese_title.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8, 1))
+
+func _setup_menu_blocks():
+	var blocks = [start_block, continue_block, settings_block, exit_block]
+	var colors = [Color(0.9, 0.0, 0.35, 0.8), Color(0.0, 0.0, 0.0, 0.8), Color(0.0, 0.0, 0.0, 0.8), Color(0.0, 0.0, 0.0, 0.8)]
+	
+	for i in range(blocks.size()):
+		var block = blocks[i]
+		
+		# 设置按钮样式
+		var style = StyleBoxFlat.new()
+		style.bg_color = colors[i]
+		style.border_color = Color(0.9, 0.0, 0.35, 1)
+		style.border_width_left = 3
+		style.border_width_top = 3
+		style.border_width_right = 3
+		style.border_width_bottom = 3
+		style.corner_radius_top_left = 0
+		style.corner_radius_top_right = 0
+		style.corner_radius_bottom_left = 0
+		style.corner_radius_bottom_right = 0
+		
+		block.add_theme_stylebox_override("normal", style)
+		block.add_theme_font_size_override("font_size", 28)
+		block.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+		block.add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+		block.add_theme_constant_override("outline_size", 2)
+		
+		# 连接信号
+		block.pressed.connect(_on_menu_pressed.bind(block.text))
+		
+		# 初始位置（屏幕外）
+		block.position.x = -400
 
 func _unhandled_input(event):
 	if first_clicked:
@@ -79,48 +93,33 @@ func _unhandled_input(event):
 		_reveal_sequence()
 
 func _reveal_sequence():
-	# 标题外抛->弹入
-	motion.title_blast(title)
-	await get_tree().create_timer(0.46).timeout
-	# 显示菜单并阶梯入场
-	menu.visible = true
-	# 使用可视区域安置主面板与菜单，避免未初始化尺寸导致错位
-	var vp_size := get_viewport().get_visible_rect().size
-	var rect_scene: PackedScene = load("res://game/scenes/ui/UIRectAccent.tscn")
-	var rect := rect_scene.instantiate()
-	add_child(rect)
-	var panel_size := Vector2(vp_size.x * 0.44, vp_size.y * 0.38)
-	var panel_pos := Vector2(vp_size.x * 0.28, vp_size.y * 0.36)
-	rect.position = panel_pos
-	rect.size = panel_size
-	menu.reparent(rect)
-	menu.position = Vector2(24, 24)
-	menu.size = panel_size - Vector2(48, 48)
+	# 标题淡入
+	var title_tween = create_tween()
+	title_tween.tween_property(title_container, "modulate:a", 1.0, 0.8)
+	
+	await get_tree().create_timer(0.5).timeout
+	
+	# 显示菜单容器
+	menu_container.visible = true
+	
+	# 菜单块依次滑入
+	var blocks = [start_block, continue_block, settings_block, exit_block]
+	for i in range(blocks.size()):
+		var block = blocks[i]
+		var target_x = block.position.x + 400
+		var tween = create_tween()
+		tween.tween_property(block, "position:x", target_x, 0.4)
+		tween.set_trans(Tween.TRANS_BACK)
+		tween.set_ease(Tween.EASE_OUT)
+		await get_tree().create_timer(0.1).timeout
 
-	# 右下状态卡片
-	var status_scene: PackedScene = load("res://game/scenes/ui/StatusCard.tscn")
-	var status := status_scene.instantiate()
-	add_child(status)
-	status.position = Vector2(get_viewport().size.x - 320, get_viewport().size.y - 160)
-	# 替换按钮为朋克按钮皮肤
-	for i in range(menu.get_child_count()):
-		var child = menu.get_child(i)
-		if child is Button:
-			var punk_scene: PackedScene = load("res://game/scenes/ui/UIButtonPunk.tscn")
-			var punk_btn: Button = punk_scene.instantiate() as Button
-			punk_btn.text = (child as Button).text
-			menu.remove_child(child)
-			child.queue_free()
-			menu.add_child(punk_btn)
-	var i := 0
-	for child in menu.get_children():
-		if child is CanvasItem:
-			(child as CanvasItem).visible = false
-	for child in menu.get_children():
-		if child is CanvasItem:
-			(child as CanvasItem).visible = true
-			motion.show_with_motion(child, float(i) * theme_profile.reveal_step_delay)
-			i += 1
-
-	# 启用前景雨滴
-	rain.visible = true
+func _on_menu_pressed(button_text: String):
+	match button_text:
+		"开始游戏":
+			print("开始游戏")
+		"继续":
+			print("继续游戏")
+		"设置":
+			print("打开设置")
+		"退出":
+			get_tree().quit()
