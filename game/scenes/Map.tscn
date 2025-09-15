@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://game/scripts/Map.gd" id="1"]
 [ext_resource type="Theme" path="res://game/resources/default_theme.tres" id="2"]
 [ext_resource type="Script" path="res://game/scripts/MapGenerator.gd" id="3"]
+[ext_resource type="PackedScene" path="res://game/scenes/ui/UIIntroLayer.tscn" id="4"]
 
 [node name="Map" type="Control"]
 script = ExtResource("1")
@@ -16,3 +17,5 @@ anchor_bottom = 1.0
 
 [node name="MapGenerator" type="Node" parent="."]
 script = ExtResource("3")
+
+[node name="UIIntroLayer" parent="." instance=ExtResource("4")]
