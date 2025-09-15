@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://game/scripts/ui/UIIntroLayer.gd" id="1"]
 
 [node name="UIIntroLayer" type="CanvasLayer"]
+layer = 100
 script = ExtResource("1")
 
 [node name="BG" type="ColorRect" parent="."]

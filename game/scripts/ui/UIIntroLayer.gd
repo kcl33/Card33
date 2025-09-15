@@ -22,6 +22,9 @@ func _ready():
 	motion = UIMotionRes.new()
 	add_child(motion)
 	motion.theme_profile = theme_profile
+	# 确保在最顶层
+	if self is CanvasLayer:
+		(self as CanvasLayer).layer = 100
 
 	# 应用背景材质
 	var grad_mat := ShaderMaterial.new()
