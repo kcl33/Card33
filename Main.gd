@@ -7,9 +7,7 @@ func _ready():
 	
 	# Check if required plugins are available
 	check_plugins()
-	
-	# Load main menu
-	load_main_menu()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -32,6 +30,4 @@ func check_plugins():
 	print("All systems ready!")
 
 func load_main_menu():
-	print("Loading main menu...")
-	# 直接切换到主菜单场景
-	get_tree().change_scene("res://scenes/ui/MainMenu.tscn")
+	pass

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://game/scripts/MapUI.gd" id="1"]
+[ext_resource type="Theme" path="res://game/resources/default_theme.tres" id="2"]
+[ext_resource type="Script" path="res://game/scripts/MapGenerator.gd" id="3"]
+
+[node name="MapUI" type="Control"]
+script = ExtResource("1")
+theme = ExtResource("2")
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="ColorRect" parent="."]
+color = Color( 0.1, 0.1, 0.1, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MapContainer" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MapGenerator" type="Node" parent="."]
+script = ExtResource("3")

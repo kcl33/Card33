@@ -1,0 +1,7 @@
+[gd_resource type="GradientTexture2D" load_steps=2 format=2]
+
+[resource]
+resource_name = "Card Placeholder"
+width = 200
+height = 300
+fill = 2

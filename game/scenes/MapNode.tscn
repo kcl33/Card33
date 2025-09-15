@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://game/scripts/MapNode.gd" id="1"]
+[ext_resource type="Theme" path="res://game/resources/default_theme.tres" id="2"]
+
+[node name="MapNode" type="Control"]
+script = ExtResource("1")
+theme = ExtResource("2")
+rect_min_size = Vector2( 60, 60 )
+
+[node name="Background" type="ColorRect" parent="."]
+rect_min_size = Vector2( 60, 60 )
+color = Color( 0.8, 0.2, 0.2, 1 )
+
+[node name="Icon" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+stretch_mode = 3
+
+[node name="Highlight" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0

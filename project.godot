@@ -11,8 +11,15 @@ config_version=5
 [application]
 
 config/name="CardForge Nexus"
-run/main_scene="res://scenes/ui/MainMenu.tscn"
+run/main_scene="res://game/scenes/Map.tscn"
 config/features=PackedStringArray("4.4")
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
+window/stretch/mode="viewport"
 
 [physics]
 
