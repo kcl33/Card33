@@ -1,6 +1,10 @@
 extends CanvasLayer
 
 @onready var bg := $BG
+@onready var contour := $Contour
+@onready var stripes := $Stripes
+@onready var dots := $Dots
+@onready var rain := $Rain
 @onready var title_container := $TitleContainer
 @onready var main_title := $TitleContainer/MainTitle
 @onready var sub_title := $TitleContainer/SubTitle
@@ -23,6 +27,9 @@ func _ready():
 	if self is CanvasLayer:
 		(self as CanvasLayer).layer = 100
 
+	# 设置背景效果
+	_setup_background_effects()
+	
 	# 设置菜单块样式
 	_setup_menu_blocks()
 	
@@ -33,6 +40,23 @@ func _ready():
 	# 引导点击提示
 	set_process_unhandled_input(true)
 
+func _setup_background_effects():
+	# 设置等高线背景
+	if contour:
+		contour.color = Color(0.05, 0.05, 0.05, 1)
+	
+	# 设置条纹效果（极淡）
+	if stripes:
+		stripes.color = Color(1, 1, 1, 0.08)
+	
+	# 设置灰点效果（极淡）
+	if dots:
+		dots.color = Color(1, 1, 1, 0.12)
+	
+	# 雨滴效果（初始隐藏）
+	if rain:
+		rain.color = Color(0, 0, 0, 0.3)
+		rain.visible = false
 
 func _setup_menu_blocks():
 	var blocks = [start_block, continue_block, settings_block, exit_block]
@@ -92,6 +116,10 @@ func _reveal_sequence():
 	
 	# 显示菜单容器
 	menu_container.visible = true
+	
+	# 激活雨滴效果
+	if rain:
+		rain.visible = true
 	
 	# 菜单块依次滑入
 	var blocks = [start_block, continue_block, settings_block, exit_block]
