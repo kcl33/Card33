@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://game/scripts/ui/UIBannerTag.gd" id="1"]
+
+[node name="UIBannerTag" type="Control"]
+script = ExtResource("1")
+anchor_right = 0.5
+anchor_bottom = 0.1
+
+[node name="Label" type="Label" parent="."]
+text = "TITLE"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+

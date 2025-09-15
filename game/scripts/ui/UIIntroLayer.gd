@@ -10,6 +10,7 @@ extends CanvasLayer
 
 const PunkThemeProfileRes = preload("res://game/scripts/ui/PunkThemeProfile.gd")
 const UIMotionRes = preload("res://game/scripts/ui/UIMotion.gd")
+const GridRes = preload("res://game/scripts/ui/UIGridContainer.gd")
 
 var theme_profile
 var motion
@@ -72,12 +73,25 @@ func _reveal_sequence():
 	await get_tree().create_timer(0.46).timeout
 	# 显示菜单并阶梯入场
 	menu.visible = true
+	# 使用格栅布局安置主面板和菜单
+	var grid := GridRes.new()
+	add_child(grid)
+	grid.columns = 12
+	grid.gutter = 16
+	# 主面板容器（用 UIRectAccent 包裹菜单）
+	var rect_scene: PackedScene = load("res://game/scenes/ui/UIRectAccent.tscn")
+	var rect := rect_scene.instantiate()
+	add_child(rect)
+	grid.layout_child(rect, 3, 7, 260, 320)
+	menu.reparent(rect)
+	menu.position = Vector2(24, 24)
+	menu.size = rect.size - Vector2(48, 48)
 	# 替换按钮为朋克按钮皮肤
 	for i in range(menu.get_child_count()):
 		var child = menu.get_child(i)
 		if child is Button:
-			var punk_scene := load("res://game/scenes/ui/UIButtonPunk.tscn")
-			var punk_btn := punk_scene.instantiate()
+			var punk_scene: PackedScene = load("res://game/scenes/ui/UIButtonPunk.tscn")
+			var punk_btn: Button = punk_scene.instantiate() as Button
 			punk_btn.text = (child as Button).text
 			menu.remove_child(child)
 			child.queue_free()
@@ -94,5 +108,3 @@ func _reveal_sequence():
 
 	# 启用前景雨滴
 	rain.visible = true
-
-
