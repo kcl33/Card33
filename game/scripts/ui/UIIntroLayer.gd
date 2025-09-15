@@ -180,8 +180,8 @@ func _start_delayed_animation(node: Node, delay: float, duration: float, ease: i
 	var tween = create_tween()
 	tween.parallel().tween_property(node, "position:x", node.position.x + move_distance, duration)
 	tween.parallel().tween_property(node, "rotation", node.rotation + rotation_extra, duration)
-		tween.set_ease(ease)
-		tween.set_trans(Tween.TRANS_QUART)
+	tween.set_ease(ease)
+	tween.set_trans(Tween.TRANS_QUART)
 
 func _menu_buttons_animation():
 	# 菜单按钮动画 - 阶梯状滑入，跟随矩形
