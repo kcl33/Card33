@@ -22,7 +22,7 @@ anchor_left = 0.1
 anchor_top = 0.2
 anchor_right = 0.9
 anchor_bottom = 0.4
-text = "CARDFORGE"
+text = "卡普洛斯的33个幻想"
 horizontal_alignment = 0
 vertical_alignment = 1
 
@@ -31,7 +31,7 @@ anchor_left = 0.1
 anchor_top = 0.4
 anchor_right = 0.9
 anchor_bottom = 0.6
-text = "NEXUS"
+text = "永无止境的雨与无止境边界的行者"
 horizontal_alignment = 0
 vertical_alignment = 1
 
@@ -40,7 +40,7 @@ anchor_left = 0.1
 anchor_top = 0.6
 anchor_right = 0.9
 anchor_bottom = 0.8
-text = "卡牌锻造枢纽"
+text = "CAPROS' 33 FANTASIES"
 horizontal_alignment = 0
 vertical_alignment = 1
 
