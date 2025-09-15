@@ -56,6 +56,10 @@ func _ready():
 	# 初始标题倾斜
 	title.rotation_degrees = theme_profile.title_skew_degrees
 	title.add_theme_color_override("font_color", theme_profile.color_white)
+	# 标题肩标扫光材质
+	var sweep := ShaderMaterial.new()
+	sweep.shader = load("res://res/shaders/SweepFlash.gdshader")
+	title.material = sweep
 
 	# 引导点击提示（可后续加入闪光/灰点）
 	set_process_unhandled_input(true)
@@ -86,6 +90,12 @@ func _reveal_sequence():
 	menu.reparent(rect)
 	menu.position = Vector2(24, 24)
 	menu.size = rect.size - Vector2(48, 48)
+
+	# 右下状态卡片
+	var status_scene: PackedScene = load("res://game/scenes/ui/StatusCard.tscn")
+	var status := status_scene.instantiate()
+	add_child(status)
+	status.position = Vector2(get_viewport().size.x - 320, get_viewport().size.y - 160)
 	# 替换按钮为朋克按钮皮肤
 	for i in range(menu.get_child_count()):
 		var child = menu.get_child(i)
