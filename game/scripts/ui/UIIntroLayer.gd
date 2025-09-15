@@ -37,8 +37,9 @@ func _ready():
 	title_container.modulate.a = 0.0
 	menu_container.visible = false
 	
-	# 引导点击提示
-	set_process_unhandled_input(true)
+	# 直接开始开场动画
+	await get_tree().create_timer(0.5).timeout
+	_start_intro_animation()
 
 func _setup_background_effects():
 	# 设置等高线背景
@@ -100,19 +101,11 @@ func _setup_menu_blocks():
 		# 初始位置（屏幕外）
 		block.position.x = -400
 
-func _unhandled_input(event):
-	if first_clicked:
-		return
-	if event is InputEventMouseButton and event.pressed:
-		first_clicked = true
-		_reveal_sequence()
-
-func _reveal_sequence():
-	# 标题淡入
-	var title_tween = create_tween()
-	title_tween.tween_property(title_container, "modulate:a", 1.0, 0.8)
+func _start_intro_animation():
+	# 标题炫酷入场动画
+	_title_blast_animation()
 	
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1.0).timeout
 	
 	# 显示菜单容器
 	menu_container.visible = true
@@ -131,6 +124,35 @@ func _reveal_sequence():
 		tween.set_trans(Tween.TRANS_BACK)
 		tween.set_ease(Tween.EASE_OUT)
 		await get_tree().create_timer(0.1).timeout
+
+func _title_blast_animation():
+	# 保存原始变换
+	var original_scale = title_container.scale
+	var original_rotation = title_container.rotation
+	var original_pos = title_container.position
+	
+	# 初始状态：标题在屏幕外，放大并旋转
+	title_container.position = Vector2(-800, original_pos.y)
+	title_container.scale = Vector2(3.0, 3.0)
+	title_container.rotation = original_rotation + 0.5
+	title_container.modulate.a = 0.0
+	
+	# 第一阶段：快速移动到屏幕中央，同时淡入
+	var tween1 = create_tween()
+	tween1.parallel().tween_property(title_container, "position", original_pos, 0.6)
+	tween1.parallel().tween_property(title_container, "modulate:a", 1.0, 0.6)
+	tween1.parallel().tween_property(title_container, "scale", original_scale, 0.6)
+	tween1.parallel().tween_property(title_container, "rotation", original_rotation, 0.6)
+	tween1.set_trans(Tween.TRANS_BACK)
+	tween1.set_ease(Tween.EASE_OUT)
+	
+	# 第二阶段：轻微弹跳效果
+	await tween1.finished
+	var tween2 = create_tween()
+	tween2.tween_property(title_container, "scale", original_scale * 1.1, 0.2)
+	tween2.tween_property(title_container, "scale", original_scale, 0.2)
+	tween2.set_trans(Tween.TRANS_ELASTIC)
+	tween2.set_ease(Tween.EASE_OUT)
 
 func _on_color_rect_clicked(event: InputEvent, button_text: String):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
