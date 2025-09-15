@@ -186,23 +186,32 @@ func _background_shapes_animation():
 		{"node": line3, "delay": 0.1, "duration": 0.4, "ease": Tween.EASE_OUT, "rotation_extra": 0.07}
 	]
 	
-	# 启动矩形动画 - 包含位置和旋转
+	# 启动矩形动画 - 使用Timer实现延迟
 	for shape_data in shapes:
-		var tween = create_tween()
-		tween.tween_delay(shape_data.delay)
-		tween.parallel().tween_property(shape_data.node, "position:x", shape_data.node.position.x + 500, shape_data.duration)
-		tween.parallel().tween_property(shape_data.node, "rotation", shape_data.node.rotation + shape_data.rotation_extra, shape_data.duration)
-		tween.set_ease(shape_data.ease)
-		tween.set_trans(Tween.TRANS_QUART)
+		_start_delayed_animation(shape_data.node, shape_data.delay, shape_data.duration, shape_data.ease, shape_data.rotation_extra, 500)
 	
-	# 启动线条动画 - 包含位置和旋转
+	# 启动线条动画
 	for line_data in lines:
-		var tween = create_tween()
-		tween.tween_delay(line_data.delay)
-		tween.parallel().tween_property(line_data.node, "position:x", line_data.node.position.x + 400, line_data.duration)
-		tween.parallel().tween_property(line_data.node, "rotation", line_data.node.rotation + line_data.rotation_extra, line_data.duration)
-		tween.set_ease(line_data.ease)
-		tween.set_trans(Tween.TRANS_CUBIC)
+		_start_delayed_animation(line_data.node, line_data.delay, line_data.duration, line_data.ease, line_data.rotation_extra, 400)
+
+func _start_delayed_animation(node: Node, delay: float, duration: float, ease: int, rotation_extra: float, move_distance: float):
+	# 创建延迟定时器
+	var timer = Timer.new()
+	timer.wait_time = delay
+	timer.one_shot = true
+	add_child(timer)
+	timer.start()
+	
+	# 等待延迟时间
+	await timer.timeout
+	timer.queue_free()
+	
+	# 开始动画
+	var tween = create_tween()
+	tween.parallel().tween_property(node, "position:x", node.position.x + move_distance, duration)
+	tween.parallel().tween_property(node, "rotation", node.rotation + rotation_extra, duration)
+	tween.set_ease(ease)
+	tween.set_trans(Tween.TRANS_QUART)
 
 func _on_color_rect_clicked(event: InputEvent, button_text: String):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
