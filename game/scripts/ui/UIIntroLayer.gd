@@ -39,16 +39,18 @@ func _ready():
 	var stripe_mat := ShaderMaterial.new()
 	stripe_mat.shader = load("res://res/shaders/Stripes.gdshader")
 	stripe_mat.set_shader_parameter("angle_degrees", theme_profile.stripes_angle_degrees)
-	stripe_mat.set_shader_parameter("speed", theme_profile.stripes_speed)
-	stripe_mat.set_shader_parameter("contrast", theme_profile.stripes_contrast)
+	stripe_mat.set_shader_parameter("speed", theme_profile.stripes_speed * 0.3)  # 降低速度
+	stripe_mat.set_shader_parameter("contrast", theme_profile.stripes_contrast * 0.4)  # 降低对比
 	stripe_mat.set_shader_parameter("color_a", theme_profile.color_black)
 	stripe_mat.set_shader_parameter("color_b", theme_profile.color_magenta)
 	stripes.material = stripe_mat
+	stripes.modulate = Color(1, 1, 1, 0.08)  # 大幅降低透明度
 
 	# 灰点与圆球层
 	var dots_mat := ShaderMaterial.new()
 	dots_mat.shader = load("res://res/shaders/HalftoneDotsAndCircles.gdshader")
 	dots.material = dots_mat
+	dots.modulate = Color(1, 1, 1, 0.12)  # 大幅降低透明度
 
 	# 雨滴前景
 	var rain_mat := ShaderMaterial.new()
