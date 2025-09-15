@@ -3,17 +3,22 @@ extends CanvasLayer
 @onready var bg := $BG
 @onready var contour := $BG/Contour
 @onready var stripes := $BG/Stripes
+@onready var dots := $BG/Dots
 @onready var title := $Title
 @onready var menu := $Menu
+@onready var rain := $Rain
 
-var theme_profile: PunkThemeProfile
-var motion: UIMotion
+const PunkThemeProfileRes = preload("res://game/scripts/ui/PunkThemeProfile.gd")
+const UIMotionRes = preload("res://game/scripts/ui/UIMotion.gd")
+
+var theme_profile
+var motion
 var first_clicked := false
 
 func _ready():
 	# 准备主题与动效
-	theme_profile = PunkThemeProfile.new()
-	motion = UIMotion.new()
+	theme_profile = PunkThemeProfileRes.new()
+	motion = UIMotionRes.new()
 	add_child(motion)
 	motion.theme_profile = theme_profile
 
@@ -36,6 +41,17 @@ func _ready():
 	stripe_mat.set_shader_parameter("color_b", theme_profile.color_magenta)
 	stripes.material = stripe_mat
 
+	# 灰点与圆球层
+	var dots_mat := ShaderMaterial.new()
+	dots_mat.shader = load("res://res/shaders/HalftoneDotsAndCircles.gdshader")
+	dots.material = dots_mat
+
+	# 雨滴前景
+	var rain_mat := ShaderMaterial.new()
+	rain_mat.shader = load("res://res/shaders/RainDrops.gdshader")
+	rain.material = rain_mat
+	rain.visible = false
+
 	# 初始标题倾斜
 	title.rotation_degrees = theme_profile.title_skew_degrees
 	title.add_theme_color_override("font_color", theme_profile.color_white)
@@ -56,6 +72,16 @@ func _reveal_sequence():
 	await get_tree().create_timer(0.46).timeout
 	# 显示菜单并阶梯入场
 	menu.visible = true
+	# 替换按钮为朋克按钮皮肤
+	for i in range(menu.get_child_count()):
+		var child = menu.get_child(i)
+		if child is Button:
+			var punk_scene := load("res://game/scenes/ui/UIButtonPunk.tscn")
+			var punk_btn := punk_scene.instantiate()
+			punk_btn.text = (child as Button).text
+			menu.remove_child(child)
+			child.queue_free()
+			menu.add_child(punk_btn)
 	var i := 0
 	for child in menu.get_children():
 		if child is CanvasItem:
@@ -65,5 +91,8 @@ func _reveal_sequence():
 			(child as CanvasItem).visible = true
 			motion.show_with_motion(child, float(i) * theme_profile.reveal_step_delay)
 			i += 1
+
+	# 启用前景雨滴
+	rain.visible = true
 
 

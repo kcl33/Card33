@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://game/scripts/ui/UIButtonPunk.gd" id="1"]
+
+[node name="UIButtonPunk" type="Button"]
+script = ExtResource("1")
+flat = true
+text = "PUNK BUTTON"
+
+

@@ -33,7 +33,7 @@ func generate_map():
 	
 	# 生成起始节点
 	var start_node = _create_node(NodeType.START, "start")
-	start_node.rect_position = Vector2(MAP_WIDTH/2 - 30, 20)
+	start_node.position = Vector2(MAP_WIDTH/2 - 30, 20)
 	add_child(start_node)
 	map_nodes[start_node.node_id] = start_node
 	
@@ -46,7 +46,7 @@ func generate_map():
 	
 	# 生成Boss节点
 	var boss_node = _create_node(NodeType.BOSS, "boss")
-	boss_node.rect_position = Vector2(MAP_WIDTH/2 - 30, MAP_HEIGHT - 80)
+	boss_node.position = Vector2(MAP_WIDTH/2 - 30, MAP_HEIGHT - 80)
 	add_child(boss_node)
 	map_nodes[boss_node.node_id] = boss_node
 	
@@ -85,7 +85,7 @@ func _generate_row(row_index, prev_row_nodes):
 		# 设置位置
 		var x = start_x + i * NODE_SPACING_X
 		var y = 80 + row_index * NODE_SPACING_Y
-		node.rect_position = Vector2(x, y)
+		node.position = Vector2(x, y)
 		
 		# 添加到场景和字典中
 		add_child(node)
@@ -135,7 +135,7 @@ func _determine_node_type(row_index, node_index, node_count):
 # 创建节点实例
 func _create_node(node_type, node_id):
 	var node_scene = preload("res://game/scenes/MapNode.tscn")
-	var node = node_scene.instance()
+	var node = node_scene.instantiate()
 	node.node_type = node_type
 	node.node_id = node_id
 	return node
@@ -164,7 +164,7 @@ func _connect_rows(prev_row_nodes, current_row_nodes):
 # 获取最近的节点
 func _get_closest_nodes(target_node, node_list, count):
 	var sorted_nodes = node_list.duplicate()
-	sorted_nodes.sort_custom(self, "_sort_by_distance_to_target")
+	sorted_nodes.sort_custom(Callable(self, "_sort_by_distance_to_target"))
 	
 	var result = []
 	for i in range(min(count, sorted_nodes.size())):
@@ -175,8 +175,8 @@ func _get_closest_nodes(target_node, node_list, count):
 # 排序函数：按距离目标节点排序
 func _sort_by_distance_to_target(a, b):
 	var target_pos = Vector2(MAP_WIDTH/2, 0)  # 简化的排序目标
-	var dist_a = a.rect_position.distance_to(target_pos)
-	var dist_b = b.rect_position.distance_to(target_pos)
+	var dist_a = a.position.distance_to(target_pos)
+	var dist_b = b.position.distance_to(target_pos)
 	return dist_a < dist_b
 
 # 设置当前节点

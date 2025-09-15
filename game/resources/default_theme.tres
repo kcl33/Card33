@@ -1,23 +1,17 @@
-整体倾斜的方式在左上角，[gd_resource type="Theme" load_steps=3 format=3]
-
-[resource]
-default_font_size = 18
-
-[button_styles]
-normal = SubResource("1")
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b0esrnsyp1jk2"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
 bg_color = Color(0, 0, 0, 0.7)
-border_color = Color(0.93, 0, 0.55, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-corner_radius_top_left = 0
-corner_radius_top_right = 0
-corner_radius_bottom_right = 0
-corner_radius_bottom_left = 0
-content_margin_left = 10
-content_margin_right = 10
-content_margin_top = 5
-content_margin_bottom = 5
+border_color = Color(0.93, 0, 0.55, 1)
+
+[resource]
+default_font_size = 18
+Button/styles/normal = SubResource("1")

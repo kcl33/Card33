@@ -44,7 +44,11 @@ func title_blast(title_node: Node) -> void:
 	var ci := title_node as CanvasItem
 	var t := create_tween()
 	# 外抛
-	var original_pos := ci.position
+	var original_pos: Vector2 = Vector2.ZERO
+	if ci is Control:
+		original_pos = (ci as Control).position
+	elif ci is Node2D:
+		original_pos = (ci as Node2D).position
 	var off := Vector2(0, -get_viewport().size.y * 0.6)
 	var scale0 := Vector2.ONE
 	var scale_peak := Vector2( (theme_profile.reveal_scale_peak if theme_profile else 1.12), (theme_profile.reveal_scale_peak if theme_profile else 1.12) )
@@ -54,5 +58,3 @@ func title_blast(title_node: Node) -> void:
 	t.tween_property(ci, "position", original_pos, 0.26).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	t.parallel().tween_property(ci, "scale", scale_peak, 0.22)
 	t.tween_property(ci, "scale", Vector2.ONE, 0.18)
-
-

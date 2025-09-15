@@ -18,6 +18,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 modulate = Color(1, 1, 1, 0.24)
 
+[node name="Dots" type="ColorRect" parent="BG"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+modulate = Color(1, 1, 1, 1)
+
 [node name="Title" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.18
@@ -41,6 +46,11 @@ offset_top = -80.0
 offset_right = 300.0
 offset_bottom = 120.0
 visible = false
+
+[node name="Rain" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+modulate = Color(1, 1, 1, 1)
 
 [node name="Start" type="Button" parent="Menu"]
 text = "开始游戏"
