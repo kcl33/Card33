@@ -23,9 +23,6 @@ func _ready():
 	if self is CanvasLayer:
 		(self as CanvasLayer).layer = 100
 
-	# 设置标题样式（异步）
-	await _setup_title_style()
-	
 	# 设置菜单块样式
 	_setup_menu_blocks()
 	
@@ -36,41 +33,6 @@ func _ready():
 	# 引导点击提示
 	set_process_unhandled_input(true)
 
-func _setup_title_style():
-	# 等待一帧确保节点完全初始化
-	await get_tree().process_frame
-	
-	# 尝试加载字体，如果失败则使用默认字体
-	var custom_font = null
-	if FileAccess.file_exists("res://res/fonts/BetterPixels.ttf"):
-		custom_font = load("res://res/fonts/BetterPixels.ttf")
-	
-	# 主标题 - 最大字体，粗体描边
-	if main_title:
-		main_title.add_theme_font_size_override("font_size", 72)
-		main_title.add_theme_color_override("font_color", Color(1, 1, 1, 1))
-		main_title.add_theme_color_override("font_outline_color", Color(0.9, 0.0, 0.35, 1))
-		main_title.add_theme_constant_override("outline_size", 6)  # 更粗的描边
-		if custom_font:
-			main_title.add_theme_font_override("font", custom_font)
-	
-	# 副标题 - 中等字体，中等描边
-	if sub_title:
-		sub_title.add_theme_font_size_override("font_size", 56)
-		sub_title.add_theme_color_override("font_color", Color(1, 1, 1, 1))
-		sub_title.add_theme_color_override("font_outline_color", Color(0.9, 0.0, 0.35, 1))
-		sub_title.add_theme_constant_override("outline_size", 4)
-		if custom_font:
-			sub_title.add_theme_font_override("font", custom_font)
-	
-	# 中文标题 - 小字体，细描边
-	if chinese_title:
-		chinese_title.add_theme_font_size_override("font_size", 32)
-		chinese_title.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8, 1))
-		chinese_title.add_theme_color_override("font_outline_color", Color(0.9, 0.0, 0.35, 0.8))
-		chinese_title.add_theme_constant_override("outline_size", 2)
-		if custom_font:
-			chinese_title.add_theme_font_override("font", custom_font)
 
 func _setup_menu_blocks():
 	var blocks = [start_block, continue_block, settings_block, exit_block]
