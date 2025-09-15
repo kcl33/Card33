@@ -43,93 +43,27 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Rect1" type="ColorRect" parent="BackgroundShapes"]
-layout_mode = 1
-offset_left = -200.0
-offset_top = 100.0
-offset_right = -50.0
-offset_bottom = 180.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.2
-color = Color(0.9, 0, 0.35, 0.6)
-
-[node name="Rect2" type="ColorRect" parent="BackgroundShapes"]
-layout_mode = 1
-offset_left = -300.0
-offset_top = 300.0
-offset_right = -150.0
-offset_bottom = 380.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 0.15
-color = Color(0, 0, 0, 0.8)
-
-[node name="Rect3" type="ColorRect" parent="BackgroundShapes"]
-layout_mode = 1
-offset_left = -250.0
-offset_top = 50.0
-offset_right = -100.0
-offset_bottom = 130.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.18
-color = Color(0.9, 0, 0.35, 0.4)
-
-[node name="Rect4" type="ColorRect" parent="BackgroundShapes"]
+[node name="MainRect1" type="ColorRect" parent="BackgroundShapes"]
 layout_mode = 1
 offset_left = -400.0
-offset_top = 200.0
-offset_right = -250.0
-offset_bottom = 280.0
+offset_top = 150.0
+offset_right = -100.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.15
+color = Color(0.9, 0, 0.35, 0.9)
+
+[node name="MainRect2" type="ColorRect" parent="BackgroundShapes"]
+layout_mode = 1
+offset_left = -450.0
+offset_top = 350.0
+offset_right = -150.0
+offset_bottom = 500.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.12
-color = Color(1, 1, 1, 0.3)
-
-[node name="Rect5" type="ColorRect" parent="BackgroundShapes"]
-layout_mode = 1
-offset_left = -350.0
-offset_top = 400.0
-offset_right = -200.0
-offset_bottom = 480.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.16
-color = Color(0, 0, 0, 0.6)
-
-[node name="Line1" type="ColorRect" parent="BackgroundShapes"]
-layout_mode = 1
-offset_left = -100.0
-offset_top = 80.0
-offset_right = 200.0
-offset_bottom = 85.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.1
-color = Color(0.9, 0, 0.35, 0.8)
-
-[node name="Line2" type="ColorRect" parent="BackgroundShapes"]
-layout_mode = 1
-offset_left = -150.0
-offset_top = 250.0
-offset_right = 150.0
-offset_bottom = 255.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 0.08
-color = Color(1, 1, 1, 0.6)
-
-[node name="Line3" type="ColorRect" parent="BackgroundShapes"]
-layout_mode = 1
-offset_left = -200.0
-offset_top = 350.0
-offset_right = 100.0
-offset_bottom = 355.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.12
-color = Color(0.9, 0, 0.35, 0.5)
+color = Color(0, 0, 0, 0.9)
 
 [node name="TitleContainer" type="Control" parent="."]
 layout_mode = 3
@@ -206,16 +140,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="StartBlock" type="Button" parent="MenuContainer"]
-layout_mode = 0
-anchor_left = 0.1
-anchor_top = 0.1
-anchor_right = 0.45
-anchor_bottom = 0.3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.2
+anchor_right = 0.9
+anchor_bottom = 0.4
 text = "开始游戏"
 flat = true
 
 [node name="StartLabel" type="Label" parent="MenuContainer/StartBlock"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.1
 anchor_top = 0.3
 anchor_right = 0.9
@@ -225,15 +161,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ContinueBlock" type="ColorRect" parent="MenuContainer"]
-layout_mode = 0
-anchor_left = 0.55
-anchor_top = 0.1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.5
 anchor_right = 0.9
-anchor_bottom = 0.3
+anchor_bottom = 0.7
 color = Color(0, 0, 0, 0.8)
 
 [node name="ContinueLabel" type="Label" parent="MenuContainer/ContinueBlock"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.1
 anchor_top = 0.3
 anchor_right = 0.9
@@ -243,15 +181,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SettingsBlock" type="ColorRect" parent="MenuContainer"]
-layout_mode = 0
-anchor_left = 0.1
-anchor_top = 0.4
-anchor_right = 0.45
-anchor_bottom = 0.6
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.8
+anchor_right = 0.9
+anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.8)
 
 [node name="SettingsLabel" type="Label" parent="MenuContainer/SettingsBlock"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.1
 anchor_top = 0.3
 anchor_right = 0.9
@@ -261,15 +201,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ExitBlock" type="ColorRect" parent="MenuContainer"]
-layout_mode = 0
-anchor_left = 0.55
-anchor_top = 0.4
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.1
 anchor_right = 0.9
-anchor_bottom = 0.6
+anchor_bottom = 0.3
 color = Color(0, 0, 0, 0.8)
 
 [node name="ExitLabel" type="Label" parent="MenuContainer/ExitBlock"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.1
 anchor_top = 0.3
 anchor_right = 0.9

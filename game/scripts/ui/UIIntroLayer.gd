@@ -6,14 +6,8 @@ extends CanvasLayer
 @onready var dots := $Dots
 @onready var rain := $Rain
 @onready var background_shapes := $BackgroundShapes
-@onready var rect1 := $BackgroundShapes/Rect1
-@onready var rect2 := $BackgroundShapes/Rect2
-@onready var rect3 := $BackgroundShapes/Rect3
-@onready var rect4 := $BackgroundShapes/Rect4
-@onready var rect5 := $BackgroundShapes/Rect5
-@onready var line1 := $BackgroundShapes/Line1
-@onready var line2 := $BackgroundShapes/Line2
-@onready var line3 := $BackgroundShapes/Line3
+@onready var main_rect1 := $BackgroundShapes/MainRect1
+@onready var main_rect2 := $BackgroundShapes/MainRect2
 @onready var title_container := $TitleContainer
 @onready var main_title := $TitleContainer/MainTitle
 @onready var sub_title := $TitleContainer/SubTitle
@@ -122,23 +116,13 @@ func _start_intro_animation():
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	# 第三阶段：显示菜单容器
+	# 第三阶段：显示菜单容器并激活雨滴效果
 	menu_container.visible = true
-	
-	# 激活雨滴效果
 	if rain:
 		rain.visible = true
 	
-	# 菜单块依次滑入
-	var blocks = [start_block, continue_block, settings_block, exit_block]
-	for i in range(blocks.size()):
-		var block = blocks[i]
-		var target_x = block.position.x + 400
-		var tween = create_tween()
-		tween.tween_property(block, "position:x", target_x, 0.4)
-		tween.set_trans(Tween.TRANS_BACK)
-		tween.set_ease(Tween.EASE_OUT)
-		await get_tree().create_timer(0.1).timeout
+	# 菜单按钮跟随矩形滑入 - 阶梯状分布
+	_menu_buttons_animation()
 
 func _title_blast_animation():
 	# 保存原始变换
@@ -170,29 +154,15 @@ func _title_blast_animation():
 	tween2.set_ease(Tween.EASE_OUT)
 
 func _background_shapes_animation():
-	# 矩形形状动画 - 每个都有不同的速度和延迟，包含旋转效果
-	var shapes = [
-		{"node": rect1, "delay": 0.0, "duration": 0.8, "ease": Tween.EASE_OUT, "rotation_extra": 0.1},
-		{"node": rect2, "delay": 0.1, "duration": 1.0, "ease": Tween.EASE_IN_OUT, "rotation_extra": -0.08},
-		{"node": rect3, "delay": 0.2, "duration": 0.6, "ease": Tween.EASE_OUT, "rotation_extra": 0.12},
-		{"node": rect4, "delay": 0.15, "duration": 0.9, "ease": Tween.EASE_IN, "rotation_extra": -0.06},
-		{"node": rect5, "delay": 0.3, "duration": 0.7, "ease": Tween.EASE_OUT, "rotation_extra": 0.09}
+	# 主要矩形动画 - 阶梯状滑入
+	var main_shapes = [
+		{"node": main_rect1, "delay": 0.0, "duration": 1.2, "ease": Tween.EASE_OUT, "rotation_extra": 0.05, "move_distance": 600},
+		{"node": main_rect2, "delay": 0.3, "duration": 1.0, "ease": Tween.EASE_IN_OUT, "rotation_extra": -0.03, "move_distance": 550}
 	]
 	
-	# 线条动画
-	var lines = [
-		{"node": line1, "delay": 0.05, "duration": 0.5, "ease": Tween.EASE_OUT, "rotation_extra": 0.05},
-		{"node": line2, "delay": 0.25, "duration": 0.6, "ease": Tween.EASE_IN_OUT, "rotation_extra": -0.03},
-		{"node": line3, "delay": 0.1, "duration": 0.4, "ease": Tween.EASE_OUT, "rotation_extra": 0.07}
-	]
-	
-	# 启动矩形动画 - 使用Timer实现延迟
-	for shape_data in shapes:
-		_start_delayed_animation(shape_data.node, shape_data.delay, shape_data.duration, shape_data.ease, shape_data.rotation_extra, 500)
-	
-	# 启动线条动画
-	for line_data in lines:
-		_start_delayed_animation(line_data.node, line_data.delay, line_data.duration, line_data.ease, line_data.rotation_extra, 400)
+	# 启动主要矩形动画
+	for shape_data in main_shapes:
+		_start_delayed_animation(shape_data.node, shape_data.delay, shape_data.duration, shape_data.ease, shape_data.rotation_extra, shape_data.move_distance)
 
 func _start_delayed_animation(node: Node, delay: float, duration: float, ease: int, rotation_extra: float, move_distance: float):
 	# 创建延迟定时器
@@ -210,8 +180,43 @@ func _start_delayed_animation(node: Node, delay: float, duration: float, ease: i
 	var tween = create_tween()
 	tween.parallel().tween_property(node, "position:x", node.position.x + move_distance, duration)
 	tween.parallel().tween_property(node, "rotation", node.rotation + rotation_extra, duration)
+		tween.set_ease(ease)
+		tween.set_trans(Tween.TRANS_QUART)
+
+func _menu_buttons_animation():
+	# 菜单按钮动画 - 阶梯状滑入，跟随矩形
+	var buttons = [
+		{"node": exit_block, "delay": 0.0, "duration": 0.8, "ease": Tween.EASE_OUT, "move_distance": 400},
+		{"node": start_block, "delay": 0.2, "duration": 0.9, "ease": Tween.EASE_IN_OUT, "move_distance": 450},
+		{"node": continue_block, "delay": 0.4, "duration": 0.7, "ease": Tween.EASE_OUT, "move_distance": 500},
+		{"node": settings_block, "delay": 0.6, "duration": 0.6, "ease": Tween.EASE_IN, "move_distance": 550}
+	]
+	
+	# 设置按钮初始位置（屏幕外）
+	for button_data in buttons:
+		button_data.node.position.x = -400
+	
+	# 启动按钮动画
+	for button_data in buttons:
+		_start_delayed_button_animation(button_data.node, button_data.delay, button_data.duration, button_data.ease, button_data.move_distance)
+
+func _start_delayed_button_animation(node: Node, delay: float, duration: float, ease: int, move_distance: float):
+	# 创建延迟定时器
+	var timer = Timer.new()
+	timer.wait_time = delay
+	timer.one_shot = true
+	add_child(timer)
+	timer.start()
+	
+	# 等待延迟时间
+	await timer.timeout
+	timer.queue_free()
+	
+	# 开始按钮动画
+	var tween = create_tween()
+	tween.tween_property(node, "position:x", node.position.x + move_distance, duration)
 	tween.set_ease(ease)
-	tween.set_trans(Tween.TRANS_QUART)
+	tween.set_trans(Tween.TRANS_BACK)
 
 func _on_color_rect_clicked(event: InputEvent, button_text: String):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
