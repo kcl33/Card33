@@ -39,112 +39,97 @@ color = Color(0, 0, 0, 0.3)
 
 [node name="BackgroundShapes" type="Control" parent="."]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Rect1" type="ColorRect" parent="BackgroundShapes"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -200
-offset_top = 100
-offset_right = -100
-offset_bottom = 200
-color = Color(0.9, 0.0, 0.35, 0.6)
+offset_left = -200.0
+offset_top = 100.0
+offset_right = -50.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.2
+color = Color(0.9, 0, 0.35, 0.6)
 
 [node name="Rect2" type="ColorRect" parent="BackgroundShapes"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -300
-offset_top = 300
-offset_right = -200
-offset_bottom = 400
-color = Color(0.0, 0.0, 0.0, 0.8)
+offset_left = -300.0
+offset_top = 300.0
+offset_right = -150.0
+offset_bottom = 380.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.15
+color = Color(0, 0, 0, 0.8)
 
 [node name="Rect3" type="ColorRect" parent="BackgroundShapes"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -250
-offset_top = 50
-offset_right = -150
-offset_bottom = 150
-color = Color(0.9, 0.0, 0.35, 0.4)
+offset_left = -250.0
+offset_top = 50.0
+offset_right = -100.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.18
+color = Color(0.9, 0, 0.35, 0.4)
 
 [node name="Rect4" type="ColorRect" parent="BackgroundShapes"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -400
-offset_top = 200
-offset_right = -300
-offset_bottom = 300
-color = Color(1.0, 1.0, 1.0, 0.3)
+offset_left = -400.0
+offset_top = 200.0
+offset_right = -250.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.12
+color = Color(1, 1, 1, 0.3)
 
 [node name="Rect5" type="ColorRect" parent="BackgroundShapes"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -350
-offset_top = 400
-offset_right = -250
-offset_bottom = 500
-color = Color(0.0, 0.0, 0.0, 0.6)
+offset_left = -350.0
+offset_top = 400.0
+offset_right = -200.0
+offset_bottom = 480.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.16
+color = Color(0, 0, 0, 0.6)
 
 [node name="Line1" type="ColorRect" parent="BackgroundShapes"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -100
-offset_top = 80
-offset_right = 200
-offset_bottom = 85
-color = Color(0.9, 0.0, 0.35, 0.8)
+offset_left = -100.0
+offset_top = 80.0
+offset_right = 200.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.1
+color = Color(0.9, 0, 0.35, 0.8)
 
 [node name="Line2" type="ColorRect" parent="BackgroundShapes"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -150
-offset_top = 250
-offset_right = 150
-offset_bottom = 255
-color = Color(1.0, 1.0, 1.0, 0.6)
+offset_left = -150.0
+offset_top = 250.0
+offset_right = 150.0
+offset_bottom = 255.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.08
+color = Color(1, 1, 1, 0.6)
 
 [node name="Line3" type="ColorRect" parent="BackgroundShapes"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -200
-offset_top = 350
-offset_right = 100
-offset_bottom = 355
-color = Color(0.9, 0.0, 0.35, 0.5)
+offset_left = -200.0
+offset_top = 350.0
+offset_right = 100.0
+offset_bottom = 355.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.12
+color = Color(0.9, 0, 0.35, 0.5)
 
 [node name="TitleContainer" type="Control" parent="."]
 layout_mode = 3

@@ -170,35 +170,37 @@ func _title_blast_animation():
 	tween2.set_ease(Tween.EASE_OUT)
 
 func _background_shapes_animation():
-	# 矩形形状动画 - 每个都有不同的速度和延迟
+	# 矩形形状动画 - 每个都有不同的速度和延迟，包含旋转效果
 	var shapes = [
-		{"node": rect1, "delay": 0.0, "duration": 0.8, "ease": Tween.EASE_OUT},
-		{"node": rect2, "delay": 0.1, "duration": 1.0, "ease": Tween.EASE_IN_OUT},
-		{"node": rect3, "delay": 0.2, "duration": 0.6, "ease": Tween.EASE_OUT},
-		{"node": rect4, "delay": 0.15, "duration": 0.9, "ease": Tween.EASE_IN},
-		{"node": rect5, "delay": 0.3, "duration": 0.7, "ease": Tween.EASE_OUT}
+		{"node": rect1, "delay": 0.0, "duration": 0.8, "ease": Tween.EASE_OUT, "rotation_extra": 0.1},
+		{"node": rect2, "delay": 0.1, "duration": 1.0, "ease": Tween.EASE_IN_OUT, "rotation_extra": -0.08},
+		{"node": rect3, "delay": 0.2, "duration": 0.6, "ease": Tween.EASE_OUT, "rotation_extra": 0.12},
+		{"node": rect4, "delay": 0.15, "duration": 0.9, "ease": Tween.EASE_IN, "rotation_extra": -0.06},
+		{"node": rect5, "delay": 0.3, "duration": 0.7, "ease": Tween.EASE_OUT, "rotation_extra": 0.09}
 	]
 	
 	# 线条动画
 	var lines = [
-		{"node": line1, "delay": 0.05, "duration": 0.5, "ease": Tween.EASE_OUT},
-		{"node": line2, "delay": 0.25, "duration": 0.6, "ease": Tween.EASE_IN_OUT},
-		{"node": line3, "delay": 0.1, "duration": 0.4, "ease": Tween.EASE_OUT}
+		{"node": line1, "delay": 0.05, "duration": 0.5, "ease": Tween.EASE_OUT, "rotation_extra": 0.05},
+		{"node": line2, "delay": 0.25, "duration": 0.6, "ease": Tween.EASE_IN_OUT, "rotation_extra": -0.03},
+		{"node": line3, "delay": 0.1, "duration": 0.4, "ease": Tween.EASE_OUT, "rotation_extra": 0.07}
 	]
 	
-	# 启动矩形动画
+	# 启动矩形动画 - 包含位置和旋转
 	for shape_data in shapes:
 		var tween = create_tween()
 		tween.tween_delay(shape_data.delay)
-		tween.tween_property(shape_data.node, "position:x", shape_data.node.position.x + 500, shape_data.duration)
+		tween.parallel().tween_property(shape_data.node, "position:x", shape_data.node.position.x + 500, shape_data.duration)
+		tween.parallel().tween_property(shape_data.node, "rotation", shape_data.node.rotation + shape_data.rotation_extra, shape_data.duration)
 		tween.set_ease(shape_data.ease)
 		tween.set_trans(Tween.TRANS_QUART)
 	
-	# 启动线条动画
+	# 启动线条动画 - 包含位置和旋转
 	for line_data in lines:
 		var tween = create_tween()
 		tween.tween_delay(line_data.delay)
-		tween.tween_property(line_data.node, "position:x", line_data.node.position.x + 400, line_data.duration)
+		tween.parallel().tween_property(line_data.node, "position:x", line_data.node.position.x + 400, line_data.duration)
+		tween.parallel().tween_property(line_data.node, "rotation", line_data.node.rotation + line_data.rotation_extra, line_data.duration)
 		tween.set_ease(line_data.ease)
 		tween.set_trans(Tween.TRANS_CUBIC)
 
