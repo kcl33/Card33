@@ -37,31 +37,41 @@ func _ready():
 func _setup_menu_blocks():
 	var blocks = [start_block, continue_block, settings_block, exit_block]
 	var colors = [Color(0.9, 0.0, 0.35, 0.8), Color(0.0, 0.0, 0.0, 0.8), Color(0.0, 0.0, 0.0, 0.8), Color(0.0, 0.0, 0.0, 0.8)]
+	var button_texts = ["开始游戏", "继续", "设置", "退出"]
 	
 	for i in range(blocks.size()):
 		var block = blocks[i]
 		
-		# 设置按钮样式
-		var style = StyleBoxFlat.new()
-		style.bg_color = colors[i]
-		style.border_color = Color(0.9, 0.0, 0.35, 1)
-		style.border_width_left = 3
-		style.border_width_top = 3
-		style.border_width_right = 3
-		style.border_width_bottom = 3
-		style.corner_radius_top_left = 0
-		style.corner_radius_top_right = 0
-		style.corner_radius_bottom_left = 0
-		style.corner_radius_bottom_right = 0
-		
-		block.add_theme_stylebox_override("normal", style)
-		block.add_theme_font_size_override("font_size", 28)
-		block.add_theme_color_override("font_color", Color(1, 1, 1, 1))
-		block.add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
-		block.add_theme_constant_override("outline_size", 2)
-		
-		# 连接信号
-		block.pressed.connect(_on_menu_pressed.bind(block.text))
+		# 根据节点类型设置样式
+		if block is Button:
+			# Button类型：设置按钮样式
+			var style = StyleBoxFlat.new()
+			style.bg_color = colors[i]
+			style.border_color = Color(0.9, 0.0, 0.35, 1)
+			style.border_width_left = 3
+			style.border_width_top = 3
+			style.border_width_right = 3
+			style.border_width_bottom = 3
+			style.corner_radius_top_left = 0
+			style.corner_radius_top_right = 0
+			style.corner_radius_bottom_left = 0
+			style.corner_radius_bottom_right = 0
+			
+			block.add_theme_stylebox_override("normal", style)
+			block.add_theme_font_size_override("font_size", 28)
+			block.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+			block.add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+			block.add_theme_constant_override("outline_size", 2)
+			
+			# 连接信号
+			block.pressed.connect(_on_menu_pressed.bind(button_texts[i]))
+			
+		elif block is ColorRect:
+			# ColorRect类型：设置颜色
+			block.color = colors[i]
+			
+			# 添加点击检测
+			block.gui_input.connect(_on_color_rect_clicked.bind(button_texts[i]))
 		
 		# 初始位置（屏幕外）
 		block.position.x = -400
@@ -93,6 +103,10 @@ func _reveal_sequence():
 		tween.set_trans(Tween.TRANS_BACK)
 		tween.set_ease(Tween.EASE_OUT)
 		await get_tree().create_timer(0.1).timeout
+
+func _on_color_rect_clicked(event: InputEvent, button_text: String):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_on_menu_pressed(button_text)
 
 func _on_menu_pressed(button_text: String):
 	match button_text:
