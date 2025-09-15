@@ -37,21 +37,23 @@ func _ready():
 	set_process_unhandled_input(true)
 
 func _setup_title_style():
-	# 主标题
-	main_title.add_theme_font_size_override("font_size", 64)
+	# 主标题 - 最大字体，粗体描边
+	main_title.add_theme_font_size_override("font_size", 72)
 	main_title.add_theme_color_override("font_color", Color(1, 1, 1, 1))
 	main_title.add_theme_color_override("font_outline_color", Color(0.9, 0.0, 0.35, 1))
-	main_title.add_theme_constant_override("outline_size", 4)
+	main_title.add_theme_constant_override("outline_size", 6)  # 更粗的描边
 	
-	# 副标题
-	sub_title.add_theme_font_size_override("font_size", 48)
+	# 副标题 - 中等字体，中等描边
+	sub_title.add_theme_font_size_override("font_size", 56)
 	sub_title.add_theme_color_override("font_color", Color(1, 1, 1, 1))
 	sub_title.add_theme_color_override("font_outline_color", Color(0.9, 0.0, 0.35, 1))
-	sub_title.add_theme_constant_override("outline_size", 3)
+	sub_title.add_theme_constant_override("outline_size", 4)
 	
-	# 中文标题
-	chinese_title.add_theme_font_size_override("font_size", 24)
+	# 中文标题 - 小字体，细描边
+	chinese_title.add_theme_font_size_override("font_size", 32)
 	chinese_title.add_theme_color_override("font_color", Color(0.8, 0.8, 0.8, 1))
+	chinese_title.add_theme_color_override("font_outline_color", Color(0.9, 0.0, 0.35, 0.8))
+	chinese_title.add_theme_constant_override("outline_size", 2)
 
 func _setup_menu_blocks():
 	var blocks = [start_block, continue_block, settings_block, exit_block]
