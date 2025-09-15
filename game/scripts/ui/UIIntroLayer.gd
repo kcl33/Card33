@@ -80,19 +80,18 @@ func _reveal_sequence():
 	await get_tree().create_timer(0.46).timeout
 	# 显示菜单并阶梯入场
 	menu.visible = true
-	# 使用格栅布局安置主面板和菜单
-	var grid := GridRes.new()
-	add_child(grid)
-	grid.columns = 12
-	grid.gutter = 16
-	# 主面板容器（用 UIRectAccent 包裹菜单）
+	# 使用可视区域安置主面板与菜单，避免未初始化尺寸导致错位
+	var vp_size := get_viewport().get_visible_rect().size
 	var rect_scene: PackedScene = load("res://game/scenes/ui/UIRectAccent.tscn")
 	var rect := rect_scene.instantiate()
 	add_child(rect)
-	grid.layout_child(rect, 3, 7, 260, 320)
+	var panel_size := Vector2(vp_size.x * 0.44, vp_size.y * 0.38)
+	var panel_pos := Vector2(vp_size.x * 0.28, vp_size.y * 0.36)
+	rect.position = panel_pos
+	rect.size = panel_size
 	menu.reparent(rect)
 	menu.position = Vector2(24, 24)
-	menu.size = rect.size - Vector2(48, 48)
+	menu.size = panel_size - Vector2(48, 48)
 
 	# 右下状态卡片
 	var status_scene: PackedScene = load("res://game/scenes/ui/StatusCard.tscn")
