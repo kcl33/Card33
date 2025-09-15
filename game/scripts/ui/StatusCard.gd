@@ -16,5 +16,6 @@ func _ready():
 	sb.border_width_bottom = border_width
 	$Panel.add_theme_stylebox_override("panel", sb)
 	$Label.add_theme_color_override("font_color", Color(1,1,1,1))
+	$Label.add_theme_font_size_override("font_size", 16)
 
 

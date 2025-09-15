@@ -65,6 +65,8 @@ func _ready():
 	var sweep := ShaderMaterial.new()
 	sweep.shader = load("res://res/shaders/SweepFlash.gdshader")
 	title.material = sweep
+	# 设置标题字体大小
+	title.add_theme_font_size_override("font_size", 48)
 
 	# 引导点击提示（可后续加入闪光/灰点）
 	set_process_unhandled_input(true)

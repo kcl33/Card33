@@ -19,6 +19,7 @@ func _ready():
 	sb.corner_radius_bottom_right = 0
 	add_theme_stylebox_override("normal", sb)
 	add_theme_color_override("font_color", theme_profile.color_white)
+	add_theme_font_size_override("font_size", 24)
 
 func _gui_input(event):
 	if event is InputEventMouseMotion:
