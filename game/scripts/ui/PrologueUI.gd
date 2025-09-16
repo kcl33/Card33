@@ -69,6 +69,25 @@ var story_segments := [
 func _ready():
 	print("PrologueUI ready")
 	
+	# 检查关键节点是否存在
+	if not background:
+		print("ERROR: Background node not found!")
+		return
+	if not background_effect:
+		print("ERROR: BackgroundEffect node not found!")
+		return
+	if not title_label:
+		print("ERROR: TitleLabel node not found!")
+		return
+	if not story_text:
+		print("ERROR: StoryText node not found!")
+		return
+	if not continue_prompt:
+		print("ERROR: ContinuePrompt node not found!")
+		return
+	
+	print("All critical nodes found, setting up...")
+	
 	# 设置初始状态
 	_setup_initial_state()
 	
@@ -96,6 +115,7 @@ func _setup_initial_state():
 func _setup_background_effects():
 	"""设置背景效果"""
 	if background_effect:
+		print("Setting up background effects...")
 		var shader_material = ShaderMaterial.new()
 		var shader = preload("res://res/shaders/P3RBackground.gdshader")
 		if shader:
@@ -104,10 +124,16 @@ func _setup_background_effects():
 			shader_material.set_shader_parameter("wave_amplitude", 0.05)
 			shader_material.set_shader_parameter("wave_frequency", 1.0)
 			background_effect.material = shader_material
+			print("Background shader set successfully")
+		else:
+			print("Failed to load background shader")
+	else:
+		print("BackgroundEffect node not found")
 
 func _setup_rain_effects():
 	"""设置雨滴效果"""
 	if rain_effect:
+		print("Setting up rain effects...")
 		var rain_shader = load("res://res/shaders/RainEffect.gdshader")
 		if rain_shader:
 			var rain_material = ShaderMaterial.new()
@@ -116,6 +142,11 @@ func _setup_rain_effects():
 			rain_material.set_shader_parameter("rain_intensity", 0.6)
 			rain_material.set_shader_parameter("rain_speed", 2.0)
 			rain_effect.material = rain_material
+			print("Rain shader set successfully")
+		else:
+			print("Failed to load rain shader")
+	else:
+		print("RainEffect node not found")
 
 func _start_prologue():
 	"""开始序章"""

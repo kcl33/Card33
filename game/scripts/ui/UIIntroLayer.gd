@@ -721,7 +721,7 @@ func _load_prologue_ui():
 	var prologue_ui_instance = prologue_ui_scene.instantiate()
 	
 	# 添加到场景树
-	get_tree().current_scene.add_child(prologue_ui_instance)
+	add_child(prologue_ui_instance)
 	
 	# 连接信号
 	prologue_ui_instance.prologue_finished.connect(_on_prologue_finished)
