@@ -120,20 +120,20 @@ func _start_p3r_intro_animation():
 	_menu_fade_in_animation()
 
 func _stripe_masks_animation():
-	# 条纹蒙版划过动画
+	# 条纹蒙版在标题区域内划过动画
 	if stripe_masks:
 		stripe_masks.modulate.a = 1.0
 		
-		# 设置初始位置（屏幕外）
+		# 设置初始位置（标题区域左侧外）
 		var stripes = [stripe1, stripe2, stripe3, stripe4]
 		for i in range(stripes.size()):
 			if stripes[i]:
-				stripes[i].position.x = -400 - (i * 200)
+				stripes[i].position.x = -150 - (i * 50)
 		
 		# 为每个条纹创建独立的动画
 		for i in range(stripes.size()):
 			if stripes[i]:
-				_start_delayed_stripe_animation(stripes[i], i * 0.2, 1.5 + (i * 0.1))
+				_start_delayed_stripe_animation(stripes[i], i * 0.3, 1.0 + (i * 0.1))
 
 func _start_delayed_stripe_animation(stripe: ColorRect, delay: float, duration: float):
 	# 创建延迟定时器
@@ -147,9 +147,9 @@ func _start_delayed_stripe_animation(stripe: ColorRect, delay: float, duration: 
 	await timer.timeout
 	timer.queue_free()
 	
-	# 开始条纹动画
+	# 开始条纹动画（只在标题区域内移动）
 	var tween = create_tween()
-	tween.tween_property(stripe, "position:x", 2000, duration)
+	tween.tween_property(stripe, "position:x", 400, duration)
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_IN_OUT)
 
@@ -166,26 +166,6 @@ func _title_fade_in_animation():
 	tween.parallel().tween_property(title_container, "modulate:a", 1.0, 1.0)
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
-	
-	# 启动标题闪烁效果
-	_start_title_flicker()
-
-func _start_title_flicker():
-	# 标题闪烁效果
-	_start_flicker_loop()
-
-func _start_flicker_loop():
-	# 创建闪烁循环
-	var flicker_tween = create_tween()
-	flicker_tween.tween_property(main_title, "modulate:a", 0.3, 0.5)
-	flicker_tween.tween_property(main_title, "modulate:a", 1.0, 0.5)
-	
-	# 等待闪烁完成，然后延迟2秒再开始下一轮
-	await flicker_tween.finished
-	await get_tree().create_timer(2.0).timeout
-	
-	# 递归调用，实现循环效果
-	_start_flicker_loop()
 
 func _menu_fade_in_animation():
 	# 菜单按钮渐入动画

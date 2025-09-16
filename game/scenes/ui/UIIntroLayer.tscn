@@ -77,8 +77,8 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.6, 0.4, 1, 0.2)
 
-[node name="StripeMasks" type="Control" parent="."]
-layout_mode = 3
+[node name="StripeMasks" type="Control" parent="TitleContainer"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -87,43 +87,43 @@ grow_vertical = 2
 
 [node name="Stripe1" type="ColorRect" parent="StripeMasks"]
 layout_mode = 1
-offset_left = -200.0
-offset_right = 100.0
-offset_bottom = 1080.0
+offset_left = -100.0
+offset_right = 50.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.1
-color = Color(0.9, 0.1, 0.3, 0.6)
+color = Color(1, 1, 1, 0.8)
 
 [node name="Stripe2" type="ColorRect" parent="StripeMasks"]
 layout_mode = 1
-offset_left = 200.0
-offset_right = 500.0
-offset_bottom = 1080.0
+offset_left = 50.0
+offset_right = 200.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.15
-color = Color(0.1, 0.3, 0.9, 0.6)
+color = Color(1, 1, 1, 0.8)
 
 [node name="Stripe3" type="ColorRect" parent="StripeMasks"]
 layout_mode = 1
-offset_left = 600.0
-offset_right = 900.0
-offset_bottom = 1080.0
+offset_left = 200.0
+offset_right = 350.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.2
-color = Color(0.9, 0.1, 0.3, 0.6)
+color = Color(1, 1, 1, 0.8)
 
 [node name="Stripe4" type="ColorRect" parent="StripeMasks"]
 layout_mode = 1
-offset_left = 1000.0
-offset_right = 1300.0
-offset_bottom = 1080.0
+offset_left = 350.0
+offset_right = 500.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.1
-color = Color(0.1, 0.3, 0.9, 0.6)
+color = Color(1, 1, 1, 0.8)
 
 [node name="TitleContainer" type="Control" parent="."]
 layout_mode = 3
