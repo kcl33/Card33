@@ -184,11 +184,10 @@ func _geometric_elements_animation():
 	_start_line_animations()
 
 func _title_fade_in_animation():
-	# 标题渐入动画（不包含CAPROS图片）
+	# 标题渐入动画
 	var tween = create_tween()
-	# 只对标题容器中的其他元素进行渐入，不包括MainTitle
-	tween.parallel().tween_property(sub_title, "modulate:a", 1.0, 1.0)
-	tween.parallel().tween_property(english_title, "modulate:a", 1.0, 1.0)
+	# 先让整个标题容器显示
+	tween.parallel().tween_property(title_container, "modulate:a", 1.0, 1.0)
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
 	
@@ -198,12 +197,19 @@ func _title_fade_in_animation():
 	# 启动墨迹背景动画
 	_start_ink_background_animations()
 	
-	# 等待其他元素渐入完成后再启动CAPROS图片动画
+	# 等待标题容器显示完成后再启动CAPROS图片动画
 	await tween.finished
 	await get_tree().create_timer(0.5).timeout
 	
 	# 启动CAPROS图片浮现动画（可选择不同方案）
 	_start_capros_animation_variant(6)  # 1=故障艺术, 2=墨迹扩散, 3=扫描线, 4=粒子汇聚, 5=3D翻转, 6=卡片滑入
+	
+	# 备用方案：如果动画失败，至少让图片显示出来
+	await get_tree().create_timer(3.0).timeout
+	if main_title and main_title.modulate.a < 0.5:
+		print("动画可能失败，强制显示图片")
+		main_title.modulate.a = 1.0
+		main_title.visible = true
 
 func _start_press_button_animation():
 	# PRESS ANY BUTTON提示动画
@@ -433,6 +439,11 @@ func _start_capros_card_slide():
 		print("CAPROS卡片滑入动画完成")
 	else:
 		print("错误：main_title节点未找到")
+		# 如果找不到节点，至少让图片显示出来
+		print("尝试直接显示图片...")
+		if main_title:
+			main_title.modulate.a = 1.0
+			main_title.visible = true
 
 func _start_triangle_animations():
 	# 三角形动态效果
