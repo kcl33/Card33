@@ -123,8 +123,40 @@ offset_right = -166.0
 offset_bottom = -634.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.04, 6.8)
+scale = Vector2(0.177631, 5.37809)
 color = Color(0.1, 0.1, 0.1, 0.6)
+
+[node name="TitleBackground3" type="ColorRect" parent="TitleContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2199.0
+offset_top = -585.0
+offset_right = 2164.0
+offset_bottom = -833.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.645509
+scale = Vector2(5.81626, 5.37809)
+color = Color(0.750209, 0.812357, 0.964187, 0.662745)
+
+[node name="TitleBackground4" type="ColorRect" parent="TitleContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2221.0
+offset_top = -549.0
+offset_right = 2186.0
+offset_bottom = -797.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.645509
+scale = Vector2(5.81626, 5.37809)
+color = Color(0, 0, 0, 0.886275)
 
 [node name="TitleBackground2" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
@@ -161,22 +193,6 @@ grow_vertical = 2
 rotation = -0.2
 color = Color(0, 0, 0, 0.3)
 
-[node name="GlitchLine1" type="ColorRect" parent="TitleContainer"]
-layout_mode = 1
-offset_left = -512.0
-offset_top = 40.0
-offset_right = 2039.0
-offset_bottom = 42.0
-color = Color(0.2, 0.2, 0.2, 0.8)
-
-[node name="GlitchLine2" type="ColorRect" parent="TitleContainer"]
-layout_mode = 1
-offset_left = -43.0
-offset_top = 60.0
-offset_right = 2340.0
-offset_bottom = 78.0
-color = Color(0.1, 0.1, 0.1, 0.6)
-
 [node name="EnglishTitle" type="Label" parent="TitleContainer"]
 layout_mode = 1
 anchors_preset = -1
@@ -210,9 +226,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -105.0
+offset_left = -100.0
 offset_top = -38.0
-offset_right = 95.0
+offset_right = 100.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -225,16 +241,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MenuContainer" type="VBoxContainer" parent="."]
-visible = false
 anchors_preset = -1
 anchor_left = 0.618
 anchor_top = 0.382
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
+offset_left = -25.5598
+offset_top = -39.56
+offset_right = 74.4402
+offset_bottom = 60.4401
+scale = Vector2(1.12, 1.12)
 alignment = 1
 
 [node name="StartButton" type="Button" parent="MenuContainer"]

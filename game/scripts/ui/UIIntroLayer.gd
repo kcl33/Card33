@@ -16,8 +16,7 @@ extends CanvasLayer
 @onready var title_background := $TitleContainer/TitleBackground
 @onready var ink_splash1 := $TitleContainer/InkSplash1
 @onready var ink_splash2 := $TitleContainer/InkSplash2
-@onready var glitch_line1 := $TitleContainer/GlitchLine1
-@onready var glitch_line2 := $TitleContainer/GlitchLine2
+# GlitchLine nodes removed - no longer exist in scene
 @onready var main_title := $TitleContainer/EnglishTitle/MainTitle
 @onready var sub_title := $TitleContainer/EnglishTitle/SubTitle
 @onready var english_title := $TitleContainer/EnglishTitle
@@ -264,18 +263,7 @@ func _title_fade_in_animation():
 
 # Press button functions removed - node no longer exists
 
-func _start_glitch_effects():
-	# 故障效果动画
-	if glitch_line1 and glitch_line2:
-		# 故障线条闪烁效果
-		var glitch_tween = create_tween()
-		glitch_tween.parallel().tween_property(glitch_line1, "modulate:a", 0.0, 0.1)
-		glitch_tween.parallel().tween_property(glitch_line2, "modulate:a", 0.0, 0.1)
-		glitch_tween.tween_property(glitch_line1, "modulate:a", 0.8, 0.1)
-		glitch_tween.tween_property(glitch_line2, "modulate:a", 0.6, 0.1)
-		glitch_tween.set_loops()
-		glitch_tween.set_trans(Tween.TRANS_LINEAR)
-		glitch_tween.set_ease(Tween.EASE_IN_OUT)
+# Glitch effects removed - nodes no longer exist
 	
 	# 墨迹飞溅效果
 	if ink_splash1 and ink_splash2:
