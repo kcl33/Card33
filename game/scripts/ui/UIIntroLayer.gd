@@ -63,8 +63,6 @@ func _ready():
 		menu_container.modulate.a = 0.0
 	if geometric_elements:
 		geometric_elements.modulate.a = 0.0
-	if stripe_masks:
-		stripe_masks.modulate.a = 0.0
 	
 	# 特别设置CAPROS图片初始状态
 	if main_title:
@@ -174,11 +172,7 @@ func _setup_menu_buttons():
 		print("Exit button connected")
 
 func _start_p3r_intro_animation():
-	# 第一阶段：条纹蒙版划过
-	_stripe_masks_animation()
-	
-	# 等待条纹动画完成
-	await get_tree().create_timer(2.0).timeout
+	# 第一阶段：几何元素动画
 	
 	# 第二阶段：几何元素淡入
 	_geometric_elements_animation()
@@ -199,39 +193,7 @@ func _start_p3r_intro_animation():
 	# 第五阶段：菜单按钮渐入
 	_menu_fade_in_animation()
 
-func _stripe_masks_animation():
-	# 条纹蒙版在标题区域内划过动画
-	if stripe_masks:
-		stripe_masks.modulate.a = 1.0
-		
-		# 设置初始位置（标题区域左侧外）
-		var stripes = [stripe1, stripe2, stripe3, stripe4]
-		for i in range(stripes.size()):
-			if stripes[i]:
-				stripes[i].position.x = -150 - (i * 50)
-		
-		# 为每个条纹创建独立的动画
-		for i in range(stripes.size()):
-			if stripes[i]:
-				_start_delayed_stripe_animation(stripes[i], i * 0.3, 1.0 + (i * 0.1))
-
-func _start_delayed_stripe_animation(stripe: ColorRect, delay: float, duration: float):
-	# 创建延迟定时器
-	var timer = Timer.new()
-	timer.wait_time = delay
-	timer.one_shot = true
-	add_child(timer)
-	timer.start()
-	
-	# 等待延迟时间
-	await timer.timeout
-	timer.queue_free()
-	
-	# 开始条纹动画（只在标题区域内移动）
-	var tween = create_tween()
-	tween.tween_property(stripe, "position:x", 400, duration)
-	tween.set_trans(Tween.TRANS_QUART)
-	tween.set_ease(Tween.EASE_IN_OUT)
+# Stripe masks functions removed - no longer used
 
 func _geometric_elements_animation():
 	# 几何元素动态浮现动画
