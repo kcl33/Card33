@@ -248,9 +248,6 @@ func _title_fade_in_animation():
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
 	
-	# 启动故障效果动画
-	_start_glitch_effects()
-	
 	# 启动墨迹背景动画
 	_start_ink_background_animations()
 	
