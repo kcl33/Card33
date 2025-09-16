@@ -87,18 +87,11 @@ func _ready():
 		main_title.visible = true
 		print("设置CAPROS图片初始状态 - 透明度: ", main_title.modulate.a, " 可见性: ", main_title.visible)
 	
-	# 开始P3R风格的开场动画
-	await get_tree().create_timer(0.5).timeout
-	
-	# 检查动画所需的节点是否存在
-	if not geometric_elements:
-		print("ERROR: GeometricElements node not found!")
-		return
-	
-	_start_p3r_intro_animation()
-	
 	# 连接输入事件
 	set_process_input(true)
+	
+	# 显示主菜单，不自动启动序章
+	print("主菜单准备完成，等待用户点击开始游戏...")
 
 func _setup_background_effects():
 	# 设置背景shader材质
@@ -593,12 +586,28 @@ func _menu_fade_in_animation():
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
 
+func _show_main_menu_animation():
+	"""显示主菜单动画"""
+	print("显示主菜单动画...")
+	
+	# 检查动画所需的节点是否存在
+	if not geometric_elements:
+		print("ERROR: GeometricElements node not found!")
+		return
+	
+	# 启动主菜单动画
+	_start_p3r_intro_animation()
+
 func _on_start_pressed():
 	print("开始游戏")
 	_start_button_click_effect(start_button)
 	
 	# 等待按钮动画完成
 	await get_tree().create_timer(0.5).timeout
+	
+	# 先显示主菜单动画，然后开始序章
+	_show_main_menu_animation()
+	await get_tree().create_timer(2.0).timeout
 	
 	# 开始序章
 	_start_prologue()

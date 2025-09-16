@@ -160,9 +160,9 @@ func _finish_prologue():
 	"""完成序章"""
 	print("序章完成")
 	
-	# 淡出所有元素
+	# 淡出背景元素
 	var fade_tween = create_tween()
-	fade_tween.tween_property(self, "modulate", Color(1, 1, 1, 0), 2.0)
+	fade_tween.tween_property(background, "modulate", Color(1, 1, 1, 0), 2.0)
 	fade_tween.set_trans(Tween.TRANS_QUART)
 	fade_tween.set_ease(Tween.EASE_IN)
 	
