@@ -107,25 +107,25 @@ func _setup_rain_effects():
 			var rain_material = ShaderMaterial.new()
 			rain_material.shader = rain_shader
 			rain_effect.material = rain_material
+			
+			# 随机选择小雨或暴雨
+			var is_heavy_rain = randf() > 0.5
+			var rain_intensity = 0.3 if not is_heavy_rain else 0.8
+			var rain_speed = 1.5 if not is_heavy_rain else 3.0
+			
+			print("雨滴类型: ", "暴雨" if is_heavy_rain else "小雨")
+			print("雨滴强度: ", rain_intensity)
+			
+			# 设置shader参数
+			rain_material.set_shader_parameter("time_scale", 1.0)
+			rain_material.set_shader_parameter("rain_intensity", rain_intensity)
+			rain_material.set_shader_parameter("rain_speed", rain_speed)
+			rain_material.set_shader_parameter("rain_size", 1.0)
+			rain_material.set_shader_parameter("rain_opacity", 0.6)
+			rain_material.set_shader_parameter("rain_color", Color(1.0, 1.0, 1.0, 1.0))
 		else:
 			print("Failed to load rain shader, using fallback")
 			rain_effect.color = Color(0.0, 0.0, 0.0, 0.0)  # 透明作为备用
-		
-		# 随机选择小雨或暴雨
-		var is_heavy_rain = randf() > 0.5
-		var rain_intensity = 0.3 if not is_heavy_rain else 0.8
-		var rain_speed = 1.5 if not is_heavy_rain else 3.0
-		
-		print("雨滴类型: ", "暴雨" if is_heavy_rain else "小雨")
-		print("雨滴强度: ", rain_intensity)
-		
-		# 设置shader参数
-		rain_material.set_shader_parameter("time_scale", 1.0)
-		rain_material.set_shader_parameter("rain_intensity", rain_intensity)
-		rain_material.set_shader_parameter("rain_speed", rain_speed)
-		rain_material.set_shader_parameter("rain_size", 1.0)
-		rain_material.set_shader_parameter("rain_opacity", 0.6)
-		rain_material.set_shader_parameter("rain_color", Color(1.0, 1.0, 1.0, 1.0))
 		
 		print("Rain shader setup complete")
 	else:
@@ -227,31 +227,7 @@ func _title_fade_in_animation():
 	# 直接启动CAPROS图片卡片滑入动画
 	_start_simple_card_slide()
 
-func _start_press_button_animation():
-	# PRESS ANY BUTTON提示动画
-	if press_button_prompt:
-		press_button_prompt.visible = true
-		press_button_prompt.modulate.a = 0.0
-		
-		# 淡入动画
-		var tween = create_tween()
-		tween.tween_property(press_button_prompt, "modulate:a", 1.0, 0.8)
-		tween.set_trans(Tween.TRANS_QUART)
-		tween.set_ease(Tween.EASE_OUT)
-		
-		# 等待淡入完成后开始闪烁
-		await tween.finished
-		_start_press_button_flicker()
-
-func _start_press_button_flicker():
-	# PRESS ANY BUTTON闪烁效果
-	if press_button_prompt:
-		var flicker_tween = create_tween()
-		flicker_tween.tween_property(press_button_prompt, "modulate:a", 0.3, 0.8)
-		flicker_tween.tween_property(press_button_prompt, "modulate:a", 1.0, 0.8)
-		flicker_tween.set_loops()
-		flicker_tween.set_trans(Tween.TRANS_SINE)
-		flicker_tween.set_ease(Tween.EASE_IN_OUT)
+# Press button functions removed - node no longer exists
 
 func _start_glitch_effects():
 	# 故障效果动画
@@ -586,18 +562,4 @@ func _on_exit_pressed():
 	get_tree().quit()
 
 func _input(event):
-	# 处理PRESS ANY BUTTON的点击
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if press_button_prompt and press_button_prompt.visible:
-			_on_press_any_button_clicked()
-	elif event is InputEventKey and event.pressed:
-		if press_button_prompt and press_button_prompt.visible:
-			_on_press_any_button_clicked()
-
-func _on_press_any_button_clicked():
-	# 隐藏PRESS ANY BUTTON提示
-	if press_button_prompt:
-		press_button_prompt.visible = false
-	
-	# 显示菜单按钮
-	_menu_fade_in_animation()
+# Press button input handling removed - node no longer exists
