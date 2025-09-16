@@ -1,9 +1,9 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1758023224
+::res://::1758023728
 .mcp.template.json::JSON/JSON::-1::1757866080::0::1::::<><><>0<>0<><>::
 CLAUDE.md::TextFile/TextFile::-1::1757866080::0::1::::<><><>0<>0<><>::
 DESIGN_DOC.md::TextFile/TextFile::-1::1757852217::0::1::::<><><>0<>0<><>::
-icon.png::CompressedTexture2D/CompressedTexture2D::4767865061637328827::1757859806::1757941622::0::::<><><>0<>0<>71ca691fc50ca77a5749847822c625bf<>::
+icon.png::CompressedTexture2D/CompressedTexture2D::4767865061637328827::1758023700::1757941622::0::::<><><>0<>0<>71ca691fc50ca77a5749847822c625bf<>::
 LICENSE.md::TextFile/TextFile::-1::1757866080::0::1::::<><><>0<>0<><>::
 Main.gd::GDScript/GDScript::6525783581748600821::1758023264::0::1::::<>Node2D<><>0<>0<><>::
 Main.tscn::PackedScene/PackedScene::-1::1758023264::0::1::::<><><>0<>0<><>::
@@ -450,11 +450,11 @@ MapNode.tscn::PackedScene/PackedScene::-1::1757933653::0::1::::<><><>0<>0<><>::r
 MapUI.tscn::PackedScene/PackedScene::-1::1757933656::0::1::::<><><>0<>0<><>::res://game/scripts/MapUI.gd<>res://game/resources/default_theme.tres<>res://game/scripts/MapGenerator.gd
 ::res://game/scenes/battle/::1757867756
 EffectTest.tscn::PackedScene/PackedScene::-1::1757859806::0::1::::<><><>0<>0<><>::res://scripts/battle/EffectTest.gd
-::res://game/scenes/ui/::1758021348
+::res://game/scenes/ui/::1758023407
 StatusCard.tscn::PackedScene/PackedScene::-1::1757948815::0::1::::<><><>0<>0<><>::res://game/scripts/ui/StatusCard.gd
 UIBannerTag.tscn::PackedScene/PackedScene::-1::1757948547::0::1::::<><><>0<>0<><>::res://game/scripts/ui/UIBannerTag.gd
 UIButtonPunk.tscn::PackedScene/PackedScene::-1::1757948111::0::1::::<><><>0<>0<><>::res://game/scripts/ui/UIButtonPunk.gd
-UIIntroLayer.tscn::PackedScene::3942658666379654193::1758023340::0::1::::<><><>0<>0<><>::uid://d1o23ovw0r3er::::res://game/scripts/ui/UIIntroLayer.gd
+UIIntroLayer.tscn::PackedScene::3942658666379654193::1758023564::0::1::::<><><>0<>0<><>::uid://d1o23ovw0r3er::::res://game/scripts/ui/UIIntroLayer.gd
 UIRectAccent.tscn::PackedScene/PackedScene::-1::1757948503::0::1::::<><><>0<>0<><>::res://game/scripts/ui/UIRectAccent.gd
 ::res://game/scripts/::1757947514
 Map.gd::GDScript/GDScript::3875701768254200547::1757934318::0::1::::<>Control<><>0<>0<><>::
@@ -470,7 +470,7 @@ StatusCard.gd::GDScript/GDScript::6280722087551406350::1757951318::0::1::::<>Con
 UIBannerTag.gd::GDScript/GDScript::7778936992502542847::1757948564::0::1::::<>Control<><>0<>0<><>::
 UIButtonPunk.gd::GDScript/GDScript::4428199938486555571::1757951305::0::1::::<>Button<><>0<>0<><>::
 UIGridContainer.gd::GDScript/GDScript::3345863517448833673::1757948586::0::1::::<>Control<><>0<>0<><>::
-UIIntroLayer.gd::GDScript::9014763404060496801::1758023381::0::1::::<>CanvasLayer<><>0<>0<><>::
+UIIntroLayer.gd::GDScript::9014763404060496801::1758023423::0::1::::<>CanvasLayer<><>0<>0<><>::
 UIMotion.gd::GDScript/GDScript::9171666744699326484::1757947344::0::1::::UIMotion<>Node<><>0<>0<><>::
 UIRectAccent.gd::GDScript/GDScript::8111063076245710880::1757948532::0::1::::<>Control<><>0<>0<><>::
 ::res://game/systems/::1757867661
@@ -529,7 +529,7 @@ MainMenu.gd::GDScript/GDScript::3326602406015069374::1757849003::0::1::::MainMen
 SettingsMenu.gd::GDScript/GDScript::1146821850665179499::1757849455::0::1::::SettingsMenu<>Control<><>0<>0<><>::
 ::res://godotCardParallax-7315a5cf17ffd24b024e3963/ui/::1757849054
 game_font.tres::Font/Font::-1::1757849127::0::1::::<><><>0<>0<><>::res://ui/game_font.ttf
-::res://imageas/::1758023239
+::res://imageas/::1758023404
 capros.png::CompressedTexture2D::4642236427357686388::1758023101::1758023404::1::::<><><>0<>0<>b7bb95f248a20427a51c959c7ebe6704<>res://.godot/imported/capros.png-f6484cb0d1f6ff3f36b1168d7b23e630.ctex::
 ::res://res/::1758020439
 ::res://res/fonts/::1757941572
@@ -542,7 +542,8 @@ P3RBackground.gdshader::Shader::929467455486350539::1758017478::0::1::::<><><>0<
 RainDrops.gdshader::Shader/Shader::6537099970488002511::1757948068::0::1::::<><><>0<>0<><>::
 Stripes.gdshader::Shader/Shader::6706300234086489805::1757946765::0::1::::<><><>0<>0<><>::
 SweepFlash.gdshader::Shader/Shader::6952947939865540180::1757948857::0::1::::<><><>0<>0<><>::
-::res://res/textures/::1757941572
+::res://res/textures/::1758023490
+capros.png::CompressedTexture2D::1034462727784130132::1758023101::1758023739::1::::<><><>0<>0<>48f55915e198de3258c2bfbe245bf5bd<>res://.godot/imported/capros.png-8a1ce7f5d48965360d2878242b78a1a6.ctex::
 card_placeholder.tres::GradientTexture2D/GradientTexture2D::-1::1757931603::0::1::::<><><>0<>0<><>::
 paper_edge_mask.png::CompressedTexture2D/CompressedTexture2D::3139571727812165655::1757940119::1757941572::1::::<><><>0<>0<>2e4bb73495933f1421cfad01ff715ba9<>res://.godot/imported/paper_edge_mask.png-2fa1d207e4c48284cf65fb965b8e0da0.ctex::
 ::res://res/themes/::1758020439

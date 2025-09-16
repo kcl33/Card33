@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwf4aody3dl02"]
 
 [ext_resource type="Script" uid="uid://d1o23ovw0r3er" path="res://game/scripts/ui/UIIntroLayer.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://bwf4aody3dl02" path="res://textures/capros.png" id="2"]
+[ext_resource type="Texture2D" path="res://textures/capros.png" id="2"]
 
 [node name="UIIntroLayer" type="CanvasLayer"]
 layer = 100
