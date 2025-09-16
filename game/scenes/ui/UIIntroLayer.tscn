@@ -79,30 +79,89 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.6, 0.4, 1.0, 0.2)
 
+[node name="StripeMasks" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Stripe1" type="ColorRect" parent="StripeMasks"]
+layout_mode = 1
+offset_left = -200.0
+offset_top = 0.0
+offset_right = 100.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.1
+color = Color(0.9, 0.1, 0.3, 0.6)
+
+[node name="Stripe2" type="ColorRect" parent="StripeMasks"]
+layout_mode = 1
+offset_left = 200.0
+offset_top = 0.0
+offset_right = 500.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.15
+color = Color(0.1, 0.3, 0.9, 0.6)
+
+[node name="Stripe3" type="ColorRect" parent="StripeMasks"]
+layout_mode = 1
+offset_left = 600.0
+offset_top = 0.0
+offset_right = 900.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.2
+color = Color(0.9, 0.1, 0.3, 0.6)
+
+[node name="Stripe4" type="ColorRect" parent="StripeMasks"]
+layout_mode = 1
+offset_left = 1000.0
+offset_top = 0.0
+offset_right = 1300.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.1
+color = Color(0.1, 0.3, 0.9, 0.6)
+
 [node name="TitleContainer" type="Control" parent="."]
 layout_mode = 3
-anchor_left = 0.1
-anchor_top = 0.2
-anchor_right = 0.9
-anchor_bottom = 0.6
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.382
+anchor_bottom = 0.382
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="TitleBackground" type="ColorRect" parent="TitleContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.9, 0.1, 0.3, 0.8)
 
 [node name="MainTitle" type="Label" parent="TitleContainer"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.3
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -50.0
-offset_right = 400.0
-offset_bottom = 50.0
-theme_override_colors/font_color = Color(0.8, 0.9, 1.0, 1)
-theme_override_font_sizes/font_size = 64
+anchor_bottom = 0.3
+offset_left = -200.0
+offset_top = -30.0
+offset_right = 200.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 48
 text = "卡普洛斯的33个幻想"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -111,15 +170,15 @@ vertical_alignment = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.6
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -500.0
-offset_top = 20.0
-offset_right = 500.0
-offset_bottom = 70.0
-theme_override_colors/font_color = Color(0.7, 0.8, 1.0, 1)
-theme_override_font_sizes/font_size = 32
+anchor_bottom = 0.6
+offset_left = -250.0
+offset_top = -20.0
+offset_right = 250.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 24
 text = "永无止境的雨与无止境边界的行者"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -128,15 +187,15 @@ vertical_alignment = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.8
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = 80.0
-offset_right = 300.0
-offset_bottom = 120.0
-theme_override_colors/font_color = Color(0.6, 0.7, 1.0, 1)
-theme_override_font_sizes/font_size = 24
+anchor_bottom = 0.8
+offset_left = -150.0
+offset_top = -15.0
+offset_right = 150.0
+offset_bottom = 15.0
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 18
 text = "CAPROS' 33 FANTASIES"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -144,14 +203,14 @@ vertical_alignment = 1
 [node name="MenuContainer" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 3
-anchor_left = 0.5
-anchor_top = 0.7
-anchor_right = 0.5
-anchor_bottom = 0.7
-offset_left = -200.0
-offset_top = -150.0
-offset_right = 200.0
-offset_bottom = 150.0
+anchor_left = 0.618
+anchor_top = 0.382
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
 alignment = 1
 
 [node name="StartButton" type="Button" parent="MenuContainer"]

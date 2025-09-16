@@ -8,7 +8,13 @@ extends CanvasLayer
 @onready var triangle3 := $GeometricElements/Triangle3
 @onready var line1 := $GeometricElements/Line1
 @onready var line2 := $GeometricElements/Line2
+@onready var stripe_masks := $StripeMasks
+@onready var stripe1 := $StripeMasks/Stripe1
+@onready var stripe2 := $StripeMasks/Stripe2
+@onready var stripe3 := $StripeMasks/Stripe3
+@onready var stripe4 := $StripeMasks/Stripe4
 @onready var title_container := $TitleContainer
+@onready var title_background := $TitleContainer/TitleBackground
 @onready var main_title := $TitleContainer/MainTitle
 @onready var sub_title := $TitleContainer/SubTitle
 @onready var english_title := $TitleContainer/EnglishTitle
@@ -48,6 +54,8 @@ func _ready():
 		menu_container.modulate.a = 0.0
 	if geometric_elements:
 		geometric_elements.modulate.a = 0.0
+	if stripe_masks:
+		stripe_masks.modulate.a = 0.0
 	
 	# 开始P3R风格的开场动画
 	await get_tree().create_timer(0.5).timeout
@@ -91,19 +99,50 @@ func _setup_menu_buttons():
 		print("Exit button connected")
 
 func _start_p3r_intro_animation():
-	# 第一阶段：几何元素淡入
+	# 第一阶段：条纹蒙版划过
+	_stripe_masks_animation()
+	
+	# 等待条纹动画完成
+	await get_tree().create_timer(2.0).timeout
+	
+	# 第二阶段：几何元素淡入
 	_geometric_elements_animation()
 	
 	# 等待几何元素动画完成
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(1.0).timeout
 	
-	# 第二阶段：标题渐入动画
+	# 第三阶段：标题渐入动画（带闪烁效果）
 	_title_fade_in_animation()
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	# 第三阶段：菜单按钮渐入
+	# 第四阶段：菜单按钮渐入
 	_menu_fade_in_animation()
+
+func _stripe_masks_animation():
+	# 条纹蒙版划过动画
+	if stripe_masks:
+		stripe_masks.modulate.a = 1.0
+		
+		# 设置初始位置（屏幕外）
+		var stripes = [stripe1, stripe2, stripe3, stripe4]
+		for i in range(stripes.size()):
+			if stripes[i]:
+				stripes[i].position.x = -400 - (i * 200)
+		
+		# 创建动画序列
+		var tween = create_tween()
+		tween.set_parallel(true)
+		
+		# 每个条纹以不同速度划过
+		for i in range(stripes.size()):
+			if stripes[i]:
+				var delay = i * 0.2
+				var duration = 1.5 + (i * 0.1)
+				tween.tween_delay(delay)
+				tween.tween_property(stripes[i], "position:x", 2000, duration)
+				tween.set_trans(Tween.TRANS_QUART)
+				tween.set_ease(Tween.EASE_IN_OUT)
 
 func _geometric_elements_animation():
 	# 几何元素淡入动画
@@ -118,6 +157,17 @@ func _title_fade_in_animation():
 	tween.parallel().tween_property(title_container, "modulate:a", 1.0, 1.0)
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
+	
+	# 启动标题闪烁效果
+	_start_title_flicker()
+
+func _start_title_flicker():
+	# 标题闪烁效果
+	var flicker_tween = create_tween()
+	flicker_tween.set_loops()
+	flicker_tween.tween_property(main_title, "modulate:a", 0.3, 0.5)
+	flicker_tween.tween_property(main_title, "modulate:a", 1.0, 0.5)
+	flicker_tween.tween_delay(2.0)
 
 func _menu_fade_in_animation():
 	# 菜单按钮渐入动画
