@@ -10,11 +10,7 @@ extends CanvasLayer
 @onready var triangle3 := $GeometricElements/Triangle3
 @onready var line1 := $GeometricElements/Line1
 @onready var line2 := $GeometricElements/Line2
-@onready var stripe_masks := $StripeMasks
-@onready var stripe1 := $StripeMasks/Stripe1
-@onready var stripe2 := $StripeMasks/Stripe2
-@onready var stripe3 := $StripeMasks/Stripe3
-@onready var stripe4 := $StripeMasks/Stripe4
+# StripeMasks nodes removed - no longer used
 @onready var title_container := $TitleContainer
 @onready var title_background := $TitleContainer/TitleBackground
 @onready var ink_splash1 := $TitleContainer/InkSplash1
@@ -24,7 +20,7 @@ extends CanvasLayer
 @onready var main_title := $TitleContainer/MainTitle
 @onready var sub_title := $TitleContainer/SubTitle
 @onready var english_title := $TitleContainer/EnglishTitle
-@onready var press_button_prompt := $PressButtonPrompt
+# PressButtonPrompt node removed - no longer used
 @onready var menu_container := $MenuContainer
 @onready var start_button := $MenuContainer/StartButton
 @onready var continue_button := $MenuContainer/ContinueButton
@@ -108,10 +104,14 @@ func _setup_rain_effects():
 	# 设置雨滴效果
 	if rain_effect:
 		print("Setting up rain shader...")
-		var rain_shader = load("res://shaders/RainEffect.gdshader")
-		var rain_material = ShaderMaterial.new()
-		rain_material.shader = rain_shader
-		rain_effect.material = rain_material
+		var rain_shader = load("res://res/shaders/RainEffect.gdshader")
+		if rain_shader:
+			var rain_material = ShaderMaterial.new()
+			rain_material.shader = rain_shader
+			rain_effect.material = rain_material
+		else:
+			print("Failed to load rain shader, using fallback")
+			rain_effect.color = Color(0.0, 0.0, 0.0, 0.0)  # 透明作为备用
 		
 		# 随机选择小雨或暴雨
 		var is_heavy_rain = randf() > 0.5
@@ -143,8 +143,7 @@ func _setup_gradient_overlay():
 		shader_type canvas_item;
 		
 		void fragment() {
-			vec2 uv = FRAGMENT_COORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy;
-			float gradient = 1.0 - uv.y * 0.3; // 从上到下逐渐变暗
+			float gradient = 1.0 - UV.y * 0.3; // 从上到下逐渐变暗
 			gradient = max(gradient, 0.7); // 最低透明度
 			COLOR = vec4(0.0, 0.0, 0.0, gradient);
 		}

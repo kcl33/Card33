@@ -20,8 +20,8 @@ float noise(vec2 p) {
 }
 
 void fragment() {
-    vec2 uv = FRAGMENT_COORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy;
-    vec2 screen_res = (1.0 / SCREEN_PIXEL_SIZE).xy;
+    vec2 uv = UV;
+    vec2 screen_res = 1.0 / SCREEN_PIXEL_SIZE;
     float aspect_ratio = screen_res.x / screen_res.y;
     
     float t = TIME * time_scale;
