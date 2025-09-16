@@ -92,6 +92,9 @@ func _ready():
 	
 	# 显示主菜单，不自动启动序章
 	print("主菜单准备完成，等待用户点击开始游戏...")
+	
+	# 显示主菜单元素
+	_show_main_menu_immediately()
 
 func _setup_background_effects():
 	# 设置背景shader材质
@@ -585,6 +588,31 @@ func _menu_fade_in_animation():
 	tween.parallel().tween_property(menu_container, "modulate:a", 1.0, 0.8)
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
+
+func _show_main_menu_immediately():
+	"""立即显示主菜单元素"""
+	print("立即显示主菜单元素...")
+	
+	# 显示标题容器
+	if title_container:
+		title_container.modulate.a = 1.0
+		print("标题容器显示")
+	
+	# 显示菜单容器
+	if menu_container:
+		menu_container.modulate.a = 1.0
+		print("菜单容器显示")
+	
+	# 显示几何元素
+	if geometric_elements:
+		geometric_elements.modulate.a = 1.0
+		print("几何元素显示")
+	
+	# 显示主标题
+	if main_title:
+		main_title.modulate.a = 1.0
+		main_title.visible = true
+		print("主标题显示")
 
 func _show_main_menu_animation():
 	"""显示主菜单动画"""
