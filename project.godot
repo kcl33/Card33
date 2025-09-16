@@ -8,10 +8,14 @@
 
 config_version=5
 
+[addons]
+
+dialogic/plugin_enabled=true
+
 [application]
 
 config/name="CardForge Nexus"
-run/main_scene="res://game/scenes/Map.tscn"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.4")
 
 [display]
@@ -28,7 +32,3 @@ window/stretch/mode="viewport"
 [rendering]
 
 environment/default_clear_color=Color(0.8, 0.2, 0.5, 1)
-
-[addons]
-
-dialogic/plugin_enabled=true
