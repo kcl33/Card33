@@ -15,16 +15,57 @@ func start_prologue():
 	"""开始序章"""
 	print("启动 Dialogic 序章...")
 	
+	# 检查 Dialogic 是否可用
+	if not _is_dialogic_available():
+		print("Dialogic 插件未加载，使用备用序章...")
+		_start_fallback_prologue()
+		return
+	
 	# 启动 Dialogic 对话
 	# 这里需要先在 Dialogic 编辑器中创建对话资源
-	var dialogic = Dialogic.start("Prologue")
+	var dialogic_handler = DialogicGameHandler.new()
+	var dialogic_node = dialogic_handler.start("Prologue")
 	
-	# 连接 Dialogic 信号
-	dialogic.timeline_ended.connect(_on_timeline_ended)
-	dialogic.event_handled.connect(_on_event_handled)
+	if dialogic_node:
+		# 连接 Dialogic 信号
+		dialogic_node.timeline_ended.connect(_on_timeline_ended)
+		dialogic_node.event_handled.connect(_on_event_handled)
+		
+		# 添加到场景
+		add_child(dialogic_node)
+	else:
+		print("无法启动 Dialogic 对话，使用备用序章...")
+		_start_fallback_prologue()
+
+func _is_dialogic_available() -> bool:
+	"""检查 Dialogic 是否可用"""
+	return ClassDB.class_exists("DialogicGameHandler")
+
+func _start_fallback_prologue():
+	"""备用序章（当 Dialogic 不可用时）"""
+	print("使用备用序章系统...")
 	
-	# 添加到场景
-	add_child(dialogic)
+	# 简单的文本序章
+	var prologue_text = """
+	雾雨之都·拉莱耶
+	
+	时雨时光站在废墟中，雨水不断滴落。
+	妹妹时雨时彩的尸体就在不远处...
+	
+	贵族的声音在远处响起：
+	"这就是反抗的下场！"
+	
+	时雨时光握紧拳头，眼中燃烧着复仇的火焰。
+	
+	[按任意键继续...]
+	"""
+	
+	print(prologue_text)
+	
+	# 等待用户输入
+	await get_tree().create_timer(3.0).timeout
+	print("序章结束，进入主游戏...")
+	prologue_finished.emit()
 
 func _on_timeline_ended():
 	"""对话结束"""
