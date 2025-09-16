@@ -141,9 +141,9 @@ func _setup_gradient_overlay():
 		shader_type canvas_item;
 		
 		void fragment() {
-			float gradient = 1.0 - UV.y * 0.3; // 从上到下逐渐变暗
-			gradient = max(gradient, 0.7); // 最低透明度
-			COLOR = vec4(0.0, 0.0, 0.0, gradient);
+			float gradient = 1.0 - UV.y * 0.1; // 从上到下轻微变暗
+			gradient = max(gradient, 0.9); // 最低透明度，保持大部分蓝色可见
+			COLOR = vec4(0.0, 0.0, 0.0, gradient * 0.3); // 整体透明度降低
 		}
 		"""
 		
