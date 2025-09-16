@@ -93,8 +93,8 @@ func _ready():
 	# 显示主菜单，不自动启动序章
 	print("主菜单准备完成，等待用户点击开始游戏...")
 	
-	# 显示主菜单元素
-	_show_main_menu_immediately()
+	# 启动主菜单动画
+	_show_main_menu_animation()
 
 func _setup_background_effects():
 	# 设置背景shader材质
@@ -250,6 +250,10 @@ func _geometric_elements_animation():
 	if not geometric_elements:
 		print("ERROR: GeometricElements node not found in animation!")
 		return
+	
+	# 确保初始状态为透明
+	geometric_elements.modulate.a = 0.0
+	print("几何元素初始状态设置为透明")
 		
 	var tween = create_tween()
 	tween.parallel().tween_property(geometric_elements, "modulate:a", 1.0, 1.5)
@@ -262,6 +266,14 @@ func _geometric_elements_animation():
 
 func _title_fade_in_animation():
 	# 标题渐入动画
+	if not title_container:
+		print("ERROR: TitleContainer node not found in animation!")
+		return
+	
+	# 确保初始状态为透明
+	title_container.modulate.a = 0.0
+	print("标题容器初始状态设置为透明")
+	
 	var tween = create_tween()
 	# 先让整个标题容器显示
 	tween.parallel().tween_property(title_container, "modulate:a", 1.0, 1.0)
@@ -583,7 +595,15 @@ func _start_ink_splash_animation(ink_splash: ColorRect, offset: Vector2, delay: 
 
 func _menu_fade_in_animation():
 	# 菜单按钮渐入动画
+	if not menu_container:
+		print("ERROR: MenuContainer node not found in animation!")
+		return
+	
+	# 确保初始状态为透明
+	menu_container.modulate.a = 0.0
 	menu_container.visible = true
+	print("菜单容器初始状态设置为透明")
+	
 	var tween = create_tween()
 	tween.parallel().tween_property(menu_container, "modulate:a", 1.0, 0.8)
 	tween.set_trans(Tween.TRANS_QUART)
