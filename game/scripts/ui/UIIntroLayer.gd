@@ -182,6 +182,9 @@ func _title_fade_in_animation():
 	
 	# 启动故障效果动画
 	_start_glitch_effects()
+	
+	# 启动CAPROS图片浮现动画（可选择不同方案）
+	_start_capros_animation_variant(1)  # 1=故障艺术, 2=墨迹扩散, 3=扫描线, 4=粒子汇聚, 5=3D翻转
 
 func _start_press_button_animation():
 	# PRESS ANY BUTTON提示动画
@@ -230,6 +233,147 @@ func _start_glitch_effects():
 		ink_tween.set_loops()
 		ink_tween.set_trans(Tween.TRANS_SINE)
 		ink_tween.set_ease(Tween.EASE_IN_OUT)
+
+func _start_capros_animation_variant(variant: int):
+	# 根据选择启动不同的CAPROS动画方案
+	match variant:
+		1:
+			_start_capros_glitch_appear()  # 故障艺术浮现
+		2:
+			_start_capros_ink_spread()     # 墨迹扩散
+		3:
+			_start_capros_scanline()       # 扫描线浮现
+		4:
+			_start_capros_particle()       # 粒子汇聚
+		5:
+			_start_capros_3d_flip()        # 3D翻转
+		_:
+			_start_capros_glitch_appear()  # 默认故障艺术
+
+func _start_capros_glitch_appear():
+	# CAPROS图片故障浮现动画
+	if main_title:
+		# 初始状态：图片完全透明
+		main_title.modulate.a = 0.0
+		main_title.scale = Vector2(0.5, 0.5)
+		main_title.rotation = 0.1
+		
+		# 第一阶段：快速闪烁出现
+		var flash_tween = create_tween()
+		flash_tween.tween_property(main_title, "modulate:a", 0.3, 0.1)
+		flash_tween.tween_property(main_title, "modulate:a", 0.0, 0.1)
+		flash_tween.tween_property(main_title, "modulate:a", 0.7, 0.1)
+		flash_tween.tween_property(main_title, "modulate:a", 0.0, 0.1)
+		flash_tween.tween_property(main_title, "modulate:a", 1.0, 0.2)
+		
+		# 第二阶段：缩放和旋转效果
+		var scale_tween = create_tween()
+		scale_tween.parallel().tween_property(main_title, "scale", Vector2(1.2, 1.2), 0.3)
+		scale_tween.parallel().tween_property(main_title, "rotation", -0.05, 0.3)
+		scale_tween.tween_property(main_title, "scale", Vector2(1.0, 1.0), 0.2)
+		scale_tween.tween_property(main_title, "rotation", 0.0, 0.2)
+		
+		# 第三阶段：持续故障效果
+		_start_capros_glitch_loop()
+
+func _start_capros_glitch_loop():
+	# CAPROS图片持续故障效果
+	if main_title:
+		var glitch_tween = create_tween()
+		# 随机位置偏移
+		var original_pos = main_title.position
+		glitch_tween.tween_property(main_title, "position", original_pos + Vector2(2, 0), 0.05)
+		glitch_tween.tween_property(main_title, "position", original_pos + Vector2(-1, 1), 0.05)
+		glitch_tween.tween_property(main_title, "position", original_pos + Vector2(1, -1), 0.05)
+		glitch_tween.tween_property(main_title, "position", original_pos, 0.05)
+		
+		# 随机透明度变化
+		glitch_tween.parallel().tween_property(main_title, "modulate:a", 0.8, 0.1)
+		glitch_tween.parallel().tween_property(main_title, "modulate:a", 1.0, 0.1)
+		
+		# 随机缩放
+		glitch_tween.parallel().tween_property(main_title, "scale", Vector2(1.02, 1.02), 0.1)
+		glitch_tween.parallel().tween_property(main_title, "scale", Vector2(1.0, 1.0), 0.1)
+		
+		glitch_tween.set_loops()
+		glitch_tween.set_trans(Tween.TRANS_LINEAR)
+		glitch_tween.set_ease(Tween.EASE_IN_OUT)
+
+func _start_capros_ink_spread():
+	# 方案2：墨迹扩散效果
+	if main_title:
+		main_title.modulate.a = 0.0
+		main_title.scale = Vector2(0.1, 0.1)
+		main_title.position = main_title.position + Vector2(300, 100)  # 从中心开始
+		
+		var ink_tween = create_tween()
+		# 扩散效果
+		ink_tween.parallel().tween_property(main_title, "scale", Vector2(1.3, 1.3), 1.5)
+		ink_tween.parallel().tween_property(main_title, "modulate:a", 1.0, 1.5)
+		ink_tween.parallel().tween_property(main_title, "position", main_title.position - Vector2(300, 100), 1.5)
+		
+		# 回弹效果
+		ink_tween.tween_property(main_title, "scale", Vector2(1.0, 1.0), 0.3)
+		ink_tween.set_trans(Tween.TRANS_ELASTIC)
+		ink_tween.set_ease(Tween.EASE_OUT)
+
+func _start_capros_scanline():
+	# 方案3：扫描线浮现
+	if main_title:
+		main_title.modulate.a = 0.0
+		main_title.scale = Vector2(1.0, 0.0)  # 从0高度开始
+		
+		var scan_tween = create_tween()
+		# 扫描线效果
+		scan_tween.tween_property(main_title, "scale", Vector2(1.0, 1.0), 1.0)
+		scan_tween.parallel().tween_property(main_title, "modulate:a", 1.0, 1.0)
+		scan_tween.set_trans(Tween.TRANS_QUART)
+		scan_tween.set_ease(Tween.EASE_OUT)
+		
+		# 扫描线闪烁效果
+		var flash_tween = create_tween()
+		flash_tween.tween_delay(0.5)
+		flash_tween.tween_property(main_title, "modulate:a", 0.7, 0.1)
+		flash_tween.tween_property(main_title, "modulate:a", 1.0, 0.1)
+
+func _start_capros_particle():
+	# 方案4：粒子汇聚效果
+	if main_title:
+		main_title.modulate.a = 0.0
+		main_title.scale = Vector2(0.2, 0.2)
+		main_title.position = main_title.position + Vector2(200, -100)
+		
+		var particle_tween = create_tween()
+		# 粒子汇聚
+		particle_tween.parallel().tween_property(main_title, "position", main_title.position - Vector2(200, -100), 1.2)
+		particle_tween.parallel().tween_property(main_title, "scale", Vector2(1.1, 1.1), 1.2)
+		particle_tween.parallel().tween_property(main_title, "modulate:a", 1.0, 1.2)
+		
+		# 发光效果
+		particle_tween.tween_property(main_title, "modulate", Color(1.2, 1.2, 1.5, 1.0), 0.2)
+		particle_tween.tween_property(main_title, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.2)
+		particle_tween.tween_property(main_title, "scale", Vector2(1.0, 1.0), 0.3)
+		particle_tween.set_trans(Tween.TRANS_QUART)
+		particle_tween.set_ease(Tween.EASE_OUT)
+
+func _start_capros_3d_flip():
+	# 方案5：3D翻转效果
+	if main_title:
+		main_title.modulate.a = 0.0
+		main_title.scale = Vector2(0.0, 1.0)  # 从侧面开始
+		main_title.rotation = 1.57  # 90度旋转
+		
+		var flip_tween = create_tween()
+		# 3D翻转
+		flip_tween.parallel().tween_property(main_title, "rotation", 0.0, 0.8)
+		flip_tween.parallel().tween_property(main_title, "scale", Vector2(1.0, 1.0), 0.8)
+		flip_tween.parallel().tween_property(main_title, "modulate:a", 1.0, 0.8)
+		
+		# 阴影效果（通过透明度模拟）
+		flip_tween.tween_property(main_title, "modulate", Color(0.8, 0.8, 0.8, 1.0), 0.1)
+		flip_tween.tween_property(main_title, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
+		flip_tween.set_trans(Tween.TRANS_QUART)
+		flip_tween.set_ease(Tween.EASE_OUT)
 
 func _menu_fade_in_animation():
 	# 菜单按钮渐入动画

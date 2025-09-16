@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwf4aody3dl02"]
 
 [ext_resource type="Script" uid="uid://d1o23ovw0r3er" path="res://game/scripts/ui/UIIntroLayer.gd" id="1"]
-[ext_resource type="Texture2D" path="res://textures/capros.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://b7ey7q2uf6yh5" path="res://imageas/capros.png" id="2"]
 
 [node name="UIIntroLayer" type="CanvasLayer"]
 layer = 100
@@ -101,12 +101,24 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -116.0
-offset_top = 14.0
-offset_right = 2196.56
-offset_bottom = 14.44
+offset_top = 7.0
+offset_right = 2197.0
+offset_bottom = -241.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1, 0.1, 0.1, 0.6)
+
+[node name="TitleBackground2" type="ColorRect" parent="TitleContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = 203.0
+offset_right = 2197.0
+offset_bottom = -283.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="InkSplash1" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
@@ -149,27 +161,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1, 0.1, 0.1, 0.6)
 
-[node name="MainTitle" type="TextureRect" parent="TitleContainer"]
-layout_mode = 1
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 600.0
-offset_bottom = 200.0
-texture = ExtResource("2")
-expand_mode = 1
-stretch_mode = 5
-
 [node name="SubTitle" type="Label" parent="TitleContainer"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.0
 anchor_right = 0.5
-anchor_bottom = 0.0
-offset_left = -100.0
-offset_top = 220.0
-offset_right = 100.0
-offset_bottom = 250.0
+offset_left = 56.0
+offset_top = 437.0
+offset_right = 256.0
+offset_bottom = 476.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.3, 0.7, 1, 1)
@@ -184,13 +184,11 @@ vertical_alignment = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.0
 anchor_right = 0.5
-anchor_bottom = 0.0
-offset_left = -120.0
-offset_top = 260.0
-offset_right = 120.0
-offset_bottom = 280.0
+offset_left = 65.0
+offset_top = 468.0
+offset_right = 305.0
+offset_bottom = 494.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
@@ -198,6 +196,17 @@ theme_override_font_sizes/font_size = 18
 text = "THE ENDLESS RAIN"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MainTitle" type="TextureRect" parent="TitleContainer/EnglishTitle"]
+layout_mode = 1
+offset_left = -1239.0
+offset_top = -548.0
+offset_right = -639.0
+offset_bottom = -348.0
+scale = Vector2(3.86548, 3.86548)
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="MenuContainer" type="VBoxContainer" parent="."]
 visible = false
