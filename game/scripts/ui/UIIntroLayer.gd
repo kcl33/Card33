@@ -160,15 +160,23 @@ func _setup_menu_buttons():
 	print("Setting up menu buttons...")
 	if start_button:
 		start_button.pressed.connect(_on_start_pressed)
+		start_button.mouse_entered.connect(_on_button_hover.bind(start_button))
+		start_button.mouse_exited.connect(_on_button_unhover.bind(start_button))
 		print("Start button connected")
 	if continue_button:
 		continue_button.pressed.connect(_on_continue_pressed)
+		continue_button.mouse_entered.connect(_on_button_hover.bind(continue_button))
+		continue_button.mouse_exited.connect(_on_button_unhover.bind(continue_button))
 		print("Continue button connected")
 	if settings_button:
 		settings_button.pressed.connect(_on_settings_pressed)
+		settings_button.mouse_entered.connect(_on_button_hover.bind(settings_button))
+		settings_button.mouse_exited.connect(_on_button_unhover.bind(settings_button))
 		print("Settings button connected")
 	if exit_button:
 		exit_button.pressed.connect(_on_exit_pressed)
+		exit_button.mouse_entered.connect(_on_button_hover.bind(exit_button))
+		exit_button.mouse_exited.connect(_on_button_unhover.bind(exit_button))
 		print("Exit button connected")
 
 func _start_p3r_intro_animation():
@@ -549,14 +557,103 @@ func _menu_fade_in_animation():
 
 func _on_start_pressed():
 	print("开始游戏")
+	_start_button_click_effect(start_button)
 
 func _on_continue_pressed():
 	print("继续游戏")
+	_start_button_click_effect(continue_button)
 
 func _on_settings_pressed():
 	print("打开设置")
+	_start_button_click_effect(settings_button)
 
 func _on_exit_pressed():
+	_start_button_click_effect(exit_button)
+	await get_tree().create_timer(0.5).timeout
 	get_tree().quit()
+
+func _on_button_hover(button: Button):
+	# 按钮悬停效果
+	if button:
+		print("Button hover: ", button.text)
+		var tween = create_tween()
+		tween.parallel().tween_property(button, "scale", Vector2(1.1, 1.1), 0.2)
+		tween.parallel().tween_property(button, "modulate", Color(1.2, 1.2, 1.5, 1.0), 0.2)
+		tween.set_trans(Tween.TRANS_QUART)
+		tween.set_ease(Tween.EASE_OUT)
+		
+		# 添加发光效果
+		_start_button_glow(button)
+
+func _on_button_unhover(button: Button):
+	# 按钮取消悬停效果
+	if button:
+		print("Button unhover: ", button.text)
+		var tween = create_tween()
+		tween.parallel().tween_property(button, "scale", Vector2(1.0, 1.0), 0.2)
+		tween.parallel().tween_property(button, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.2)
+		tween.set_trans(Tween.TRANS_QUART)
+		tween.set_ease(Tween.EASE_OUT)
+		
+		# 停止发光效果
+		_stop_button_glow(button)
+
+func _start_button_glow(button: Button):
+	# 按钮发光效果
+	if button:
+		var glow_tween = create_tween()
+		glow_tween.tween_property(button, "modulate", Color(1.5, 1.5, 2.0, 1.0), 0.5)
+		glow_tween.tween_property(button, "modulate", Color(1.2, 1.2, 1.5, 1.0), 0.5)
+		glow_tween.set_loops()
+		glow_tween.set_trans(Tween.TRANS_SINE)
+		glow_tween.set_ease(Tween.EASE_IN_OUT)
+		
+		# 存储tween引用以便停止
+		button.set_meta("glow_tween", glow_tween)
+
+func _stop_button_glow(button: Button):
+	# 停止按钮发光效果
+	if button and button.has_meta("glow_tween"):
+		var glow_tween = button.get_meta("glow_tween")
+		if glow_tween:
+			glow_tween.kill()
+		button.remove_meta("glow_tween")
+
+func _start_button_click_effect(button: Button):
+	# 按钮点击效果
+	if button:
+		print("Button clicked: ", button.text)
+		
+		# 停止之前的发光效果
+		_stop_button_glow(button)
+		
+		# 点击动画：缩放 + 颜色变化
+		var click_tween = create_tween()
+		click_tween.parallel().tween_property(button, "scale", Vector2(0.95, 0.95), 0.1)
+		click_tween.parallel().tween_property(button, "modulate", Color(2.0, 1.0, 1.0, 1.0), 0.1)
+		click_tween.set_trans(Tween.TRANS_QUART)
+		click_tween.set_ease(Tween.EASE_OUT)
+		
+		# 等待点击动画完成
+		await click_tween.finished
+		
+		# 恢复动画
+		var restore_tween = create_tween()
+		restore_tween.parallel().tween_property(button, "scale", Vector2(1.0, 1.0), 0.2)
+		restore_tween.parallel().tween_property(button, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.2)
+		restore_tween.set_trans(Tween.TRANS_QUART)
+		restore_tween.set_ease(Tween.EASE_OUT)
+		
+		# 添加点击后的脉冲效果
+		_start_button_pulse(button)
+
+func _start_button_pulse(button: Button):
+	# 按钮脉冲效果
+	if button:
+		var pulse_tween = create_tween()
+		pulse_tween.tween_property(button, "modulate", Color(1.3, 1.3, 1.8, 1.0), 0.3)
+		pulse_tween.tween_property(button, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.3)
+		pulse_tween.set_trans(Tween.TRANS_SINE)
+		pulse_tween.set_ease(Tween.EASE_IN_OUT)
 
 # Input handling removed - press button node no longer exists
