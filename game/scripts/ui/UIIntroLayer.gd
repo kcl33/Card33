@@ -385,27 +385,31 @@ func _start_capros_3d_flip():
 		flip_tween.set_ease(Tween.EASE_OUT)
 
 func _start_capros_card_slide():
-	# 方案6：卡片式从屏幕外滑入
+	# 方案6：卡片式从屏幕外滑入（纯平移）
 	if main_title:
+		print("开始CAPROS卡片滑入动画")
+		print("MainTitle位置: ", main_title.position)
+		print("MainTitle可见性: ", main_title.visible)
+		print("MainTitle透明度: ", main_title.modulate.a)
+		
 		# 初始状态：图片在屏幕左侧外
 		var original_pos = main_title.position
 		main_title.position = Vector2(-800, original_pos.y)
 		main_title.modulate.a = 0.0
-		main_title.scale = Vector2(0.8, 0.8)
-		main_title.rotation = -0.1
+		main_title.visible = true
+		
+		print("设置初始位置: ", main_title.position)
 		
 		var card_tween = create_tween()
-		# 滑入效果
-		card_tween.parallel().tween_property(main_title, "position", original_pos, 1.2)
-		card_tween.parallel().tween_property(main_title, "modulate:a", 1.0, 1.2)
-		card_tween.parallel().tween_property(main_title, "scale", Vector2(1.0, 1.0), 1.2)
-		card_tween.parallel().tween_property(main_title, "rotation", 0.0, 1.2)
-		
-		# 卡片弹跳效果
-		card_tween.tween_property(main_title, "scale", Vector2(1.05, 1.05), 0.1)
-		card_tween.tween_property(main_title, "scale", Vector2(1.0, 1.0), 0.1)
+		# 纯平移滑入效果
+		card_tween.parallel().tween_property(main_title, "position", original_pos, 1.5)
+		card_tween.parallel().tween_property(main_title, "modulate:a", 1.0, 1.5)
 		card_tween.set_trans(Tween.TRANS_QUART)
 		card_tween.set_ease(Tween.EASE_OUT)
+		
+		print("动画已启动")
+	else:
+		print("错误：main_title节点未找到")
 
 func _start_triangle_animations():
 	# 三角形动态效果
@@ -417,11 +421,10 @@ func _start_triangle_animations():
 		_start_triangle_slide_animation(triangle3, Vector2(0, -150), 0.6)
 
 func _start_triangle_slide_animation(triangle: ColorRect, offset: Vector2, delay: float):
-	# 单个三角形滑入动画
+	# 单个三角形滑入动画（纯平移）
 	var original_pos = triangle.position
 	triangle.position = original_pos + offset
 	triangle.modulate.a = 0.0
-	triangle.scale = Vector2(0.5, 0.5)
 	
 	# 延迟启动
 	await get_tree().create_timer(delay).timeout
@@ -429,20 +432,8 @@ func _start_triangle_slide_animation(triangle: ColorRect, offset: Vector2, delay
 	var triangle_tween = create_tween()
 	triangle_tween.parallel().tween_property(triangle, "position", original_pos, 1.0)
 	triangle_tween.parallel().tween_property(triangle, "modulate:a", 1.0, 1.0)
-	triangle_tween.parallel().tween_property(triangle, "scale", Vector2(1.0, 1.0), 1.0)
 	triangle_tween.set_trans(Tween.TRANS_QUART)
 	triangle_tween.set_ease(Tween.EASE_OUT)
-	
-	# 持续旋转动画
-	_start_triangle_rotation_loop(triangle)
-
-func _start_triangle_rotation_loop(triangle: ColorRect):
-	# 三角形持续旋转
-	var rotation_tween = create_tween()
-	rotation_tween.tween_property(triangle, "rotation", triangle.rotation + 0.5, 3.0)
-	rotation_tween.set_loops()
-	rotation_tween.set_trans(Tween.TRANS_LINEAR)
-	rotation_tween.set_ease(Tween.EASE_IN_OUT)
 
 func _start_line_animations():
 	# 线条动态效果
@@ -452,11 +443,10 @@ func _start_line_animations():
 		_start_line_slide_animation(line2, Vector2(300, 0), 0.5)
 
 func _start_line_slide_animation(line: ColorRect, offset: Vector2, delay: float):
-	# 单个线条滑入动画
+	# 单个线条滑入动画（纯平移）
 	var original_pos = line.position
 	line.position = original_pos + offset
 	line.modulate.a = 0.0
-	line.scale = Vector2(0.0, 1.0)
 	
 	# 延迟启动
 	await get_tree().create_timer(delay).timeout
@@ -464,21 +454,8 @@ func _start_line_slide_animation(line: ColorRect, offset: Vector2, delay: float)
 	var line_tween = create_tween()
 	line_tween.parallel().tween_property(line, "position", original_pos, 0.8)
 	line_tween.parallel().tween_property(line, "modulate:a", 1.0, 0.8)
-	line_tween.parallel().tween_property(line, "scale", Vector2(1.0, 1.0), 0.8)
 	line_tween.set_trans(Tween.TRANS_QUART)
 	line_tween.set_ease(Tween.EASE_OUT)
-	
-	# 持续伸缩动画
-	_start_line_pulse_loop(line)
-
-func _start_line_pulse_loop(line: ColorRect):
-	# 线条持续伸缩
-	var pulse_tween = create_tween()
-	pulse_tween.tween_property(line, "scale", Vector2(1.1, 1.0), 1.5)
-	pulse_tween.tween_property(line, "scale", Vector2(1.0, 1.0), 1.5)
-	pulse_tween.set_loops()
-	pulse_tween.set_trans(Tween.TRANS_SINE)
-	pulse_tween.set_ease(Tween.EASE_IN_OUT)
 
 func _start_ink_background_animations():
 	# 墨迹背景动态效果
@@ -488,11 +465,10 @@ func _start_ink_background_animations():
 		_start_ink_splash_animation(ink_splash2, Vector2(100, 50), 0.4)
 
 func _start_ink_splash_animation(ink_splash: ColorRect, offset: Vector2, delay: float):
-	# 单个墨迹飞溅动画
+	# 单个墨迹飞溅动画（纯平移）
 	var original_pos = ink_splash.position
 	ink_splash.position = original_pos + offset
 	ink_splash.modulate.a = 0.0
-	ink_splash.scale = Vector2(0.3, 0.3)
 	
 	# 延迟启动
 	await get_tree().create_timer(delay).timeout
@@ -500,21 +476,8 @@ func _start_ink_splash_animation(ink_splash: ColorRect, offset: Vector2, delay: 
 	var ink_tween = create_tween()
 	ink_tween.parallel().tween_property(ink_splash, "position", original_pos, 1.2)
 	ink_tween.parallel().tween_property(ink_splash, "modulate:a", 1.0, 1.2)
-	ink_tween.parallel().tween_property(ink_splash, "scale", Vector2(1.0, 1.0), 1.2)
-	ink_tween.set_trans(Tween.TRANS_ELASTIC)
+	ink_tween.set_trans(Tween.TRANS_QUART)
 	ink_tween.set_ease(Tween.EASE_OUT)
-	
-	# 持续呼吸动画
-	_start_ink_breathing_loop(ink_splash)
-
-func _start_ink_breathing_loop(ink_splash: ColorRect):
-	# 墨迹呼吸效果
-	var breathing_tween = create_tween()
-	breathing_tween.tween_property(ink_splash, "scale", Vector2(1.1, 1.1), 2.0)
-	breathing_tween.tween_property(ink_splash, "scale", Vector2(1.0, 1.0), 2.0)
-	breathing_tween.set_loops()
-	breathing_tween.set_trans(Tween.TRANS_SINE)
-	breathing_tween.set_ease(Tween.EASE_IN_OUT)
 
 func _menu_fade_in_animation():
 	# 菜单按钮渐入动画
