@@ -18,8 +18,8 @@ extends CanvasLayer
 @onready var ink_splash2 := $TitleContainer/InkSplash2
 @onready var glitch_line1 := $TitleContainer/GlitchLine1
 @onready var glitch_line2 := $TitleContainer/GlitchLine2
-@onready var main_title := $TitleContainer/MainTitle
-@onready var sub_title := $TitleContainer/SubTitle
+@onready var main_title := $TitleContainer/EnglishTitle/MainTitle
+@onready var sub_title := $TitleContainer/EnglishTitle/SubTitle
 @onready var english_title := $TitleContainer/EnglishTitle
 # PressButtonPrompt node removed - no longer used
 @onready var menu_container := $MenuContainer
