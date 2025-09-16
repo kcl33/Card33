@@ -119,6 +119,7 @@ offset_right = 2197.0
 offset_bottom = -283.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(1, 1, 1, 0.843137)
 
 [node name="InkSplash1" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
@@ -161,25 +162,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1, 0.1, 0.1, 0.6)
 
-[node name="SubTitle" type="Label" parent="TitleContainer"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 56.0
-offset_top = 437.0
-offset_right = 256.0
-offset_bottom = 476.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.3, 0.7, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 28
-text = "33 FANTASIES"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="EnglishTitle" type="Label" parent="TitleContainer"]
 layout_mode = 1
 anchors_preset = -1
@@ -199,14 +181,33 @@ vertical_alignment = 1
 
 [node name="MainTitle" type="TextureRect" parent="TitleContainer/EnglishTitle"]
 layout_mode = 1
-offset_left = -1239.0
+offset_left = -1231.0
 offset_top = -548.0
-offset_right = -639.0
+offset_right = -631.0
 offset_bottom = -348.0
 scale = Vector2(3.86548, 3.86548)
 texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="SubTitle" type="Label" parent="TitleContainer/EnglishTitle"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -105.0
+offset_top = -38.0
+offset_right = 95.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.3, 0.7, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 28
+text = "33 FANTASIES"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MenuContainer" type="VBoxContainer" parent="."]
 visible = false

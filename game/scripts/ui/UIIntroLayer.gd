@@ -167,11 +167,15 @@ func _start_delayed_stripe_animation(stripe: ColorRect, delay: float, duration: 
 	tween.set_ease(Tween.EASE_IN_OUT)
 
 func _geometric_elements_animation():
-	# 几何元素淡入动画
+	# 几何元素动态浮现动画
 	var tween = create_tween()
 	tween.parallel().tween_property(geometric_elements, "modulate:a", 1.0, 1.5)
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
+	
+	# 启动各个几何元素的独立动画
+	_start_triangle_animations()
+	_start_line_animations()
 
 func _title_fade_in_animation():
 	# 标题渐入动画
@@ -183,8 +187,11 @@ func _title_fade_in_animation():
 	# 启动故障效果动画
 	_start_glitch_effects()
 	
+	# 启动墨迹背景动画
+	_start_ink_background_animations()
+	
 	# 启动CAPROS图片浮现动画（可选择不同方案）
-	_start_capros_animation_variant(1)  # 1=故障艺术, 2=墨迹扩散, 3=扫描线, 4=粒子汇聚, 5=3D翻转
+	_start_capros_animation_variant(6)  # 1=故障艺术, 2=墨迹扩散, 3=扫描线, 4=粒子汇聚, 5=3D翻转, 6=卡片滑入
 
 func _start_press_button_animation():
 	# PRESS ANY BUTTON提示动画
@@ -247,6 +254,8 @@ func _start_capros_animation_variant(variant: int):
 			_start_capros_particle()       # 粒子汇聚
 		5:
 			_start_capros_3d_flip()        # 3D翻转
+		6:
+			_start_capros_card_slide()     # 卡片式滑入
 		_:
 			_start_capros_glitch_appear()  # 默认故障艺术
 
@@ -374,6 +383,138 @@ func _start_capros_3d_flip():
 		flip_tween.tween_property(main_title, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.1)
 		flip_tween.set_trans(Tween.TRANS_QUART)
 		flip_tween.set_ease(Tween.EASE_OUT)
+
+func _start_capros_card_slide():
+	# 方案6：卡片式从屏幕外滑入
+	if main_title:
+		# 初始状态：图片在屏幕左侧外
+		var original_pos = main_title.position
+		main_title.position = Vector2(-800, original_pos.y)
+		main_title.modulate.a = 0.0
+		main_title.scale = Vector2(0.8, 0.8)
+		main_title.rotation = -0.1
+		
+		var card_tween = create_tween()
+		# 滑入效果
+		card_tween.parallel().tween_property(main_title, "position", original_pos, 1.2)
+		card_tween.parallel().tween_property(main_title, "modulate:a", 1.0, 1.2)
+		card_tween.parallel().tween_property(main_title, "scale", Vector2(1.0, 1.0), 1.2)
+		card_tween.parallel().tween_property(main_title, "rotation", 0.0, 1.2)
+		
+		# 卡片弹跳效果
+		card_tween.tween_property(main_title, "scale", Vector2(1.05, 1.05), 0.1)
+		card_tween.tween_property(main_title, "scale", Vector2(1.0, 1.0), 0.1)
+		card_tween.set_trans(Tween.TRANS_QUART)
+		card_tween.set_ease(Tween.EASE_OUT)
+
+func _start_triangle_animations():
+	# 三角形动态效果
+	if triangle1:
+		_start_triangle_slide_animation(triangle1, Vector2(-200, 0), 0.0)
+	if triangle2:
+		_start_triangle_slide_animation(triangle2, Vector2(200, 0), 0.3)
+	if triangle3:
+		_start_triangle_slide_animation(triangle3, Vector2(0, -150), 0.6)
+
+func _start_triangle_slide_animation(triangle: ColorRect, offset: Vector2, delay: float):
+	# 单个三角形滑入动画
+	var original_pos = triangle.position
+	triangle.position = original_pos + offset
+	triangle.modulate.a = 0.0
+	triangle.scale = Vector2(0.5, 0.5)
+	
+	# 延迟启动
+	await get_tree().create_timer(delay).timeout
+	
+	var triangle_tween = create_tween()
+	triangle_tween.parallel().tween_property(triangle, "position", original_pos, 1.0)
+	triangle_tween.parallel().tween_property(triangle, "modulate:a", 1.0, 1.0)
+	triangle_tween.parallel().tween_property(triangle, "scale", Vector2(1.0, 1.0), 1.0)
+	triangle_tween.set_trans(Tween.TRANS_QUART)
+	triangle_tween.set_ease(Tween.EASE_OUT)
+	
+	# 持续旋转动画
+	_start_triangle_rotation_loop(triangle)
+
+func _start_triangle_rotation_loop(triangle: ColorRect):
+	# 三角形持续旋转
+	var rotation_tween = create_tween()
+	rotation_tween.tween_property(triangle, "rotation", triangle.rotation + 0.5, 3.0)
+	rotation_tween.set_loops()
+	rotation_tween.set_trans(Tween.TRANS_LINEAR)
+	rotation_tween.set_ease(Tween.EASE_IN_OUT)
+
+func _start_line_animations():
+	# 线条动态效果
+	if line1:
+		_start_line_slide_animation(line1, Vector2(-300, 0), 0.2)
+	if line2:
+		_start_line_slide_animation(line2, Vector2(300, 0), 0.5)
+
+func _start_line_slide_animation(line: ColorRect, offset: Vector2, delay: float):
+	# 单个线条滑入动画
+	var original_pos = line.position
+	line.position = original_pos + offset
+	line.modulate.a = 0.0
+	line.scale = Vector2(0.0, 1.0)
+	
+	# 延迟启动
+	await get_tree().create_timer(delay).timeout
+	
+	var line_tween = create_tween()
+	line_tween.parallel().tween_property(line, "position", original_pos, 0.8)
+	line_tween.parallel().tween_property(line, "modulate:a", 1.0, 0.8)
+	line_tween.parallel().tween_property(line, "scale", Vector2(1.0, 1.0), 0.8)
+	line_tween.set_trans(Tween.TRANS_QUART)
+	line_tween.set_ease(Tween.EASE_OUT)
+	
+	# 持续伸缩动画
+	_start_line_pulse_loop(line)
+
+func _start_line_pulse_loop(line: ColorRect):
+	# 线条持续伸缩
+	var pulse_tween = create_tween()
+	pulse_tween.tween_property(line, "scale", Vector2(1.1, 1.0), 1.5)
+	pulse_tween.tween_property(line, "scale", Vector2(1.0, 1.0), 1.5)
+	pulse_tween.set_loops()
+	pulse_tween.set_trans(Tween.TRANS_SINE)
+	pulse_tween.set_ease(Tween.EASE_IN_OUT)
+
+func _start_ink_background_animations():
+	# 墨迹背景动态效果
+	if ink_splash1:
+		_start_ink_splash_animation(ink_splash1, Vector2(-100, -50), 0.0)
+	if ink_splash2:
+		_start_ink_splash_animation(ink_splash2, Vector2(100, 50), 0.4)
+
+func _start_ink_splash_animation(ink_splash: ColorRect, offset: Vector2, delay: float):
+	# 单个墨迹飞溅动画
+	var original_pos = ink_splash.position
+	ink_splash.position = original_pos + offset
+	ink_splash.modulate.a = 0.0
+	ink_splash.scale = Vector2(0.3, 0.3)
+	
+	# 延迟启动
+	await get_tree().create_timer(delay).timeout
+	
+	var ink_tween = create_tween()
+	ink_tween.parallel().tween_property(ink_splash, "position", original_pos, 1.2)
+	ink_tween.parallel().tween_property(ink_splash, "modulate:a", 1.0, 1.2)
+	ink_tween.parallel().tween_property(ink_splash, "scale", Vector2(1.0, 1.0), 1.2)
+	ink_tween.set_trans(Tween.TRANS_ELASTIC)
+	ink_tween.set_ease(Tween.EASE_OUT)
+	
+	# 持续呼吸动画
+	_start_ink_breathing_loop(ink_splash)
+
+func _start_ink_breathing_loop(ink_splash: ColorRect):
+	# 墨迹呼吸效果
+	var breathing_tween = create_tween()
+	breathing_tween.tween_property(ink_splash, "scale", Vector2(1.1, 1.1), 2.0)
+	breathing_tween.tween_property(ink_splash, "scale", Vector2(1.0, 1.0), 2.0)
+	breathing_tween.set_loops()
+	breathing_tween.set_trans(Tween.TRANS_SINE)
+	breathing_tween.set_ease(Tween.EASE_IN_OUT)
 
 func _menu_fade_in_animation():
 	# 菜单按钮渐入动画
