@@ -18,6 +18,7 @@ extends CanvasLayer
 @onready var main_title := $TitleContainer/MainTitle
 @onready var sub_title := $TitleContainer/SubTitle
 @onready var english_title := $TitleContainer/EnglishTitle
+@onready var press_button_prompt := $PressButtonPrompt
 @onready var menu_container := $MenuContainer
 @onready var start_button := $MenuContainer/StartButton
 @onready var continue_button := $MenuContainer/ContinueButton
@@ -60,6 +61,9 @@ func _ready():
 	# 开始P3R风格的开场动画
 	await get_tree().create_timer(0.5).timeout
 	_start_p3r_intro_animation()
+	
+	# 连接输入事件
+	set_process_input(true)
 
 func _setup_background_effects():
 	# 设置背景shader材质
@@ -111,12 +115,17 @@ func _start_p3r_intro_animation():
 	# 等待几何元素动画完成
 	await get_tree().create_timer(1.0).timeout
 	
-	# 第三阶段：标题渐入动画（带闪烁效果）
+	# 第三阶段：标题渐入动画
 	_title_fade_in_animation()
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	# 第四阶段：菜单按钮渐入
+	# 第四阶段：PRESS ANY BUTTON提示
+	_start_press_button_animation()
+	
+	await get_tree().create_timer(1.0).timeout
+	
+	# 第五阶段：菜单按钮渐入
 	_menu_fade_in_animation()
 
 func _stripe_masks_animation():
@@ -167,6 +176,32 @@ func _title_fade_in_animation():
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
 
+func _start_press_button_animation():
+	# PRESS ANY BUTTON提示动画
+	if press_button_prompt:
+		press_button_prompt.visible = true
+		press_button_prompt.modulate.a = 0.0
+		
+		# 淡入动画
+		var tween = create_tween()
+		tween.tween_property(press_button_prompt, "modulate:a", 1.0, 0.8)
+		tween.set_trans(Tween.TRANS_QUART)
+		tween.set_ease(Tween.EASE_OUT)
+		
+		# 等待淡入完成后开始闪烁
+		await tween.finished
+		_start_press_button_flicker()
+
+func _start_press_button_flicker():
+	# PRESS ANY BUTTON闪烁效果
+	if press_button_prompt:
+		var flicker_tween = create_tween()
+		flicker_tween.tween_property(press_button_prompt, "modulate:a", 0.3, 0.8)
+		flicker_tween.tween_property(press_button_prompt, "modulate:a", 1.0, 0.8)
+		flicker_tween.set_loops()
+		flicker_tween.set_trans(Tween.TRANS_SINE)
+		flicker_tween.set_ease(Tween.EASE_IN_OUT)
+
 func _menu_fade_in_animation():
 	# 菜单按钮渐入动画
 	menu_container.visible = true
@@ -186,3 +221,20 @@ func _on_settings_pressed():
 
 func _on_exit_pressed():
 	get_tree().quit()
+
+func _input(event):
+	# 处理PRESS ANY BUTTON的点击
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if press_button_prompt and press_button_prompt.visible:
+			_on_press_any_button_clicked()
+	elif event is InputEventKey and event.pressed:
+		if press_button_prompt and press_button_prompt.visible:
+			_on_press_any_button_clicked()
+
+func _on_press_any_button_clicked():
+	# 隐藏PRESS ANY BUTTON提示
+	if press_button_prompt:
+		press_button_prompt.visible = false
+	
+	# 显示菜单按钮
+	_menu_fade_in_animation()
