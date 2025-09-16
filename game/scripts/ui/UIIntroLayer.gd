@@ -707,7 +707,7 @@ func _start_prologue():
 	# 方案：末世氛围营造
 	# 1. 屏幕逐渐变暗
 	var fade_tween = create_tween()
-	fade_tween.tween_property(self, "modulate", Color(0.1, 0.1, 0.1, 1.0), 2.0)
+	fade_tween.tween_property(background, "modulate", Color(0.1, 0.1, 0.1, 1.0), 2.0)
 	fade_tween.set_trans(Tween.TRANS_QUART)
 	fade_tween.set_ease(Tween.EASE_IN)
 	
@@ -758,6 +758,11 @@ func _on_prologue_finished():
 	
 	# 这里可以加载主游戏场景
 	# 或者进入卡牌战斗教程
-	get_tree().change_scene_to_file("res://game/scenes/Map.tscn")
+	# TODO: 实现卡牌战斗系统后，加载相应的场景
+	print("序章完成，准备进入卡牌战斗系统...")
+	
+	# 暂时显示一个简单的消息
+	var message = "序章完成！\n\n卡牌战斗系统正在开发中...\n\n按ESC键返回主菜单"
+	print(message)
 
 # Input handling removed - press button node no longer exists
