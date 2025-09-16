@@ -185,9 +185,7 @@ func _start_p3r_intro_animation():
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	# 第四阶段：PRESS ANY BUTTON提示
-	_start_press_button_animation()
-	
+	# 第四阶段：PRESS ANY BUTTON提示已移除
 	await get_tree().create_timer(1.0).timeout
 	
 	# 第五阶段：菜单按钮渐入
