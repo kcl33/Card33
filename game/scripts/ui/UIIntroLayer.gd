@@ -62,6 +62,12 @@ func _ready():
 	if stripe_masks:
 		stripe_masks.modulate.a = 0.0
 	
+	# 特别设置CAPROS图片初始状态
+	if main_title:
+		main_title.modulate.a = 0.0
+		main_title.visible = true
+		print("设置CAPROS图片初始状态 - 透明度: ", main_title.modulate.a, " 可见性: ", main_title.visible)
+	
 	# 开始P3R风格的开场动画
 	await get_tree().create_timer(0.5).timeout
 	_start_p3r_intro_animation()
@@ -178,9 +184,11 @@ func _geometric_elements_animation():
 	_start_line_animations()
 
 func _title_fade_in_animation():
-	# 标题渐入动画
+	# 标题渐入动画（不包含CAPROS图片）
 	var tween = create_tween()
-	tween.parallel().tween_property(title_container, "modulate:a", 1.0, 1.0)
+	# 只对标题容器中的其他元素进行渐入，不包括MainTitle
+	tween.parallel().tween_property(sub_title, "modulate:a", 1.0, 1.0)
+	tween.parallel().tween_property(english_title, "modulate:a", 1.0, 1.0)
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
 	
@@ -189,6 +197,10 @@ func _title_fade_in_animation():
 	
 	# 启动墨迹背景动画
 	_start_ink_background_animations()
+	
+	# 等待其他元素渐入完成后再启动CAPROS图片动画
+	await tween.finished
+	await get_tree().create_timer(0.5).timeout
 	
 	# 启动CAPROS图片浮现动画（可选择不同方案）
 	_start_capros_animation_variant(6)  # 1=故障艺术, 2=墨迹扩散, 3=扫描线, 4=粒子汇聚, 5=3D翻转, 6=卡片滑入
@@ -388,17 +400,24 @@ func _start_capros_card_slide():
 	# 方案6：卡片式从屏幕外滑入（纯平移）
 	if main_title:
 		print("开始CAPROS卡片滑入动画")
-		print("MainTitle位置: ", main_title.position)
+		print("MainTitle当前位置: ", main_title.position)
 		print("MainTitle可见性: ", main_title.visible)
 		print("MainTitle透明度: ", main_title.modulate.a)
 		
-		# 初始状态：图片在屏幕左侧外
+		# 保存原始位置
 		var original_pos = main_title.position
+		print("原始位置: ", original_pos)
+		
+		# 设置初始状态：图片在屏幕左侧外
 		main_title.position = Vector2(-800, original_pos.y)
 		main_title.modulate.a = 0.0
 		main_title.visible = true
 		
 		print("设置初始位置: ", main_title.position)
+		print("设置初始透明度: ", main_title.modulate.a)
+		
+		# 等待一小段时间确保设置生效
+		await get_tree().create_timer(0.1).timeout
 		
 		var card_tween = create_tween()
 		# 纯平移滑入效果
@@ -407,7 +426,11 @@ func _start_capros_card_slide():
 		card_tween.set_trans(Tween.TRANS_QUART)
 		card_tween.set_ease(Tween.EASE_OUT)
 		
-		print("动画已启动")
+		print("动画已启动，目标位置: ", original_pos)
+		
+		# 等待动画完成
+		await card_tween.finished
+		print("CAPROS卡片滑入动画完成")
 	else:
 		print("错误：main_title节点未找到")
 
