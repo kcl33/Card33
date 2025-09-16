@@ -19,6 +19,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.1, 0.2, 0.4, 1)
 
+[node name="RainEffect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ShaderMaterial.new()
+
+[node name="GradientOverlay" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0)
+
 [node name="GeometricElements" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15

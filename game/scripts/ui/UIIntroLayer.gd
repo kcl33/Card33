@@ -2,6 +2,8 @@ extends CanvasLayer
 
 @onready var background := $Background
 @onready var background_effect := $BackgroundEffect
+@onready var rain_effect := $RainEffect
+@onready var gradient_overlay := $GradientOverlay
 @onready var geometric_elements := $GeometricElements
 @onready var triangle1 := $GeometricElements/Triangle1
 @onready var triangle2 := $GeometricElements/Triangle2
@@ -49,6 +51,12 @@ func _ready():
 	# 设置背景效果
 	_setup_background_effects()
 	
+	# 设置雨滴效果
+	_setup_rain_effects()
+	
+	# 设置渐变遮罩
+	_setup_gradient_overlay()
+	
 	# 设置菜单按钮
 	_setup_menu_buttons()
 	
@@ -95,6 +103,60 @@ func _setup_background_effects():
 			print("Failed to load shader")
 	else:
 		print("BackgroundEffect node not found")
+
+func _setup_rain_effects():
+	# 设置雨滴效果
+	if rain_effect:
+		print("Setting up rain shader...")
+		var rain_shader = load("res://shaders/RainEffect.gdshader")
+		var rain_material = ShaderMaterial.new()
+		rain_material.shader = rain_shader
+		rain_effect.material = rain_material
+		
+		# 随机选择小雨或暴雨
+		var is_heavy_rain = randf() > 0.5
+		var rain_intensity = 0.3 if not is_heavy_rain else 0.8
+		var rain_speed = 1.5 if not is_heavy_rain else 3.0
+		
+		print("雨滴类型: ", "暴雨" if is_heavy_rain else "小雨")
+		print("雨滴强度: ", rain_intensity)
+		
+		# 设置shader参数
+		rain_material.set_shader_parameter("time_scale", 1.0)
+		rain_material.set_shader_parameter("rain_intensity", rain_intensity)
+		rain_material.set_shader_parameter("rain_speed", rain_speed)
+		rain_material.set_shader_parameter("rain_size", 1.0)
+		rain_material.set_shader_parameter("rain_opacity", 0.6)
+		rain_material.set_shader_parameter("rain_color", Color(1.0, 1.0, 1.0, 1.0))
+		
+		print("Rain shader setup complete")
+	else:
+		print("RainEffect node not found")
+
+func _setup_gradient_overlay():
+	# 设置渐变遮罩
+	if gradient_overlay:
+		print("Setting up gradient overlay...")
+		# 创建渐变shader
+		var gradient_shader = Shader.new()
+		gradient_shader.code = """
+		shader_type canvas_item;
+		
+		void fragment() {
+			vec2 uv = FRAGMENT_COORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy;
+			float gradient = 1.0 - uv.y * 0.3; // 从上到下逐渐变暗
+			gradient = max(gradient, 0.7); // 最低透明度
+			COLOR = vec4(0.0, 0.0, 0.0, gradient);
+		}
+		"""
+		
+		var gradient_material = ShaderMaterial.new()
+		gradient_material.shader = gradient_shader
+		gradient_overlay.material = gradient_material
+		
+		print("Gradient overlay setup complete")
+	else:
+		print("GradientOverlay node not found")
 
 func _setup_menu_buttons():
 	# 连接按钮信号
@@ -201,15 +263,8 @@ func _title_fade_in_animation():
 	await tween.finished
 	await get_tree().create_timer(0.5).timeout
 	
-	# 启动CAPROS图片浮现动画（可选择不同方案）
-	_start_capros_animation_variant(6)  # 1=故障艺术, 2=墨迹扩散, 3=扫描线, 4=粒子汇聚, 5=3D翻转, 6=卡片滑入
-	
-	# 备用方案：如果动画失败，至少让图片显示出来
-	await get_tree().create_timer(3.0).timeout
-	if main_title and main_title.modulate.a < 0.5:
-		print("动画可能失败，强制显示图片")
-		main_title.modulate.a = 1.0
-		main_title.visible = true
+	# 直接启动CAPROS图片卡片滑入动画
+	_start_simple_card_slide()
 
 func _start_press_button_animation():
 	# PRESS ANY BUTTON提示动画
@@ -444,6 +499,42 @@ func _start_capros_card_slide():
 		if main_title:
 			main_title.modulate.a = 1.0
 			main_title.visible = true
+
+func _start_simple_card_slide():
+	# 简单直接的卡片滑入动画
+	if main_title:
+		print("开始简单卡片滑入动画")
+		
+		# 获取当前屏幕尺寸
+		var screen_size = get_viewport().get_visible_rect().size
+		print("屏幕尺寸: ", screen_size)
+		
+		# 设置初始位置：完全在屏幕左侧外
+		var start_pos = Vector2(-screen_size.x, main_title.position.y)
+		var end_pos = main_title.position
+		
+		print("起始位置: ", start_pos)
+		print("结束位置: ", end_pos)
+		
+		# 立即设置初始状态
+		main_title.position = start_pos
+		main_title.modulate.a = 0.0
+		main_title.visible = true
+		
+		# 创建动画
+		var tween = create_tween()
+		tween.parallel().tween_property(main_title, "position", end_pos, 2.0)
+		tween.parallel().tween_property(main_title, "modulate:a", 1.0, 2.0)
+		tween.set_trans(Tween.TRANS_QUART)
+		tween.set_ease(Tween.EASE_OUT)
+		
+		print("简单卡片滑入动画已启动")
+		
+		# 等待动画完成
+		await tween.finished
+		print("简单卡片滑入动画完成")
+	else:
+		print("错误：main_title节点未找到")
 
 func _start_triangle_animations():
 	# 三角形动态效果
