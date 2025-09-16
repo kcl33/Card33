@@ -716,8 +716,8 @@ func _load_prologue_ui():
 	"""加载序章UI场景"""
 	print("加载序章UI场景...")
 	
-	# 加载序章UI场景
-	var prologue_ui_scene = preload("res://game/scenes/ui/PrologueUI.tscn")
+	# 加载简化版序章UI场景
+	var prologue_ui_scene = preload("res://game/scenes/ui/SimplePrologueUI.tscn")
 	var prologue_ui_instance = prologue_ui_scene.instantiate()
 	
 	# 添加到场景树
