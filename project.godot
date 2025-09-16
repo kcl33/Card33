@@ -28,3 +28,7 @@ window/stretch/mode="viewport"
 [rendering]
 
 environment/default_clear_color=Color(0.8, 0.2, 0.5, 1)
+
+[addons]
+
+dialogic/plugin_enabled=true
