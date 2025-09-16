@@ -1,0 +1,142 @@
+[gd_scene load_steps=3 format=3 uid="uid://eax0k4m5n6p7"]
+
+[ext_resource type="Script" path="res://scripts/ui/Credits.gd" id="1_script"]
+[ext_resource type="Theme" path="res://res/themes/main_menu_theme.tres" id="2_theme"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.15, 0.25, 1)
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = -100.0
+offset_bottom = -100.0
+
+[node name="Title" type="Label" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "制作人员"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="MainContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 50)
+
+[node name="CreditsContainer" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GameTitle" type="RichTextLabel" parent="MainContainer/CreditsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[center][color=#4A9EFF]CARD[/color][color=#FFFFFF]FORGE[/color] [color=#FF6B6B]NEXUS[/color][/center]"
+fit_content = true
+scroll_active = false
+
+[node name="Spacer2" type="Control" parent="MainContainer/CreditsContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 30)
+
+[node name="TeamSection" type="VBoxContainer" parent="MainContainer/CreditsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TeamLabel" type="Label" parent="MainContainer/CreditsContainer/TeamSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+text = "开发团队"
+horizontal_alignment = 1
+
+[node name="Developer1" type="Label" parent="MainContainer/CreditsContainer/TeamSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "游戏设计师 - 您的名字"
+horizontal_alignment = 1
+
+[node name="Developer2" type="Label" parent="MainContainer/CreditsContainer/TeamSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "程序员 - 您的名字"
+horizontal_alignment = 1
+
+[node name="Developer3" type="Label" parent="MainContainer/CreditsContainer/TeamSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "美术师 - 您的名字"
+horizontal_alignment = 1
+
+[node name="Spacer3" type="Control" parent="MainContainer/CreditsContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 30)
+
+[node name="TechSection" type="VBoxContainer" parent="MainContainer/CreditsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TechLabel" type="Label" parent="MainContainer/CreditsContainer/TechSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+text = "技术栈"
+horizontal_alignment = 1
+
+[node name="Tech1" type="Label" parent="MainContainer/CreditsContainer/TechSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "游戏引擎: Godot 4.x"
+horizontal_alignment = 1
+
+[node name="Tech2" type="Label" parent="MainContainer/CreditsContainer/TechSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "编程语言: GDScript"
+horizontal_alignment = 1
+
+[node name="Tech3" type="Label" parent="MainContainer/CreditsContainer/TechSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+text = "插件: Card Framework, Tween Animator"
+horizontal_alignment = 1
+
+[node name="Spacer4" type="Control" parent="MainContainer/CreditsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MainContainer/CreditsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="BackButton" type="Button" parent="MainContainer/CreditsContainer/ButtonContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 50)
+theme_override_font_sizes/font_size = 24
+text = "返回"

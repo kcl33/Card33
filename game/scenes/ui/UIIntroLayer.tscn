@@ -85,42 +85,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StripeMasks#Stripe1" type="ColorRect" parent="."]
-offset_left = -100.0
-offset_right = 50.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 0.1
-color = Color(1, 1, 1, 0.8)
-
-[node name="StripeMasks#Stripe2" type="ColorRect" parent="."]
-offset_left = 50.0
-offset_right = 200.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.15
-color = Color(1, 1, 1, 0.8)
-
-[node name="StripeMasks#Stripe3" type="ColorRect" parent="."]
-offset_left = 200.0
-offset_right = 350.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 0.2
-color = Color(1, 1, 1, 0.8)
-
-[node name="StripeMasks#Stripe4" type="ColorRect" parent="."]
-offset_left = 350.0
-offset_right = 500.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.1
-color = Color(1, 1, 1, 0.8)
-
 [node name="TitleContainer" type="Control" parent="."]
 layout_mode = 3
 anchor_right = 0.6
@@ -135,28 +99,47 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 73.0
-offset_top = 2.0
-offset_right = 2385.56
-offset_bottom = 2.44
+offset_left = -116.0
+offset_top = 14.0
+offset_right = 2196.56
+offset_bottom = 14.44
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.9, 0.1, 0.3, 0.8)
+color = Color(0.1, 0.1, 0.1, 0.6)
 
-[node name="TitleBackground2" type="ColorRect" parent="TitleContainer"]
+[node name="InkSplash1" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -57.0
-offset_top = 3.0
-offset_right = -673.44
-offset_bottom = 2.44
+anchors_preset = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -50.0
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.9, 0.1, 0.3, 0.8)
+rotation = 0.3
+color = Color(0, 0, 0, 0.4)
 
-[node name="MainTitle" type="Label" parent="TitleContainer"]
+[node name="InkSplash2" type="ColorRect" parent="TitleContainer"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 300.0
+offset_top = 20.0
+offset_right = 500.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.2
+color = Color(0, 0, 0, 0.3)
+
+[node name="GlitchLine1" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 0.0
@@ -164,15 +147,39 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 0.0
-offset_top = 0.0
+offset_top = 40.0
 offset_right = 400.0
-offset_bottom = 60.0
+offset_bottom = 42.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 36
-text = "卡普洛斯的33个幻想"
-horizontal_alignment = 0
+color = Color(0.2, 0.2, 0.2, 0.8)
+
+[node name="GlitchLine2" type="ColorRect" parent="TitleContainer"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 50.0
+offset_top = 60.0
+offset_right = 350.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.1, 0.6)
+
+[node name="MainTitle" type="Label" parent="TitleContainer"]
+layout_mode = 1
+offset_left = 6.0
+offset_top = 97.0
+offset_right = 583.0
+offset_bottom = 157.0
+theme_override_colors/font_color = Color(0.2, 0.6, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+theme_override_constants/outline_size = 4
+text = "CAPROS"
 vertical_alignment = 1
 
 [node name="SubTitle" type="Label" parent="TitleContainer"]
@@ -182,15 +189,17 @@ anchor_left = 0.5
 anchor_top = 0.6
 anchor_right = 0.5
 anchor_bottom = 0.6
-offset_left = -250.0
-offset_top = -20.0
-offset_right = 250.0
-offset_bottom = 20.0
+offset_left = -527.0
+offset_top = -284.6
+offset_right = -27.0
+offset_bottom = -244.6
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
-theme_override_font_sizes/font_size = 24
-text = "永无止境的雨与无止境边界的行者"
+theme_override_colors/font_color = Color(0.3, 0.7, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_font_sizes/font_size = 28
+theme_override_constants/outline_size = 2
+text = "33 FANTASIES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -201,34 +210,16 @@ anchor_left = 0.5
 anchor_top = 0.8
 anchor_right = 0.5
 anchor_bottom = 0.8
-offset_left = -150.0
-offset_top = -15.0
-offset_right = 150.0
-offset_bottom = 15.0
+offset_left = -475.0
+offset_top = -383.8
+offset_right = -175.0
+offset_bottom = -353.8
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 18
-text = "CAPROS' 33 FANTASIES"
+text = "THE ENDLESS RAIN"
 horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="PressButtonPrompt" type="Label" parent="."]
-layout_mode = 3
-anchor_left = 0.0
-anchor_top = 0.3
-anchor_right = 0.6
-anchor_bottom = 0.6
-offset_left = 50.0
-offset_top = 100.0
-offset_right = 50.0
-offset_bottom = 100.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
-text = "PRESS ANY BUTTON"
-horizontal_alignment = 0
 vertical_alignment = 1
 
 [node name="MenuContainer" type="VBoxContainer" parent="."]

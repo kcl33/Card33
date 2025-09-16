@@ -1,0 +1,181 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8yak3m4n5p6"]
+
+[ext_resource type="Script" path="res://scripts/ui/Settings.gd" id="1_script"]
+[ext_resource type="Theme" path="res://res/themes/main_menu_theme.tres" id="2_theme"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.15, 0.25, 1)
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = -100.0
+offset_bottom = -100.0
+
+[node name="Title" type="Label" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 48
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "游戏设置"
+horizontal_alignment = 1
+
+[node name="Spacer1" type="Control" parent="MainContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 50)
+
+[node name="SettingsContainer" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AudioSection" type="VBoxContainer" parent="MainContainer/SettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AudioLabel" type="Label" parent="MainContainer/SettingsContainer/AudioSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+text = "音频设置"
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="MainContainer/SettingsContainer/AudioSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MasterVolumeLabel" type="Label" parent="MainContainer/SettingsContainer/AudioSection/MasterVolumeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "主音量:"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="MainContainer/SettingsContainer/AudioSection/MasterVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 100.0
+
+[node name="MasterVolumeValue" type="Label" parent="MainContainer/SettingsContainer/AudioSection/MasterVolumeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "100%"
+
+[node name="MusicVolumeContainer" type="HBoxContainer" parent="MainContainer/SettingsContainer/AudioSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MusicVolumeLabel" type="Label" parent="MainContainer/SettingsContainer/AudioSection/MusicVolumeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "音乐音量:"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="MainContainer/SettingsContainer/AudioSection/MusicVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 80.0
+
+[node name="MusicVolumeValue" type="Label" parent="MainContainer/SettingsContainer/AudioSection/MusicVolumeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "80%"
+
+[node name="SFXVolumeContainer" type="HBoxContainer" parent="MainContainer/SettingsContainer/AudioSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SFXVolumeLabel" type="Label" parent="MainContainer/SettingsContainer/AudioSection/SFXVolumeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "音效音量:"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="MainContainer/SettingsContainer/AudioSection/SFXVolumeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+value = 90.0
+
+[node name="SFXVolumeValue" type="Label" parent="MainContainer/SettingsContainer/AudioSection/SFXVolumeContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "90%"
+
+[node name="Spacer2" type="Control" parent="MainContainer/SettingsContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 30)
+
+[node name="GraphicsSection" type="VBoxContainer" parent="MainContainer/SettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GraphicsLabel" type="Label" parent="MainContainer/SettingsContainer/GraphicsSection"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+text = "图形设置"
+
+[node name="FullscreenContainer" type="HBoxContainer" parent="MainContainer/SettingsContainer/GraphicsSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FullscreenLabel" type="Label" parent="MainContainer/SettingsContainer/GraphicsSection/FullscreenContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "全屏模式:"
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="MainContainer/SettingsContainer/GraphicsSection/FullscreenContainer"]
+layout_mode = 2
+
+[node name="VSyncContainer" type="HBoxContainer" parent="MainContainer/SettingsContainer/GraphicsSection"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VSyncLabel" type="Label" parent="MainContainer/SettingsContainer/GraphicsSection/VSyncContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "垂直同步:"
+
+[node name="VSyncCheckBox" type="CheckBox" parent="MainContainer/SettingsContainer/GraphicsSection/VSyncContainer"]
+layout_mode = 2
+
+[node name="Spacer3" type="Control" parent="MainContainer/SettingsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MainContainer/SettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="BackButton" type="Button" parent="MainContainer/SettingsContainer/ButtonContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 50)
+theme_override_font_sizes/font_size = 24
+text = "返回"
+
+[node name="ApplyButton" type="Button" parent="MainContainer/SettingsContainer/ButtonContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 50)
+theme_override_font_sizes/font_size = 24
+text = "应用"

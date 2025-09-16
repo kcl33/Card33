@@ -15,6 +15,10 @@ extends CanvasLayer
 @onready var stripe4 := $StripeMasks/Stripe4
 @onready var title_container := $TitleContainer
 @onready var title_background := $TitleContainer/TitleBackground
+@onready var ink_splash1 := $TitleContainer/InkSplash1
+@onready var ink_splash2 := $TitleContainer/InkSplash2
+@onready var glitch_line1 := $TitleContainer/GlitchLine1
+@onready var glitch_line2 := $TitleContainer/GlitchLine2
 @onready var main_title := $TitleContainer/MainTitle
 @onready var sub_title := $TitleContainer/SubTitle
 @onready var english_title := $TitleContainer/EnglishTitle
@@ -175,6 +179,9 @@ func _title_fade_in_animation():
 	tween.parallel().tween_property(title_container, "modulate:a", 1.0, 1.0)
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
+	
+	# 启动故障效果动画
+	_start_glitch_effects()
 
 func _start_press_button_animation():
 	# PRESS ANY BUTTON提示动画
@@ -201,6 +208,28 @@ func _start_press_button_flicker():
 		flicker_tween.set_loops()
 		flicker_tween.set_trans(Tween.TRANS_SINE)
 		flicker_tween.set_ease(Tween.EASE_IN_OUT)
+
+func _start_glitch_effects():
+	# 故障效果动画
+	if glitch_line1 and glitch_line2:
+		# 故障线条闪烁效果
+		var glitch_tween = create_tween()
+		glitch_tween.parallel().tween_property(glitch_line1, "modulate:a", 0.0, 0.1)
+		glitch_tween.parallel().tween_property(glitch_line2, "modulate:a", 0.0, 0.1)
+		glitch_tween.tween_property(glitch_line1, "modulate:a", 0.8, 0.1)
+		glitch_tween.tween_property(glitch_line2, "modulate:a", 0.6, 0.1)
+		glitch_tween.set_loops()
+		glitch_tween.set_trans(Tween.TRANS_LINEAR)
+		glitch_tween.set_ease(Tween.EASE_IN_OUT)
+	
+	# 墨迹飞溅效果
+	if ink_splash1 and ink_splash2:
+		var ink_tween = create_tween()
+		ink_tween.parallel().tween_property(ink_splash1, "rotation", 0.5, 2.0)
+		ink_tween.parallel().tween_property(ink_splash2, "rotation", -0.4, 2.0)
+		ink_tween.set_loops()
+		ink_tween.set_trans(Tween.TRANS_SINE)
+		ink_tween.set_ease(Tween.EASE_IN_OUT)
 
 func _menu_fade_in_animation():
 	# 菜单按钮渐入动画
