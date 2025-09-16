@@ -145,9 +145,23 @@ func _setup_gradient_overlay():
 		shader_type canvas_item;
 		
 		void fragment() {
-			float gradient = 1.0 - UV.y * 0.1; // 从上到下轻微变暗
-			gradient = max(gradient, 0.9); // 最低透明度，保持大部分蓝色可见
-			COLOR = vec4(0.0, 0.0, 0.0, gradient * 0.3); // 整体透明度降低
+			vec2 uv = UV;
+			
+			// 从上到下轻微变暗
+			float vertical_gradient = 1.0 - uv.y * 0.1;
+			vertical_gradient = max(vertical_gradient, 0.9);
+			
+			// 右半部分透明度降低（为主角图片留空间）
+			float horizontal_gradient = 1.0;
+			if (uv.x > 0.5) {
+				// 右半部分逐渐变透明
+				float right_factor = (uv.x - 0.5) * 2.0; // 0.5到1.0映射到0.0到1.0
+				horizontal_gradient = 1.0 - right_factor * 0.6; // 右半部分透明度降低60%
+			}
+			
+			// 组合垂直和水平渐变
+			float final_gradient = vertical_gradient * horizontal_gradient;
+			COLOR = vec4(0.0, 0.0, 0.0, final_gradient * 0.3);
 		}
 		"""
 		

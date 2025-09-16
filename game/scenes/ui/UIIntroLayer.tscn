@@ -117,12 +117,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -116.0
-offset_top = 7.0
-offset_right = 2197.0
-offset_bottom = -241.0
+offset_left = -131.0
+offset_top = -386.0
+offset_right = -166.0
+offset_bottom = -634.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.04, 6.8)
 color = Color(0.1, 0.1, 0.1, 0.6)
 
 [node name="TitleBackground2" type="ColorRect" parent="TitleContainer"]
@@ -132,7 +133,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -116.0
 offset_top = 203.0
-offset_right = 2197.0
+offset_right = -157.0
 offset_bottom = -283.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -162,21 +163,18 @@ color = Color(0, 0, 0, 0.3)
 
 [node name="GlitchLine1" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
+offset_left = -512.0
 offset_top = 40.0
-offset_right = 400.0
+offset_right = 2039.0
 offset_bottom = 42.0
-grow_horizontal = 2
-grow_vertical = 2
 color = Color(0.2, 0.2, 0.2, 0.8)
 
 [node name="GlitchLine2" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
-offset_left = 50.0
+offset_left = -43.0
 offset_top = 60.0
-offset_right = 350.0
-offset_bottom = 62.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 2340.0
+offset_bottom = 78.0
 color = Color(0.1, 0.1, 0.1, 0.6)
 
 [node name="EnglishTitle" type="Label" parent="TitleContainer"]
@@ -200,7 +198,7 @@ vertical_alignment = 1
 layout_mode = 1
 offset_left = -1231.0
 offset_top = -548.0
-offset_right = -631.0
+offset_right = -614.0
 offset_bottom = -348.0
 scale = Vector2(3.86548, 3.86548)
 texture = ExtResource("2")
