@@ -44,6 +44,20 @@ func _ready():
 	print("TitleContainer: ", title_container)
 	print("MenuContainer: ", menu_container)
 
+	# 检查关键节点是否存在
+	if not background:
+		print("ERROR: Background node not found!")
+		return
+	if not background_effect:
+		print("ERROR: BackgroundEffect node not found!")
+		return
+	if not title_container:
+		print("ERROR: TitleContainer node not found!")
+		return
+	if not menu_container:
+		print("ERROR: MenuContainer node not found!")
+		return
+
 	# 设置背景效果
 	_setup_background_effects()
 	
