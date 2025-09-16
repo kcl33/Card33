@@ -28,6 +28,13 @@ func _ready():
 	if self is CanvasLayer:
 		(self as CanvasLayer).layer = 100
 
+	# 调试信息
+	print("UIIntroLayer ready")
+	print("Background: ", background)
+	print("BackgroundEffect: ", background_effect)
+	print("TitleContainer: ", title_container)
+	print("MenuContainer: ", menu_container)
+
 	# 设置背景效果
 	_setup_background_effects()
 	
@@ -35,31 +42,53 @@ func _ready():
 	_setup_menu_buttons()
 	
 	# 初始状态：所有元素隐藏
-	title_container.modulate.a = 0.0
-	menu_container.modulate.a = 0.0
-	geometric_elements.modulate.a = 0.0
+	if title_container:
+		title_container.modulate.a = 0.0
+	if menu_container:
+		menu_container.modulate.a = 0.0
+	if geometric_elements:
+		geometric_elements.modulate.a = 0.0
 	
 	# 开始P3R风格的开场动画
 	await get_tree().create_timer(0.5).timeout
 	_start_p3r_intro_animation()
 
 func _setup_background_effects():
-	# 设置背景shader参数
-	if background_effect and background_effect.material:
-		var material = background_effect.material as ShaderMaterial
-		material.set_shader_parameter("time_scale", 1.0)
-		material.set_shader_parameter("wave_amplitude", 0.1)
-		material.set_shader_parameter("wave_frequency", 2.0)
-		material.set_shader_parameter("gradient_speed", 1.0)
-		material.set_shader_parameter("noise_scale", 5.0)
-		material.set_shader_parameter("noise_strength", 0.3)
+	# 设置背景shader材质
+	if background_effect:
+		print("Setting up background shader...")
+		var shader_material = ShaderMaterial.new()
+		var shader = preload("res://res/shaders/P3RBackground.gdshader")
+		if shader:
+			shader_material.shader = shader
+			shader_material.set_shader_parameter("time_scale", 1.0)
+			shader_material.set_shader_parameter("wave_amplitude", 0.1)
+			shader_material.set_shader_parameter("wave_frequency", 2.0)
+			shader_material.set_shader_parameter("gradient_speed", 1.0)
+			shader_material.set_shader_parameter("noise_scale", 5.0)
+			shader_material.set_shader_parameter("noise_strength", 0.3)
+			background_effect.material = shader_material
+			print("Background shader set successfully")
+		else:
+			print("Failed to load shader")
+	else:
+		print("BackgroundEffect node not found")
 
 func _setup_menu_buttons():
 	# 连接按钮信号
-	start_button.pressed.connect(_on_start_pressed)
-	continue_button.pressed.connect(_on_continue_pressed)
-	settings_button.pressed.connect(_on_settings_pressed)
-	exit_button.pressed.connect(_on_exit_pressed)
+	print("Setting up menu buttons...")
+	if start_button:
+		start_button.pressed.connect(_on_start_pressed)
+		print("Start button connected")
+	if continue_button:
+		continue_button.pressed.connect(_on_continue_pressed)
+		print("Continue button connected")
+	if settings_button:
+		settings_button.pressed.connect(_on_settings_pressed)
+		print("Settings button connected")
+	if exit_button:
+		exit_button.pressed.connect(_on_exit_pressed)
+		print("Exit button connected")
 
 func _start_p3r_intro_animation():
 	# 第一阶段：几何元素淡入
