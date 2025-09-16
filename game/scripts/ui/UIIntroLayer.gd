@@ -50,20 +50,20 @@ func _setup_background_effects():
 	
 	# 设置各个颜色区域
 	if top_pink_section:
-		top_pink_section.color = Color(0.9, 0, 0.35, 1)
+		top_pink_section.color = Color(0.9, 0, 0.35, 0.9)
 	
 	if middle_purple_section:
-		middle_purple_section.color = Color(0.3, 0.1, 0.4, 1)
+		middle_purple_section.color = Color(0.2, 0.05, 0.3, 0.8)
 	
 	if bottom_pink_section:
-		bottom_pink_section.color = Color(0.9, 0, 0.35, 1)
+		bottom_pink_section.color = Color(0.9, 0, 0.35, 0.9)
 	
 	# 设置白色条纹
 	if white_stripe1:
-		white_stripe1.color = Color(1, 1, 1, 1)
+		white_stripe1.color = Color(1, 1, 1, 0.8)
 	
 	if white_stripe2:
-		white_stripe2.color = Color(1, 1, 1, 1)
+		white_stripe2.color = Color(1, 1, 1, 0.8)
 
 func _setup_menu_blocks():
 	var blocks = [start_block, continue_block, settings_block, exit_block]
