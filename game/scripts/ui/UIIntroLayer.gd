@@ -89,6 +89,12 @@ func _ready():
 	
 	# 开始P3R风格的开场动画
 	await get_tree().create_timer(0.5).timeout
+	
+	# 检查动画所需的节点是否存在
+	if not geometric_elements:
+		print("ERROR: GeometricElements node not found!")
+		return
+	
 	_start_p3r_intro_animation()
 	
 	# 连接输入事件
@@ -245,6 +251,10 @@ func _start_p3r_intro_animation():
 
 func _geometric_elements_animation():
 	# 几何元素动态浮现动画
+	if not geometric_elements:
+		print("ERROR: GeometricElements node not found in animation!")
+		return
+		
 	var tween = create_tween()
 	tween.parallel().tween_property(geometric_elements, "modulate:a", 1.0, 1.5)
 	tween.set_trans(Tween.TRANS_QUART)
