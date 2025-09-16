@@ -700,9 +700,9 @@ func _start_prologue():
 
 func _load_prologue_scene():
 	"""加载序章场景"""
-	print("加载 Dialogic 序章场景...")
+	print("加载序章场景...")
 	
-	# 创建 Dialogic 序章脚本
+	# 创建序章脚本
 	var prologue_script = preload("res://game/scripts/story/DialogicPrologue.gd").new()
 	add_child(prologue_script)
 	

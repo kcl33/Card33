@@ -19,7 +19,7 @@ func start_prologue():
 	_start_fallback_prologue()
 
 func _start_fallback_prologue():
-	"""备用序章（当 Dialogic 不可用时）"""
+	"""序章系统"""
 	print("使用备用序章系统...")
 	
 	# 简单的文本序章
@@ -48,4 +48,3 @@ func _on_timeline_ended():
 	"""对话结束"""
 	print("序章对话结束")
 	prologue_finished.emit()
-
