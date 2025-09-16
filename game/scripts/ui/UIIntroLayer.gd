@@ -130,19 +130,28 @@ func _stripe_masks_animation():
 			if stripes[i]:
 				stripes[i].position.x = -400 - (i * 200)
 		
-		# 创建动画序列
-		var tween = create_tween()
-		tween.set_parallel(true)
-		
-		# 每个条纹以不同速度划过
+		# 为每个条纹创建独立的动画
 		for i in range(stripes.size()):
 			if stripes[i]:
-				var delay = i * 0.2
-				var duration = 1.5 + (i * 0.1)
-				tween.tween_delay(delay)
-				tween.tween_property(stripes[i], "position:x", 2000, duration)
-				tween.set_trans(Tween.TRANS_QUART)
-				tween.set_ease(Tween.EASE_IN_OUT)
+				_start_delayed_stripe_animation(stripes[i], i * 0.2, 1.5 + (i * 0.1))
+
+func _start_delayed_stripe_animation(stripe: ColorRect, delay: float, duration: float):
+	# 创建延迟定时器
+	var timer = Timer.new()
+	timer.wait_time = delay
+	timer.one_shot = true
+	add_child(timer)
+	timer.start()
+	
+	# 等待延迟时间
+	await timer.timeout
+	timer.queue_free()
+	
+	# 开始条纹动画
+	var tween = create_tween()
+	tween.tween_property(stripe, "position:x", 2000, duration)
+	tween.set_trans(Tween.TRANS_QUART)
+	tween.set_ease(Tween.EASE_IN_OUT)
 
 func _geometric_elements_animation():
 	# 几何元素淡入动画
