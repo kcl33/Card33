@@ -1,13 +1,12 @@
 extends CanvasLayer
 
 @onready var bg := $BG
-@onready var contour := $Contour
-@onready var stripes := $Stripes
-@onready var dots := $Dots
-@onready var rain := $Rain
-@onready var background_shapes := $BackgroundShapes
-@onready var bottom_rect := $BackgroundShapes/BottomRect
-@onready var top_rect := $BackgroundShapes/TopRect
+@onready var diagonal_layout := $DiagonalLayout
+@onready var top_pink_section := $DiagonalLayout/TopPinkSection
+@onready var middle_purple_section := $DiagonalLayout/MiddlePurpleSection
+@onready var bottom_pink_section := $DiagonalLayout/BottomPinkSection
+@onready var white_stripe1 := $DiagonalLayout/WhiteStripe1
+@onready var white_stripe2 := $DiagonalLayout/WhiteStripe2
 @onready var title_container := $TitleContainer
 @onready var main_title := $TitleContainer/MainTitle
 @onready var sub_title := $TitleContainer/SubTitle
@@ -45,22 +44,26 @@ func _ready():
 	_start_intro_animation()
 
 func _setup_background_effects():
-	# 设置等高线背景
-	if contour:
-		contour.color = Color(0.05, 0.05, 0.05, 1)
+	# 设置对角线布局的初始状态
+	if diagonal_layout:
+		diagonal_layout.modulate.a = 0.0
 	
-	# 设置条纹效果（极淡）
-	if stripes:
-		stripes.color = Color(1, 1, 1, 0.08)
+	# 设置各个颜色区域
+	if top_pink_section:
+		top_pink_section.color = Color(0.9, 0, 0.35, 1)
 	
-	# 设置灰点效果（极淡）
-	if dots:
-		dots.color = Color(1, 1, 1, 0.12)
+	if middle_purple_section:
+		middle_purple_section.color = Color(0.3, 0.1, 0.4, 1)
 	
-	# 雨滴效果（初始隐藏）
-	if rain:
-		rain.color = Color(0, 0, 0, 0.3)
-		rain.visible = false
+	if bottom_pink_section:
+		bottom_pink_section.color = Color(0.9, 0, 0.35, 1)
+	
+	# 设置白色条纹
+	if white_stripe1:
+		white_stripe1.color = Color(1, 1, 1, 1)
+	
+	if white_stripe2:
+		white_stripe2.color = Color(1, 1, 1, 1)
 
 func _setup_menu_blocks():
 	var blocks = [start_block, continue_block, settings_block, exit_block]
@@ -105,23 +108,21 @@ func _setup_menu_blocks():
 		block.position.x = -400
 
 func _start_intro_animation():
-	# 第一阶段：背景形状先进入
-	_background_shapes_animation()
+	# 第一阶段：对角线布局淡入
+	_diagonal_layout_animation()
 	
-	# 等待背景形状动画完成
-	await get_tree().create_timer(1.2).timeout
+	# 等待背景动画完成
+	await get_tree().create_timer(1.0).timeout
 	
 	# 第二阶段：标题炫酷入场动画
 	_title_blast_animation()
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	# 第三阶段：显示菜单容器并激活雨滴效果
+	# 第三阶段：显示菜单容器
 	menu_container.visible = true
-	if rain:
-		rain.visible = true
 	
-	# 菜单按钮跟随矩形滑入 - 阶梯状分布
+	# 菜单按钮滑入 - 阶梯状分布
 	_menu_buttons_animation()
 
 func _title_blast_animation():
@@ -153,35 +154,13 @@ func _title_blast_animation():
 	tween2.set_trans(Tween.TRANS_ELASTIC)
 	tween2.set_ease(Tween.EASE_OUT)
 
-func _background_shapes_animation():
-	# 大块背景矩形动画 - 从屏幕外滑入
-	var background_rects = [
-		{"node": bottom_rect, "delay": 0.0, "duration": 1.5, "ease": Tween.EASE_OUT, "rotation_extra": 0.02, "move_distance": 800},
-		{"node": top_rect, "delay": 0.2, "duration": 1.3, "ease": Tween.EASE_IN_OUT, "rotation_extra": -0.01, "move_distance": 700}
-	]
-	
-	# 启动背景矩形动画
-	for rect_data in background_rects:
-		_start_delayed_animation(rect_data.node, rect_data.delay, rect_data.duration, rect_data.ease, rect_data.rotation_extra, rect_data.move_distance)
-
-func _start_delayed_animation(node: Node, delay: float, duration: float, ease: int, rotation_extra: float, move_distance: float):
-	# 创建延迟定时器
-	var timer = Timer.new()
-	timer.wait_time = delay
-	timer.one_shot = true
-	add_child(timer)
-	timer.start()
-	
-	# 等待延迟时间
-	await timer.timeout
-	timer.queue_free()
-	
-	# 开始动画
+func _diagonal_layout_animation():
+	# 对角线布局淡入动画
 	var tween = create_tween()
-	tween.parallel().tween_property(node, "position:x", node.position.x + move_distance, duration)
-	tween.parallel().tween_property(node, "rotation", node.rotation + rotation_extra, duration)
-	tween.set_ease(ease)
+	tween.tween_property(diagonal_layout, "modulate:a", 1.0, 1.0)
 	tween.set_trans(Tween.TRANS_QUART)
+	tween.set_ease(Tween.EASE_OUT)
+
 
 func _menu_buttons_animation():
 	# 菜单按钮动画 - 从右下角倾斜滑入
@@ -194,8 +173,8 @@ func _menu_buttons_animation():
 	
 	# 设置按钮初始位置（屏幕外右下角）
 	for button_data in buttons:
-		button_data.node.position.x = -400
-		button_data.node.position.y = 200
+		button_data.node.position.x = 1200  # 从右侧屏幕外开始
+		button_data.node.position.y = 400   # 从下方开始
 	
 	# 启动按钮动画
 	for button_data in buttons:
@@ -213,9 +192,10 @@ func _start_delayed_button_animation(node: Node, delay: float, duration: float, 
 	await timer.timeout
 	timer.queue_free()
 	
-	# 开始按钮动画
+	# 开始按钮动画 - 从右下角滑入到最终位置
 	var tween = create_tween()
-	tween.tween_property(node, "position:x", node.position.x + move_distance, duration)
+	tween.tween_property(node, "position:x", node.position.x - move_distance, duration)
+	tween.tween_property(node, "position:y", node.position.y - 200, duration)
 	tween.set_ease(ease)
 	tween.set_trans(Tween.TRANS_BACK)
 

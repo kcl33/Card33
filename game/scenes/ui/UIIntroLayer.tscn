@@ -12,32 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0.1, 0.1, 0.1, 1)
 
-[node name="Contour" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0.05, 0.05, 0.05, 1)
-
-[node name="Stripes" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(1, 1, 1, 0.08)
-
-[node name="Dots" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(1, 1, 1, 0.12)
-
-[node name="Rain" type="ColorRect" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0, 0, 0, 0.3)
-
-[node name="BackgroundShapes" type="Control" parent="."]
+[node name="DiagonalLayout" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,96 +20,123 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BottomRect" type="ColorRect" parent="BackgroundShapes"]
+[node name="TopPinkSection" type="ColorRect" parent="DiagonalLayout"]
 layout_mode = 1
 offset_left = -200.0
-offset_top = 400.0
-offset_right = 1400.0
-offset_bottom = 800.0
+offset_top = -100.0
+offset_right = 1600.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = -0.1
-color = Color(0.9, 0, 0.35, 0.8)
+rotation = -0.15
+color = Color(0.9, 0, 0.35, 1)
 
-[node name="TopRect" type="ColorRect" parent="BackgroundShapes"]
+[node name="MiddlePurpleSection" type="ColorRect" parent="DiagonalLayout"]
+layout_mode = 1
+offset_left = -100.0
+offset_top = 250.0
+offset_right = 1500.0
+offset_bottom = 550.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.1
+color = Color(0.3, 0.1, 0.4, 1)
+
+[node name="BottomPinkSection" type="ColorRect" parent="DiagonalLayout"]
 layout_mode = 1
 offset_left = -300.0
-offset_top = -100.0
-offset_right = 1200.0
-offset_bottom = 200.0
+offset_top = 500.0
+offset_right = 1400.0
+offset_bottom = 900.0
 grow_horizontal = 2
 grow_vertical = 2
-rotation = 0.08
-color = Color(0, 0, 0, 0.7)
+rotation = -0.12
+color = Color(0.9, 0, 0.35, 1)
+
+[node name="WhiteStripe1" type="ColorRect" parent="DiagonalLayout"]
+layout_mode = 1
+offset_left = -150.0
+offset_top = 280.0
+offset_right = 1550.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.15
+color = Color(1, 1, 1, 1)
+
+[node name="WhiteStripe2" type="ColorRect" parent="DiagonalLayout"]
+layout_mode = 1
+offset_left = -200.0
+offset_top = 480.0
+offset_right = 1500.0
+offset_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.12
+color = Color(1, 1, 1, 1)
 
 [node name="TitleContainer" type="Control" parent="."]
 layout_mode = 3
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.5
-anchor_bottom = 0.3
-offset_left = 50.0
-offset_top = 50.0
-offset_right = 50.0
-offset_bottom = 50.0
+anchor_right = 0.6
+anchor_bottom = 0.4
+offset_left = 80.0
+offset_top = 80.0
+offset_right = 80.0
+offset_bottom = 80.0
 
 [node name="MainTitle" type="Label" parent="TitleContainer"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.3
-rotation = -0.25
+anchor_bottom = 0.4
+rotation = -0.15
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.9, 0, 0.35, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 64
-text = "卡普洛斯的33个幻想"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 72
+text = "CARD FORGE NEXUS"
 vertical_alignment = 1
 
 [node name="SubTitle" type="Label" parent="TitleContainer"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0
-anchor_top = 0.3
+anchor_top = 0.4
 anchor_right = 1.0
-anchor_bottom = 0.6
-rotation = -0.22
+anchor_bottom = 0.7
+rotation = -0.15
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0.9, 0, 0.35, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 48
-text = "永无止境的雨与无止境边界的行者"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 36
+text = "REBELLION EDITION"
 vertical_alignment = 1
 
 [node name="ChineseTitle" type="Label" parent="TitleContainer"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0
-anchor_top = 0.6
+anchor_top = 0.7
 anchor_right = 1.0
-anchor_bottom = 0.9
-rotation = -0.2
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_colors/font_outline_color = Color(0.9, 0, 0.35, 0.8)
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 28
-text = "CAPROS' 33 FANTASIES"
+anchor_bottom = 1.0
+rotation = -0.15
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 24
+text = "按任意键释放"
 vertical_alignment = 1
 
 [node name="MenuContainer" type="Control" parent="."]
 visible = false
 layout_mode = 3
-anchor_left = 0.5
-anchor_top = 0.7
+anchor_left = 0.4
+anchor_top = 0.6
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
-rotation = 0.15
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = 80.0
+rotation = 0.1
 
 [node name="StartBlock" type="Button" parent="MenuContainer"]
 layout_mode = 1
