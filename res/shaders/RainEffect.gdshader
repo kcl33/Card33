@@ -31,37 +31,45 @@ void fragment() {
     
     // 小雨效果
     if (rain_intensity < 0.6) {
-        // 稀疏的雨滴
-        for (int i = 0; i < 20; i++) {
-            float x = float(i) * 0.1 + sin(t * 0.5 + float(i)) * 0.1;
-            float y = fract(uv.y * 2.0 + t * rain_speed + float(i) * 0.3);
-            float drop_width = 0.002 * rain_size;
-            float drop_length = 0.1 * rain_size;
+        // 稀疏的雨滴，从上往下流
+        for (int i = 0; i < 30; i++) {
+            // 随机X位置
+            float x = float(i) * 0.08 + sin(t * 0.3 + float(i) * 1.7) * 0.15;
+            // 从上往下流动，添加随机倾斜
+            float tilt = sin(float(i) * 2.3) * 0.1; // 随机倾斜角度
+            float y = fract(uv.y * 1.5 + t * rain_speed + float(i) * 0.4 + uv.x * tilt);
+            // 更细的雨滴
+            float drop_width = 0.001 * rain_size;
+            float drop_length = 0.08 * rain_size;
             
             if (abs(uv.x - x) < drop_width && y < drop_length) {
-                rain += (1.0 - y / drop_length) * 0.3;
+                rain += (1.0 - y / drop_length) * 0.4;
             }
         }
     } else {
-        // 暴雨效果
-        for (int i = 0; i < 50; i++) {
-            float x = float(i) * 0.05 + sin(t * 0.8 + float(i)) * 0.05;
-            float y = fract(uv.y * 3.0 + t * rain_speed * 1.5 + float(i) * 0.2);
-            float drop_width = 0.003 * rain_size;
-            float drop_length = 0.15 * rain_size;
+        // 暴雨效果，从上往下流
+        for (int i = 0; i < 60; i++) {
+            // 随机X位置
+            float x = float(i) * 0.05 + sin(t * 0.6 + float(i) * 1.3) * 0.08;
+            // 从上往下流动，添加随机倾斜
+            float tilt = sin(float(i) * 1.8) * 0.15; // 随机倾斜角度
+            float y = fract(uv.y * 2.0 + t * rain_speed * 1.2 + float(i) * 0.3 + uv.x * tilt);
+            // 更细的雨滴
+            float drop_width = 0.0015 * rain_size;
+            float drop_length = 0.12 * rain_size;
             
             if (abs(uv.x - x) < drop_width && y < drop_length) {
-                rain += (1.0 - y / drop_length) * 0.6;
+                rain += (1.0 - y / drop_length) * 0.7;
             }
         }
     }
     
     // 添加一些随机性
-    rain += noise(uv * 50.0 + t * 0.1) * 0.1 * rain_intensity;
+    rain += noise(uv * 80.0 + t * 0.05) * 0.05 * rain_intensity;
     
-    // 应用颜色和透明度
-    vec3 final_color = rain_color.rgb * rain;
-    float final_alpha = rain * rain_opacity * rain_color.a;
+    // 应用更白的颜色和透明度
+    vec3 final_color = vec3(1.0, 1.0, 1.0) * rain; // 纯白色
+    float final_alpha = rain * rain_opacity * 0.8; // 稍微降低透明度
     
     COLOR = vec4(final_color, final_alpha);
 }

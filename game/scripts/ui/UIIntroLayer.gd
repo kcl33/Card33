@@ -120,9 +120,9 @@ func _setup_rain_effects():
 			rain_material.set_shader_parameter("time_scale", 1.0)
 			rain_material.set_shader_parameter("rain_intensity", rain_intensity)
 			rain_material.set_shader_parameter("rain_speed", rain_speed)
-			rain_material.set_shader_parameter("rain_size", 1.0)
-			rain_material.set_shader_parameter("rain_opacity", 0.6)
-			rain_material.set_shader_parameter("rain_color", Color(1.0, 1.0, 1.0, 1.0))
+			rain_material.set_shader_parameter("rain_size", 0.8) # 更细的雨滴
+			rain_material.set_shader_parameter("rain_opacity", 0.8) # 更明显的白色
+			rain_material.set_shader_parameter("rain_color", Color(1.0, 1.0, 1.0, 1.0)) # 纯白色
 		else:
 			print("Failed to load rain shader, using fallback")
 			rain_effect.color = Color(0.0, 0.0, 0.0, 0.0)  # 透明作为备用
