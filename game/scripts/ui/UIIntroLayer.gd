@@ -709,11 +709,27 @@ func _start_prologue():
 	# 3. 等待氛围营造完成
 	await fade_tween.finished
 	
-	# 4. 加载序章场景
-	_load_prologue_scene()
+	# 4. 加载序章UI场景
+	_load_prologue_ui()
+
+func _load_prologue_ui():
+	"""加载序章UI场景"""
+	print("加载序章UI场景...")
+	
+	# 加载序章UI场景
+	var prologue_ui_scene = preload("res://game/scenes/ui/PrologueUI.tscn")
+	var prologue_ui_instance = prologue_ui_scene.instantiate()
+	
+	# 添加到场景树
+	get_tree().current_scene.add_child(prologue_ui_instance)
+	
+	# 连接信号
+	prologue_ui_instance.prologue_finished.connect(_on_prologue_finished)
+	
+	print("序章UI加载完成")
 
 func _load_prologue_scene():
-	"""加载序章场景"""
+	"""加载序章场景（备用方法）"""
 	print("加载序章场景...")
 	
 	# 创建序章脚本
