@@ -172,11 +172,20 @@ func _title_fade_in_animation():
 
 func _start_title_flicker():
 	# 标题闪烁效果
+	_start_flicker_loop()
+
+func _start_flicker_loop():
+	# 创建闪烁循环
 	var flicker_tween = create_tween()
-	flicker_tween.set_loops()
 	flicker_tween.tween_property(main_title, "modulate:a", 0.3, 0.5)
 	flicker_tween.tween_property(main_title, "modulate:a", 1.0, 0.5)
-	flicker_tween.tween_delay(2.0)
+	
+	# 等待闪烁完成，然后延迟2秒再开始下一轮
+	await flicker_tween.finished
+	await get_tree().create_timer(2.0).timeout
+	
+	# 递归调用，实现循环效果
+	_start_flicker_loop()
 
 func _menu_fade_in_animation():
 	# 菜单按钮渐入动画
