@@ -561,5 +561,4 @@ func _on_settings_pressed():
 func _on_exit_pressed():
 	get_tree().quit()
 
-func _input(event):
-# Press button input handling removed - node no longer exists
+# Input handling removed - press button node no longer exists
