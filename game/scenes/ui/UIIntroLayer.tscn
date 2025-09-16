@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwf4aody3dl02"]
+[gd_scene load_steps=2 format=3 uid="uid://bwf4aody3dl02"]
 
 [ext_resource type="Script" uid="uid://d1o23ovw0r3er" path="res://game/scripts/ui/UIIntroLayer.gd" id="1"]
-[ext_resource type="FontFile" uid="uid://dhmswhvyshfow" path="res://res/fonts/BetterPixels.tres" id="2"]
 
 [node name="UIIntroLayer" type="CanvasLayer"]
 layer = 100
@@ -102,10 +101,7 @@ offset_left = -400.0
 offset_top = -50.0
 offset_right = 400.0
 offset_bottom = 50.0
-theme_override_fonts/font = ExtResource("2")
 theme_override_colors/font_color = Color(0.8, 0.9, 1.0, 1)
-theme_override_colors/font_outline_color = Color(0.2, 0.4, 0.8, 1)
-theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 64
 text = "卡普洛斯的33个幻想"
 horizontal_alignment = 1
@@ -122,10 +118,7 @@ offset_left = -500.0
 offset_top = 20.0
 offset_right = 500.0
 offset_bottom = 70.0
-theme_override_fonts/font = ExtResource("2")
 theme_override_colors/font_color = Color(0.7, 0.8, 1.0, 1)
-theme_override_colors/font_outline_color = Color(0.3, 0.5, 0.9, 1)
-theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 32
 text = "永无止境的雨与无止境边界的行者"
 horizontal_alignment = 1
@@ -142,10 +135,7 @@ offset_left = -300.0
 offset_top = 80.0
 offset_right = 300.0
 offset_bottom = 120.0
-theme_override_fonts/font = ExtResource("2")
 theme_override_colors/font_color = Color(0.6, 0.7, 1.0, 1)
-theme_override_colors/font_outline_color = Color(0.4, 0.6, 1.0, 1)
-theme_override_constants/outline_size = 1
 theme_override_font_sizes/font_size = 24
 text = "CAPROS' 33 FANTASIES"
 horizontal_alignment = 1
@@ -166,7 +156,6 @@ alignment = 1
 
 [node name="StartButton" type="Button" parent="MenuContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2")
 theme_override_colors/font_color = Color(0.8, 0.9, 1.0, 1)
 theme_override_colors/font_hover_color = Color(1.0, 1.0, 1.0, 1)
 theme_override_colors/font_pressed_color = Color(0.6, 0.8, 1.0, 1)
@@ -176,7 +165,6 @@ flat = true
 
 [node name="ContinueButton" type="Button" parent="MenuContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2")
 theme_override_colors/font_color = Color(0.7, 0.8, 1.0, 1)
 theme_override_colors/font_hover_color = Color(0.9, 0.9, 1.0, 1)
 theme_override_colors/font_pressed_color = Color(0.5, 0.7, 1.0, 1)
@@ -186,7 +174,6 @@ flat = true
 
 [node name="SettingsButton" type="Button" parent="MenuContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2")
 theme_override_colors/font_color = Color(0.6, 0.7, 1.0, 1)
 theme_override_colors/font_hover_color = Color(0.8, 0.8, 1.0, 1)
 theme_override_colors/font_pressed_color = Color(0.4, 0.6, 1.0, 1)
@@ -196,7 +183,6 @@ flat = true
 
 [node name="ExitButton" type="Button" parent="MenuContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2")
 theme_override_colors/font_color = Color(0.5, 0.6, 1.0, 1)
 theme_override_colors/font_hover_color = Color(0.7, 0.7, 1.0, 1)
 theme_override_colors/font_pressed_color = Color(0.3, 0.5, 1.0, 1)
