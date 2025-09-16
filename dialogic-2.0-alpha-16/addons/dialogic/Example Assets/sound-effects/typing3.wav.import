@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dnboblpkf0fqi"
+path="res://.godot/imported/typing3.wav-4183497e8c97f31c4468feaee14c648d.sample"
+
+[deps]
+
+source_file="res://dialogic-2.0-alpha-16/addons/dialogic/Example Assets/sound-effects/typing3.wav"
+dest_files=["res://.godot/imported/typing3.wav-4183497e8c97f31c4468feaee14c648d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
