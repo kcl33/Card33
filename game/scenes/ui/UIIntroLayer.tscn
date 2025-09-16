@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwf4aody3dl02"]
+[gd_scene load_steps=3 format=3 uid="uid://bwf4aody3dl02"]
 
 [ext_resource type="Script" uid="uid://d1o23ovw0r3er" path="res://game/scripts/ui/UIIntroLayer.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bwf4aody3dl02" path="res://textures/capros.png" id="2"]
 
 [node name="UIIntroLayer" type="CanvasLayer"]
 layer = 100
@@ -109,11 +110,6 @@ color = Color(0.1, 0.1, 0.1, 0.6)
 
 [node name="InkSplash1" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 offset_left = -50.0
 offset_top = -20.0
 offset_right = 200.0
@@ -125,11 +121,6 @@ color = Color(0, 0, 0, 0.4)
 
 [node name="InkSplash2" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 offset_left = 300.0
 offset_top = 20.0
 offset_right = 500.0
@@ -141,12 +132,6 @@ color = Color(0, 0, 0, 0.3)
 
 [node name="GlitchLine1" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
 offset_top = 40.0
 offset_right = 400.0
 offset_bottom = 42.0
@@ -156,11 +141,6 @@ color = Color(0.2, 0.2, 0.2, 0.8)
 
 [node name="GlitchLine2" type="ColorRect" parent="TitleContainer"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 offset_left = 50.0
 offset_top = 60.0
 offset_right = 350.0
@@ -169,36 +149,33 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1, 0.1, 0.1, 0.6)
 
-[node name="MainTitle" type="Label" parent="TitleContainer"]
+[node name="MainTitle" type="TextureRect" parent="TitleContainer"]
 layout_mode = 1
-offset_left = 6.0
-offset_top = 97.0
-offset_right = 583.0
-offset_bottom = 157.0
-theme_override_colors/font_color = Color(0.2, 0.6, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 48
-theme_override_constants/outline_size = 4
-text = "CAPROS"
-vertical_alignment = 1
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 600.0
+offset_bottom = 200.0
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="SubTitle" type="Label" parent="TitleContainer"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.6
+anchor_top = 0.0
 anchor_right = 0.5
-anchor_bottom = 0.6
-offset_left = -527.0
-offset_top = -284.6
-offset_right = -27.0
-offset_bottom = -244.6
+anchor_bottom = 0.0
+offset_left = -100.0
+offset_top = 220.0
+offset_right = 100.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.3, 0.7, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
-theme_override_font_sizes/font_size = 28
 theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 28
 text = "33 FANTASIES"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -207,13 +184,13 @@ vertical_alignment = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.8
+anchor_top = 0.0
 anchor_right = 0.5
-anchor_bottom = 0.8
-offset_left = -475.0
-offset_top = -383.8
-offset_right = -175.0
-offset_bottom = -353.8
+anchor_bottom = 0.0
+offset_left = -120.0
+offset_top = 260.0
+offset_right = 120.0
+offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
