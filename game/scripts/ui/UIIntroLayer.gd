@@ -575,6 +575,12 @@ func _menu_fade_in_animation():
 func _on_start_pressed():
 	print("开始游戏")
 	_start_button_click_effect(start_button)
+	
+	# 等待按钮动画完成
+	await get_tree().create_timer(0.5).timeout
+	
+	# 开始序章
+	_start_prologue()
 
 func _on_continue_pressed():
 	print("继续游戏")
@@ -672,5 +678,49 @@ func _start_button_pulse(button: Button):
 		pulse_tween.tween_property(button, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.3)
 		pulse_tween.set_trans(Tween.TRANS_SINE)
 		pulse_tween.set_ease(Tween.EASE_IN_OUT)
+
+func _start_prologue():
+	"""开始序章"""
+	print("启动序章...")
+	
+	# 方案：末世氛围营造
+	# 1. 屏幕逐渐变暗
+	var fade_tween = create_tween()
+	fade_tween.tween_property(self, "modulate", Color(0.1, 0.1, 0.1, 1.0), 2.0)
+	fade_tween.set_trans(Tween.TRANS_QUART)
+	fade_tween.set_ease(Tween.EASE_IN)
+	
+	# 2. 雨声增强
+	if bgm_player:
+		var volume_tween = create_tween()
+		volume_tween.tween_property(bgm_player, "volume_db", -20.0, 2.0)
+	
+	# 3. 等待氛围营造完成
+	await fade_tween.finished
+	
+	# 4. 加载序章场景
+	_load_prologue_scene()
+
+func _load_prologue_scene():
+	"""加载序章场景"""
+	print("加载序章场景...")
+	
+	# 创建序章脚本
+	var prologue_script = preload("res://game/scripts/story/PrologueScript.gd").new()
+	add_child(prologue_script)
+	
+	# 连接信号
+	prologue_script.prologue_finished.connect(_on_prologue_finished)
+	
+	# 开始序章
+	prologue_script.start_prologue()
+
+func _on_prologue_finished():
+	"""序章完成"""
+	print("序章完成，进入主游戏...")
+	
+	# 这里可以加载主游戏场景
+	# 或者进入卡牌战斗教程
+	get_tree().change_scene_to_file("res://game/scenes/Map.tscn")
 
 # Input handling removed - press button node no longer exists
