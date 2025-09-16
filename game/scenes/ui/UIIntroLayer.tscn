@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwf4aody3dl02"]
+[gd_scene load_steps=4 format=3 uid="uid://bwf4aody3dl02"]
 
 [ext_resource type="Script" uid="uid://d1o23ovw0r3er" path="res://game/scripts/ui/UIIntroLayer.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://b7ey7q2uf6yh5" path="res://imageas/capros.png" id="2"]
+[ext_resource type="AudioStream" uid="uid://bwf4aody3dl03" path="res://bgm/我.mp3" id="3"]
 
 [node name="UIIntroLayer" type="CanvasLayer"]
 layer = 100
@@ -29,6 +30,11 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0)
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3")
+autoplay = true
+volume_db = -10.0
 
 [node name="GeometricElements" type="Control" parent="."]
 layout_mode = 3

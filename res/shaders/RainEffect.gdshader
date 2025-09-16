@@ -21,9 +21,6 @@ float noise(vec2 p) {
 
 void fragment() {
     vec2 uv = UV;
-    vec2 screen_res = 1.0 / SCREEN_PIXEL_SIZE;
-    float aspect_ratio = screen_res.x / screen_res.y;
-    
     float t = TIME * time_scale;
     
     // 创建雨滴
@@ -32,44 +29,55 @@ void fragment() {
     // 小雨效果
     if (rain_intensity < 0.6) {
         // 稀疏的雨滴，从上往下流
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 25; i++) {
             // 随机X位置
-            float x = float(i) * 0.08 + sin(t * 0.3 + float(i) * 1.7) * 0.15;
-            // 从上往下流动，添加随机倾斜
-            float tilt = sin(float(i) * 2.3) * 0.1; // 随机倾斜角度
-            float y = fract(uv.y * 1.5 + t * rain_speed + float(i) * 0.4 + uv.x * tilt);
-            // 更细的雨滴
-            float drop_width = 0.001 * rain_size;
-            float drop_length = 0.08 * rain_size;
+            float x = float(i) * 0.12 + sin(t * 0.2 + float(i) * 1.5) * 0.2;
+            // 随机倾斜角度
+            float tilt = sin(float(i) * 2.1) * 0.08;
+            // 从上往下流动 - 关键修复：使用1.0 - uv.y确保从上往下
+            float drop_y = 1.0 - uv.y; // 从顶部(1.0)到底部(0.0)
+            float y = fract(drop_y * 2.0 + t * rain_speed + float(i) * 0.5 + uv.x * tilt);
             
+            // 雨滴宽度和长度
+            float drop_width = 0.0008 * rain_size;
+            float drop_length = 0.15 * rain_size;
+            
+            // 检查是否在雨滴范围内
             if (abs(uv.x - x) < drop_width && y < drop_length) {
-                rain += (1.0 - y / drop_length) * 0.4;
+                // 添加拖尾效果
+                float trail = 1.0 - (y / drop_length);
+                trail = trail * trail; // 让拖尾更自然
+                rain += trail * 0.6;
             }
         }
     } else {
         // 暴雨效果，从上往下流
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 50; i++) {
             // 随机X位置
-            float x = float(i) * 0.05 + sin(t * 0.6 + float(i) * 1.3) * 0.08;
-            // 从上往下流动，添加随机倾斜
-            float tilt = sin(float(i) * 1.8) * 0.15; // 随机倾斜角度
-            float y = fract(uv.y * 2.0 + t * rain_speed * 1.2 + float(i) * 0.3 + uv.x * tilt);
-            // 更细的雨滴
-            float drop_width = 0.0015 * rain_size;
-            float drop_length = 0.12 * rain_size;
+            float x = float(i) * 0.08 + sin(t * 0.4 + float(i) * 1.2) * 0.12;
+            // 随机倾斜角度
+            float tilt = sin(float(i) * 1.7) * 0.12;
+            // 从上往下流动 - 关键修复：使用1.0 - uv.y确保从上往下
+            float drop_y = 1.0 - uv.y; // 从顶部(1.0)到底部(0.0)
+            float y = fract(drop_y * 2.5 + t * rain_speed * 1.5 + float(i) * 0.4 + uv.x * tilt);
             
+            // 雨滴宽度和长度
+            float drop_width = 0.0012 * rain_size;
+            float drop_length = 0.2 * rain_size;
+            
+            // 检查是否在雨滴范围内
             if (abs(uv.x - x) < drop_width && y < drop_length) {
-                rain += (1.0 - y / drop_length) * 0.7;
+                // 添加拖尾效果
+                float trail = 1.0 - (y / drop_length);
+                trail = trail * trail; // 让拖尾更自然
+                rain += trail * 0.8;
             }
         }
     }
     
-    // 添加一些随机性
-    rain += noise(uv * 80.0 + t * 0.05) * 0.05 * rain_intensity;
-    
-    // 应用更白的颜色和透明度
-    vec3 final_color = vec3(1.0, 1.0, 1.0) * rain; // 纯白色
-    float final_alpha = rain * rain_opacity * 0.8; // 稍微降低透明度
+    // 应用纯白色和合适的透明度
+    vec3 final_color = vec3(1.0, 1.0, 1.0); // 纯白色
+    float final_alpha = rain * rain_opacity;
     
     COLOR = vec4(final_color, final_alpha);
 }

@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var background_effect := $BackgroundEffect
 @onready var rain_effect := $RainEffect
 @onready var gradient_overlay := $GradientOverlay
+@onready var bgm_player := $BGMPlayer
 @onready var geometric_elements := $GeometricElements
 @onready var triangle1 := $GeometricElements/Triangle1
 @onready var triangle2 := $GeometricElements/Triangle2
@@ -52,6 +53,9 @@ func _ready():
 	
 	# 设置渐变遮罩
 	_setup_gradient_overlay()
+	
+	# 设置BGM
+	_setup_bgm()
 	
 	# 设置菜单按钮
 	_setup_menu_buttons()
@@ -120,8 +124,8 @@ func _setup_rain_effects():
 			rain_material.set_shader_parameter("time_scale", 1.0)
 			rain_material.set_shader_parameter("rain_intensity", rain_intensity)
 			rain_material.set_shader_parameter("rain_speed", rain_speed)
-			rain_material.set_shader_parameter("rain_size", 0.8) # 更细的雨滴
-			rain_material.set_shader_parameter("rain_opacity", 0.8) # 更明显的白色
+			rain_material.set_shader_parameter("rain_size", 1.2) # 稍微大一点的雨滴
+			rain_material.set_shader_parameter("rain_opacity", 1.0) # 完全不透明，纯白色
 			rain_material.set_shader_parameter("rain_color", Color(1.0, 1.0, 1.0, 1.0)) # 纯白色
 		else:
 			print("Failed to load rain shader, using fallback")
@@ -154,6 +158,17 @@ func _setup_gradient_overlay():
 		print("Gradient overlay setup complete")
 	else:
 		print("GradientOverlay node not found")
+
+func _setup_bgm():
+	# 设置BGM播放
+	if bgm_player:
+		print("Setting up BGM...")
+		bgm_player.volume_db = -8.0  # 稍微调大音量
+		bgm_player.autoplay = true
+		bgm_player.play()
+		print("BGM started playing")
+	else:
+		print("BGMPlayer node not found")
 
 func _setup_menu_buttons():
 	# 连接按钮信号
