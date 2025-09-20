@@ -51,4 +51,16 @@ node_modules/
 
 # Task files
 # tasks.json
-# tasks/ 
+# tasks/
+
+# Exclude external dependencies (should be added as submodules if needed)
+godot-mcp/
+godot-mcp-server/
+
+# Exclude test files if they contain sensitive data
+test_*.gd
+test_*.gd.uid
+
+# Local configuration files
+claude_desktop_config.json
+.mcp.json

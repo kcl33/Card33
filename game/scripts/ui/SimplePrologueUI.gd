@@ -11,6 +11,8 @@ signal prologue_finished
 @onready var story_text := $TextContainer/StoryText
 @onready var continue_prompt := $TextContainer/ContinuePrompt
 
+# 添加一个变量来跟踪是否已经完成序章
+var prologue_completed = false
 var current_story_index := 0
 
 # 简化的故事内容
@@ -76,7 +78,7 @@ func _ready():
 	_start_prologue()
 
 func _start_prologue():
-	"""开始序章"""
+	"""开始序章演出"""
 	print("开始序章演出...")
 	
 	# 淡入背景
@@ -92,6 +94,10 @@ func _start_prologue():
 
 func _show_next_story_segment():
 	"""显示下一个故事段落"""
+	# 如果序章已经完成，就不要再继续了
+	if prologue_completed:
+		return
+		
 	if current_story_index >= story_segments.size():
 		_finish_prologue()
 		return
@@ -136,8 +142,18 @@ func _show_continue_prompt():
 
 func _input(event):
 	"""处理输入"""
+	# 如果序章已经完成，就不要再处理输入了
+	if prologue_completed:
+		return
+		
 	if event is InputEventKey and event.pressed:
 		# 继续下一个段落
+		_hide_current_segment()
+		current_story_index += 1
+		await get_tree().create_timer(0.5).timeout
+		_show_next_story_segment()
+	elif event is InputEventMouseButton and event.pressed:
+		# 处理鼠标点击事件
 		_hide_current_segment()
 		current_story_index += 1
 		await get_tree().create_timer(0.5).timeout
@@ -146,7 +162,8 @@ func _input(event):
 func _hide_current_segment():
 	"""隐藏当前段落"""
 	# 停止闪烁效果
-	continue_prompt.get_tree().create_tween().kill()
+	for tween in get_tree().get_processed_tweens():
+		tween.kill()
 	
 	# 淡出所有元素
 	var hide_tween = create_tween()
@@ -158,7 +175,12 @@ func _hide_current_segment():
 
 func _finish_prologue():
 	"""完成序章"""
+	# 防止重复调用
+	if prologue_completed:
+		return
+		
 	print("序章完成")
+	prologue_completed = true
 	
 	# 淡出背景元素
 	var fade_tween = create_tween()

@@ -1,0 +1,360 @@
+{
+	"events": [
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（画面全黑，只有雨声和内心独白，雨声由远及近，逐渐清晰）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/时雨时光.dch",
+			"portrait": "",
+			"text": "（雨水）……真吵。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "淅淅沥沥，是那种沉闷的、无止境的啪嗒声，打在一切东西上，固执地提醒你它的存在。像整个世界都在漏气，让人心烦。这雨，从十三年前开始，就再也没停过。有人说，这是上天在为谁的罪孽哭泣；也有人说，是\"那座塔\"改变了气候……谁知道呢。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "它把一切都弄得又湿又冷。空气里一股子铁锈和湿土混在一起的味儿，黏糊糊地贴在皮肤上，甩不掉。出门变成一件麻烦事，鞋会脏，裤脚会湿，心情也跟着沉甸甸地发霉。衣服永远干不透，晾在屋里的衣物总带着一股散不去的潮气。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "它让天空变成一块脏兮兮的灰布，压得很低，把所有颜色都吞掉了。阳光像个遥远的传说。呆久了，会觉得自己的骨头缝里都渗进了这种湿冷，关节都变得滞涩，不想动弹。有时候我也会想，究竟是我习惯讨厌它？还是讨厌习惯它？"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "窗外的世界被水帘模糊了，界限消失，感觉时间被拉得无限长，所有思绪都被泡得肿胀起来。偶尔，远处会传来悬浮引擎的嗡鸣——那是贵族区的车，和我们这些住在\"底层水坑\"的人无关。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "我只是……单纯地讨厌它。讨厌它带来的那种挥之不去的压抑感，讨厌那种无处可逃的黏腻。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "就这么简单。"
+		},
+		{
+			"event_id": "dialogic_010",
+			"change_scene": "res://game/scenes/ui/SimplePrologueUI.tscn"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/时雨时彩.dch",
+			"portrait": "",
+			"text": "哥哥，雨还在下呢……今天也要出去工作吗？我把毯子烘热了，你要不要披一下？"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/时雨时光.dch",
+			"portrait": "",
+			"text": "不用，我马上就走。嗯，得去。今天是最后一天临时工，结了工钱，就能……"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/时雨时彩.dch",
+			"portrait": "",
+			"text": "（眼睛微亮，带着期待和一丝担忧）就能买那个了吗？但是……哥哥，太贵了的话就算了，我们……我可以不要蛋糕的。真的。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/时雨时光.dch",
+			"portrait": "",
+			"text": "（打断她，语气坚定）说好了的。你的十六岁生日，必须要有蛋糕。等我回来。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/时雨时彩.dch",
+			"portrait": "",
+			"text": "那……早点回来。路上小心。别和那些人起冲突……"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/时雨时光.dch",
+			"portrait": "",
+			"text": "知道了。锁好门。谁来都别开。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光穿上破旧却叠得整齐的外套，推门走入无尽的雨幕中。时彩站在门口，望着哥哥的背影直到消失，才轻轻关上门，落下重重的门闩）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光在雨中穿梭，完成工作的画面：他搬运沉重的货箱、在机械残骸中拆卸零件、为悬浮车擦洗车身，泥水溅满裤腿）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光拿着辛苦攒下的钱，站在一家蛋糕店的橱窗前，雨水顺着他湿透的发梢滴落。他看着里面唯一一个价格勉强承受的小蛋糕，脸上露出难得的、真心的笑意。他推门进去，店内的温暖和甜香与他一身湿冷形成鲜明对比）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光小心翼翼捧着包装好的蛋糕，用外套遮挡着雨水，快步往家走。他嘴角带着不自觉的微笑，仿佛怀揣着全世界最珍贵的宝物）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（接近家所在的贫民区时，天色更暗，雨声中似乎夹杂着不寻常的喧哗、哭喊和金属撞击声？时光心生不安，脚步慢了下来，侧耳倾听）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（拐过熟悉的街角，眼前的景象让他僵在原地：家所在的棚户区一片狼藉，简陋的棚屋被粗暴推倒，几辆贵族宪兵队的黑色悬浮车停在一旁，红蓝灯光无声闪烁，邻居们门窗紧闭，帘子后隐约有恐惧的视线）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（不祥的预感攫住了他，时光手中的蛋糕盒\"啪\"地掉在泥水里。他疯狂地向家的方向跑去，心脏狂跳，几乎要冲破胸膛）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光冲到家门口，那扇他早上才关好的门此刻敞开着，门板上有明显的破损痕迹）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（视角晃动/模糊，雨水冲刷着他的视线。透过雨帘，他看到屋内：家具破碎，一片混乱。几个穿着华丽、表情轻蔑的贵族青年正慢条斯理地整理着衣物，擦拭手上并不存在的污渍，旁边是低头哈腰、一脸谄媚的宪兵队长）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（地上，一角熟悉的、淡色的衣料浸在泥水和暗色的污渍中，一动不动）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光的大脑一片空白，嗡鸣声取代了雨声。他想要冲进去，双腿却像灌了铅）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/宪兵队长.dch",
+			"portrait": "",
+			"text": "就是他！时雨时光！我们赶到时已经晚了！你这禽兽，竟敢闯入民宅，杀害亲妹！抓住他！"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光如遭雷击，瞬间明白了他们的意图。巨大的愤怒和绝望淹没了他，他想呐喊，想嘶吼，喉咙却像被扼住，只能发出破碎的气音。宪兵粗暴地扭住他的手臂，将他按倒在地，泥水呛进口鼻）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（他看着那个贵族青年轻蔑的笑容，看着屋内那片刺眼的衣角，世界失去了所有颜色和声音，只剩下心脏被撕裂的剧痛和永无止境的雨）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（或许是极致的愤怒带来了短暂的力量，时光猛地挣脱了宪兵的钳制，凭借对贫民区错综复杂地形的熟悉，像一只绝望的野兽，钻入狭窄潮湿的巷道）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（身后是宪兵的叫骂声、警告声和能量枪击中墙壁、垃圾箱爆裂的刺耳声响，蓝白色的能量束擦着他的身体掠过）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光拼命奔跑，肺部像烧起来一样疼，雨水混合着汗水（或泪水）模糊了视线。妹妹最后的身影和贵族青年的冷笑在他脑中反复闪现）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（最终，他被逼入死胡同——一个巨大的城市垃圾堆放场，腐臭的气味和堆积如山的废弃物构成了绝望的壁垒）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（追兵逼近，脚步声和喊叫声从身后和侧面传来。时光绝望地环顾四周，无处可逃）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（他在后退时被一个坚硬的东西绊倒，重重摔在冰冷的废铁和湿滑的垃圾中）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（他回头，绊倒他的竟是一个半埋在垃圾里的、破损严重的人形机器人，外壳布满锈迹和凹痕，几乎与废弃物融为一体）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/洛芙塔娜.dch",
+			"portrait": "",
+			"text": "...下午好，先生，祝你今天度过一个愉快的一天。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光惊愕地看着这堆突然说话的\"废铁\"）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/宪兵.dch",
+			"portrait": "",
+			"text": "放弃抵抗，罪人时雨时光！你无路可逃了！"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/时雨时光.dch",
+			"portrait": "",
+			"text": "（声音嘶哑，是对机器人，也是对自己绝望的低语）…怎么办…到底该怎么办…彩…"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/洛芙塔娜.dch",
+			"portrait": "",
+			"text": "…当前最佳解决方案，可以使用卡牌规则作战。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/时雨时光.dch",
+			"portrait": "",
+			"text": "那是什么？！说清楚！"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/洛芙塔娜.dch",
+			"portrait": "",
+			"text": "…数据传输中，请看（机器人抬起一只破损严重、露出线路的手臂，一道微光从掌心投射出，在空中形成一幅虚幻而复杂的卡牌影像，古老的符文在牌面上流转）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（简易教程开始。洛芙塔娜的电子音进行基础引导，UI界面叠加在现实画面上，解释基本操作：费用、抽卡、通常召唤、攻击、生命值）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/洛芙塔娜.dch",
+			"portrait": "",
+			"text": "…检测到…周边可用低级机械单元…生成…'工坊衍生物'…"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光手中出现虚幻的卡牌触感，场上光芒一闪，出现几个由废铁和零件勉强组成的、弱小的机械token）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/宪兵队长.dch",
+			"portrait": "",
+			"text": "什么？！卡普洛斯卡？你居然是幻想行者？不对，应该只是普通的卡片猎人 。不过居然敢向我发起挑战，愚民，我会让你付出代价的。"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（在洛芙塔娜断断续续的指引下，时光笨拙地操作，利用衍生物作为盾牌和祭品，召唤出稍强的怪兽——一个由垃圾场废料构成的、攻击性十足的机械造物）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（进入战斗阶段，机械造物发出咆哮，击溃了宪兵队长虚拟士兵的防线，直接冲击其生命值）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/洛芙塔娜.dch",
+			"portrait": "",
+			"text": "…胜利…条件…达成…规则…强制执行…"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（宪兵队长和手下像是被无形的规则力量束缚，露出难以置信和惊恐的表情，动作完全僵住，仿佛时间暂停）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（卡牌决斗的虚拟领域消失，垃圾场的景象恢复，但宪兵们依然无法动弹）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光喘着粗气，看着自己的手，仿佛第一次认识自己的力量，体内奔涌着未知的能量和冰冷的决意）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/洛芙塔娜.dch",
+			"portrait": "",
+			"text": "…规则…效力…有限…他们…暂时…无法行动…建议…立即…撤离…前往…低监控…区域…"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光看了一眼那些僵立的宪兵，眼中燃烧着仇恨的火焰，但他知道现在不是时候。他又看了一眼破损不堪的机器人，是它给了他一线生机）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/时雨时光.dch",
+			"portrait": "",
+			"text": "跟我走！你…你到底是什么？叫什么？"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "res://characters/洛芙塔娜.dch",
+			"portrait": "",
+			"text": "洛芙塔娜..."
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（时光背负或艰难地拖着洛芙塔娜，踉跄地再次投入无边的雨幕和更深的黑暗之中。雨水冰冷，但他的眼中不再只有绝望，多了一丝冰冷的复仇火焰和一丝微弱却坚定的希望之光）"
+		},
+		{
+			"event_id": "dialogic_001",
+			"character": "",
+			"portrait": "",
+			"text": "（序章结束）"
+		}
+	],
+	"meta": {
+		"dialogic-version": "2.0-Alpha-16",
+		"created_with": "Dialogic"
+	}
+}

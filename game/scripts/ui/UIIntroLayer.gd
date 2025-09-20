@@ -30,7 +30,7 @@ extends CanvasLayer
 const PunkThemeProfileRes = preload("res://game/scripts/ui/PunkThemeProfile.gd")
 
 var theme_profile
-var first_clicked := false
+var prologue_started = false
 
 func _ready():
 	# 确保在最顶层
@@ -650,14 +650,18 @@ func _on_start_pressed():
 	print("开始游戏")
 	_start_button_click_effect(start_button)
 	
+	# 检查是否已经启动过序章
+	if prologue_started:
+		print("序章已经启动，忽略重复点击")
+		return
+	
+	# 标记序章已启动
+	prologue_started = true
+	
 	# 等待按钮动画完成
 	await get_tree().create_timer(0.5).timeout
 	
-	# 先显示主菜单动画，然后开始序章
-	_show_main_menu_animation()
-	await get_tree().create_timer(2.0).timeout
-	
-	# 开始序章
+	# 直接开始序章
 	_start_prologue()
 
 func _on_continue_pressed():
@@ -761,65 +765,222 @@ func _start_prologue():
 	"""开始序章"""
 	print("启动序章...")
 	
-	# 方案：末世氛围营造
-	# 1. 屏幕逐渐变暗
-	var fade_tween = create_tween()
-	fade_tween.tween_property(background, "modulate", Color(0.1, 0.1, 0.1, 1.0), 2.0)
-	fade_tween.set_trans(Tween.TRANS_QUART)
-	fade_tween.set_ease(Tween.EASE_IN)
+	# 1. 隐藏主菜单界面元素
+	_hide_main_menu_elements()
+	print("主菜单元素已隐藏，等待1秒后加载序章...")
 	
-	# 2. 雨声增强
+	# 2. 停止BGM播放（为Dialogic音频让路）
 	if bgm_player:
-		var volume_tween = create_tween()
-		volume_tween.tween_property(bgm_player, "volume_db", -20.0, 2.0)
+		bgm_player.stop()
+		print("BGM已停止")
 	
-	# 3. 等待氛围营造完成
-	await fade_tween.finished
+	# 3. 等待一小段时间，让界面切换更自然
+	await get_tree().create_timer(1.0).timeout
+	print("等待结束，开始加载序章...")
 	
 	# 4. 加载序章UI场景
 	_load_prologue_ui()
 
 func _load_prologue_ui():
 	"""加载序章UI场景"""
-	print("加载序章UI场景...")
+	print("开始加载序章UI场景...")
 	
-	# 加载简化版序章UI场景
-	var prologue_ui_scene = preload("res://game/scenes/ui/SimplePrologueUI.tscn")
-	var prologue_ui_instance = prologue_ui_scene.instantiate()
+	# 加载修复后的DialogicPrologue场景
+	var prologue_scene = preload("res://game/scenes/ui/DialogicPrologue.tscn")
+	if prologue_scene:
+		print("✓ DialogicPrologue.tscn 加载成功")
+		
+		var prologue_instance = prologue_scene.instantiate()
+		if prologue_instance:
+			print("✓ DialogicPrologue 实例化成功")
+			
+			# 添加到场景树
+			add_child(prologue_instance)
+			print("✓ DialogicPrologue 已添加到场景树")
+			
+			# 连接信号
+			if prologue_instance.has_signal("prologue_finished"):
+				prologue_instance.prologue_finished.connect(_on_prologue_finished)
+				print("✓ prologue_finished 信号连接成功")
+			else:
+				print("✗ prologue_finished 信号不存在")
+			
+			# 连接对话链完成信号（不返回主菜单）
+			if prologue_instance.has_signal("dialogue_chain_finished"):
+				prologue_instance.dialogue_chain_finished.connect(_on_dialogue_chain_finished)
+				print("✓ dialogue_chain_finished 信号连接成功")
+			
+			print("✓ DialogicPrologue场景加载完成")
+		else:
+			print("✗ DialogicPrologue 实例化失败")
+	else:
+		print("✗ DialogicPrologue.tscn 加载失败")
+
+func _hide_main_menu_elements():
+	"""隐藏主菜单界面元素"""
+	print("隐藏主菜单界面元素...")
 	
-	# 添加到场景树
-	add_child(prologue_ui_instance)
+	# 隐藏标题容器
+	if title_container:
+		title_container.visible = false
 	
-	# 连接信号
-	prologue_ui_instance.prologue_finished.connect(_on_prologue_finished)
+	# 隐藏菜单容器
+	if menu_container:
+		menu_container.visible = false
 	
-	print("序章UI加载完成")
+	# 隐藏几何元素
+	if geometric_elements:
+		geometric_elements.visible = false
+	
+	# 隐藏背景效果
+	if background:
+		background.visible = false
+	
+	if background_effect:
+		background_effect.visible = false
+	
+	# 隐藏雨滴效果
+	if rain_effect:
+		rain_effect.visible = false
+	
+	# 隐藏渐变遮罩
+	if gradient_overlay:
+		gradient_overlay.visible = false
+	
+	print("主菜单界面元素已隐藏")
+
+func _show_main_menu_elements():
+	"""显示主菜单界面元素"""
+	print("显示主菜单界面元素...")
+	
+	# 显示背景效果
+	if background:
+		background.visible = true
+	
+	if background_effect:
+		background_effect.visible = true
+	
+	# 显示雨滴效果
+	if rain_effect:
+		rain_effect.visible = true
+	
+	# 显示渐变遮罩
+	if gradient_overlay:
+		gradient_overlay.visible = true
+	
+	# 显示标题容器（先设置为透明）
+	if title_container:
+		title_container.visible = true
+		title_container.modulate.a = 0.0
+		var title_tween = create_tween()
+		title_tween.tween_property(title_container, "modulate:a", 1.0, 0.8)
+		title_tween.set_trans(Tween.TRANS_QUART)
+		title_tween.set_ease(Tween.EASE_OUT)
+	
+	# 显示菜单容器（先设置为透明）
+	if menu_container:
+		menu_container.visible = true
+		menu_container.modulate.a = 0.0
+		# 使用定时器延迟显示
+		get_tree().create_timer(0.3).timeout.connect(func():
+			var menu_tween = create_tween()
+			menu_tween.tween_property(menu_container, "modulate:a", 1.0, 0.8)
+			menu_tween.set_trans(Tween.TRANS_QUART)
+			menu_tween.set_ease(Tween.EASE_OUT)
+		)
+	
+	# 显示几何元素（先设置为透明）
+	if geometric_elements:
+		geometric_elements.visible = true
+		geometric_elements.modulate.a = 0.0
+		# 使用定时器延迟显示
+		get_tree().create_timer(0.1).timeout.connect(func():
+			var elements_tween = create_tween()
+			elements_tween.tween_property(geometric_elements, "modulate:a", 1.0, 0.8)
+			elements_tween.set_trans(Tween.TRANS_QUART)
+			elements_tween.set_ease(Tween.EASE_OUT)
+		)
+	
+	print("主菜单界面元素已显示")
 
 func _load_prologue_scene():
 	"""加载序章场景（备用方法）"""
 	print("加载序章场景...")
 	
 	# 创建序章脚本
-	var prologue_script = preload("res://game/scripts/story/DialogicPrologue.gd").new()
+	var prologue_script = preload("res://game/scripts/story/PrologueTimeline.gd").new()
 	add_child(prologue_script)
 	
 	# 连接信号
 	prologue_script.prologue_finished.connect(_on_prologue_finished)
 	
 	# 开始序章
-	prologue_script.start_prologue()
+	# 序章脚本会在_ready中自动开始
+	
+func _on_prologue_finished(next_scene: String = ""):
+	"""序章完成（返回主菜单）"""
+	print("序章完成，返回主菜单...")
+	
+	# 如果指定了下一个场景，可以在这里处理跳转
+	if next_scene != "":
+		print("跳转到下一个场景: ", next_scene)
+		# TODO: 在这里处理到其他场景的跳转
+	
+	_restore_main_menu()
 
-func _on_prologue_finished():
-	"""序章完成"""
-	print("序章完成，进入主游戏...")
+func _on_dialogue_chain_finished():
+	"""对话链完成（不返回主菜单）"""
+	print("对话链完成，继续游戏流程...")
+	# TODO: 在这里处理继续游戏的逻辑，比如跳转到游戏主界面
+	# 目前暂时返回主菜单
+	_restore_main_menu()
+
+func _restore_main_menu():
+	"""恢复主菜单显示"""
+	print("恢复主菜单...")
 	
-	# 这里可以加载主游戏场景
-	# 或者进入卡牌战斗教程
-	# TODO: 实现卡牌战斗系统后，加载相应的场景
-	print("序章完成，准备进入卡牌战斗系统...")
+	# 清理序章场景节点（如果存在）
+	var prologue_nodes = get_children().filter(func(node): return node.name.begins_with("Node2D") and node.get_script() != null)
+	for node in prologue_nodes:
+		if node.has_method("queue_free"):
+			print("清理序章节点: ", node.name)
+			node.queue_free()
 	
-	# 暂时显示一个简单的消息
-	var message = "序章完成！\n\n卡牌战斗系统正在开发中...\n\n按ESC键返回主菜单"
-	print(message)
+	# 恢复背景亮度
+	if background:
+		var restore_tween = create_tween()
+		restore_tween.tween_property(background, "modulate", Color(1.0, 1.0, 1.0, 1.0), 1.0)
+		restore_tween.set_trans(Tween.TRANS_QUART)
+		restore_tween.set_ease(Tween.EASE_OUT)
+		print("恢复背景亮度")
+	
+	# 恢复BGM播放
+	if bgm_player:
+		var volume_restore_tween = create_tween()
+		volume_restore_tween.tween_property(bgm_player, "volume_db", -8.0, 1.0)
+		bgm_player.play()  # 重新播放
+		print("恢复BGM播放")
+	
+	# 启用所有按钮
+	start_button.disabled = false
+	continue_button.disabled = false
+	settings_button.disabled = false
+	exit_button.disabled = false
+	print("所有按钮已启用")
+	
+	# 重置序章状态
+	prologue_started = false
+	
+	# 重新设置输入处理
+	set_process_input(true)
+	
+	# 等待一小段时间再显示主菜单（让切换更自然）
+	await get_tree().create_timer(0.5).timeout
+	
+	# 重新显示主菜单界面
+	_show_main_menu_elements()
+	_show_main_menu_immediately()
+	
+	print("✓ 主菜单已完全恢复")
 
 # Input handling removed - press button node no longer exists

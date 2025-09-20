@@ -1,0 +1,35 @@
+{
+	"@path": "res://characters/时雨时光.dch",
+	"resource_name": "时雨时光",
+	"resource_type": "DialogicCharacter",
+	"resource_script": "res://addons/dialogic/Resources/character.gd",
+	"color": "#ff9555",
+	"custom_info": {},
+	"display_name": "时雨时光",
+	"meta": {
+		"created_by": "Dialogic",
+		"created_with": "Character Editor",
+		"dialogic-version": "2.0-Alpha-16",
+		"imported": false
+	},
+	"nicknames": [],
+	"offset": Vector2(0, 0),
+	"portraits": {
+		"default": {
+			"animation_data": {
+				"animation_length": 1.0,
+				"animation_type": 0,
+				"animation_wait_time": 1.0,
+				"animation_y_offset": 0.0,
+				"mirror": false,
+				"offset": Vector2(0, 0),
+				"scale": 1.0,
+				"z_index": 0
+			},
+			"extra_data": {},
+			"resource_path": ""
+		}
+	},
+	"scale": 1.0,
+	"theme": ""
+}
